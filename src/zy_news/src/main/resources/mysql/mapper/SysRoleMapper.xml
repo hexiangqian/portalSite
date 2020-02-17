@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zy.news.web.mapper.SysRoleMapper">
+    <resultMap id="BaseResultMap" type="zy.news.web.bean.SysRole">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="role" jdbcType="VARCHAR" property="role"/>
+        <result column="descr" jdbcType="VARCHAR" property="descr"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_sys_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="zy.news.web.bean.SysRole">
+    insert into t_sys_role (id, `role`, descr
+      )
+    values (#{id,jdbcType=BIGINT}, #{role,jdbcType=VARCHAR}, #{descr,jdbcType=VARCHAR}
+      )
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.SysRole">
+    update t_sys_role
+    set `role` = #{role,jdbcType=VARCHAR},
+      descr = #{descr,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, `role`, descr
+    from t_sys_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, `role`, descr
+    from t_sys_role t
+    where t.role != '@zy.news.web.bean.SysUser@ADMIN_ROLE'
+  </select>
+
+    <select id="checkRolePermsExist" parameterType="zy.news.web.ui.param.RolePermsBind"
+            resultType="java.lang.Long">
+        select count(*) from T_SYS_ROLEPERMS
+        where (roleid=#{bindShip.roleid,jdbcType=BIGINT} and permissionid in
+        <foreach collection="bindShip.permsids" item="permsid" open="(" close=")" separator=",">
+            #{permsid,jdbcType=BIGINT}
+        </foreach>
+        )
+    </select>
+    <insert id="bindRolePerms" parameterType="zy.news.web.ui.param.RolePermsBind">
+        insert all
+        <foreach collection="bindShip.permsids" item="permsid">
+            into T_SYS_ROLEPERMS(roleid, permissionid ) values(#{bindShip.roleid,jdbcType=BIGINT},
+            #{permsid,jdbcType=BIGINT})
+        </foreach>
+        Select * from dual
+    </insert>
+    <delete id="unBindRolePerms" parameterType="zy.news.web.ui.param.RolePermsBind">
+        delete from T_SYS_ROLEPERMS
+        where (roleid=#{bindShip.roleid,jdbcType=BIGINT} and permissionid in
+        <foreach collection="bindShip.permsids" item="permsid" open="(" close=")" separator=",">
+            #{permsid,jdbcType=BIGINT}
+        </foreach>
+        )
+    </delete>
+    <select id="countByExampleRolePerms" parameterType="java.util.List" resultType="java.lang.Long">
+        select count(*) from T_SYS_ROLEPERMS
+        where 1=1 and roleid in (
+        <foreach collection="roleids" item="rid" separator=",">
+            #{rid,jdbcType=BIGINT}
+        </foreach>
+        )
+    </select>
+    <select id="specRoleUnEnableRootMoudles" resultType="zy.news.web.bean.SysModule">
+    select tc.*,tp.modulename as pmName from T_SYS_MODULE tc
+    left join  T_SYS_MODULE  tp on tc.parent=tp.id
+     where  tc.modulename !='首页'and tc.parent =0 and tc.delflag=0
+    order by tp.id asc,tc.modulename
+    </select>
+    <select id="specRoleUnEnableChildMoudles" resultType="zy.news.web.bean.SysModule">
+       select * from (select tc.*,tp.modulename as pmName from T_SYS_MODULE tc
+    left join  T_SYS_MODULE  tp on tc.parent=tp.id
+     where  tc.id  not in (
+     select distinct moduleid
+                    from T_SYS_PERMISSION
+                   where id in (select distinct tprms.permissionid
+                                 from T_SYS_ROLEPERMS tprms
+                                 where roleid = (SELECT trole.id
+                                                   from T_SYS_ROLE trole
+                                                  where trole.role =#{roleName,jdbcType=VARCHAR})
+                                 )
+    )and tc.parent !=0  and tc.delflag=0
+    order by tp.id asc,tc.modulename)t
+    where t.pmName=#{mNam,jdbcType=VARCHAR}
+    </select>
+    <select id="specRoleEnableMoudles" resultType="zy.news.web.bean.SysModule">
+     select tc.*,tp.modulename as pmName from T_SYS_MODULE tc
+    left join  T_SYS_MODULE  tp on tc.parent=tp.id
+     where  tc.id  in (
+     select distinct moduleid
+                    from T_SYS_PERMISSION
+                   where id in (select distinct tprms.permissionid
+                                 from T_SYS_ROLEPERMS tprms
+                                 where roleid = (SELECT trole.id
+                                                   from T_SYS_ROLE trole
+                                                  where role =#{roleName,jdbcType=VARCHAR})
+                                 )
+    )and tc.parent !=0 and tc.delflag=0 or tc.modulename='首页'
+    order by tp.id desc,tc.modulename
+    </select>
+    <update id="delSpecRoleMoudle">
+        delete from T_SYS_ROLEPERMS trp
+        where trp.roleid=#{roleid,jdbcType=NUMERIC}
+    </update>
+    <insert id="bindSpecRoleMoudle">
+        INSERT INTO T_SYS_ROLEPERMS(ROLEID,PERMISSIONID)
+        (SELECT #{roleid,jdbcType=NUMERIC},TPM.ID FROM T_SYS_PERMISSION TPM
+        WHERE TPM.MODULEID=#{mid,jdbcType=NUMERIC})
+    </insert>
+    <update id="unBindSpecRoleMoudle">
+        delete from T_SYS_ROLEPERMS
+        where roleid=#{modulesBind.roleid,jdbcType=NUMERIC}
+        and permissionid in (
+        select tcsp.id from T_SYS_PERMISSION tcsp
+        where tcsp.moduleid in
+        <foreach collection="modulesBind.moudleids" open="(" close=")" separator="," item="mid">
+            #{mid,jdbcType=NUMERIC}
+        </foreach>
+        )
+    </update>
+    <select id="selectRoleByName" resultType="java.lang.Long">
+        select  count(*) from t_sys_role t
+        where t.role=#{role,jdbcType=VARCHAR}
+    </select>
+</mapper>

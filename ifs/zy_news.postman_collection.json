@@ -1,0 +1,618 @@
+{
+	"info": {
+		"_postman_id": "522be8c9-4113-43a8-be1a-4956dd445917",
+		"name": "zy_news",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "【用户管理】登录",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"admin\",\"passwd\":\"zytm\"}"
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/user/signin",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"user",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【用户管理】退出",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"admin\",\"passwd\":\"zytm\"}"
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/user/logout",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"user",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【用户管理】新增用户",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"test2\",\"realname\":\"测试用户2\", \"passwd\":\"zytm\"}"
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/user/add",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"user",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【用户管理】更新用户",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":3,\n\t\"username\":\"test02\",\n\t\"realname\":\"测试02啊\",\n\t\"roleid\":2\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/user/update",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"user",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【用户管理】更新密码",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"passwd\":\"zytm\"}"
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/user/updatePasswd",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"user",
+						"updatePasswd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【用户管理】分页获取用户-不含admin",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/user/lists?current=1&pageSize=20",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"user",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "current",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【用户管理】用户密码校验",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"passwd\":\"zytm\"}"
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/user/validate",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"user",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【权限管理】获取权限列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/sysPermission/lists?current=1&pageSize=10",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"sysPermission",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "current",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【权限管理】获取系统已有接口列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/sysPermission/urlLists?current=1&pageSize=10&fastSearch=",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"sysPermission",
+						"urlLists"
+					],
+					"query": [
+						{
+							"key": "current",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "fastSearch",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【角色管理】分页获取角色列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/sysRole/lists?current=1&pageSize=10",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"sysRole",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "current",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【角色管理】添加一个角色",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"role\":\"ceshirole\",\n\t\"descr\":\"测试角色\"\n}"
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/sysRole/add",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"sysRole",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【角色管理】删除一个角色（通过角色id）",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/sysRole/delete?id=3",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"sysRole",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【角色管理】获取指定角色拥有的模块列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/sysRole/specRoleEnableMoudles?role=normal&current=1&pageSize=10",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"sysRole",
+						"specRoleEnableMoudles"
+					],
+					"query": [
+						{
+							"key": "role",
+							"value": "normal"
+						},
+						{
+							"key": "current",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【角色管理】获取指定角色未拥有的一级模块列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/sysRole/specRoleUnEnableRootMoudles?role=normal&current=1&pageSize=10",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"sysRole",
+						"specRoleUnEnableRootMoudles"
+					],
+					"query": [
+						{
+							"key": "role",
+							"value": "normal"
+						},
+						{
+							"key": "current",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【角色管理】获取指定角色指定模块未拥有的模块列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/sysRole/specRoleUnEnableChildMoudles?role=normal&mNam=系统管理&current=1&pageSize=10",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"sysRole",
+						"specRoleUnEnableChildMoudles"
+					],
+					"query": [
+						{
+							"key": "role",
+							"value": "normal"
+						},
+						{
+							"key": "mNam",
+							"value": "系统管理"
+						},
+						{
+							"key": "current",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "mNam",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【角色管理】绑定指定角色的模块",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"roleid\":2,\n\t\"moudleid\":-1\n}"
+				},
+				"url": {
+					"raw": "http://192.168.9.48:8289/sysRole/bindSpecRoleMoudle",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"9",
+						"48"
+					],
+					"port": "8289",
+					"path": [
+						"sysRole",
+						"bindSpecRoleMoudle"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zy.news.web.mapper.RegulationsMapper">
+  <resultMap id="BaseResultMap" type="zy.news.web.bean.Regulations">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="publishdate" jdbcType="TIMESTAMP" property="publishdate" />
+    <result column="dept" jdbcType="VARCHAR" property="dept" />
+    <result column="coment" jdbcType="LONGVARBINARY" property="coment" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_regulations
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="zy.news.web.bean.Regulations">
+    insert into t_regulations (id, title, author, 
+      publishdate, dept, coment
+      )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{publishdate,jdbcType=TIMESTAMP}, #{dept,jdbcType=VARCHAR}, #{coment,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.Regulations">
+    update t_regulations
+    set title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      publishdate = #{publishdate,jdbcType=TIMESTAMP},
+      dept = #{dept,jdbcType=VARCHAR},
+      coment = #{coment,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, title, author, publishdate, dept, coment
+    from t_regulations
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, title, author, publishdate, dept, coment
+    from t_regulations
+  </select>
+</mapper>
