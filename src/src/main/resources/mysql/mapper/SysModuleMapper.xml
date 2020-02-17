@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zy.news.web.mapper.SysModuleMapper">
+    <resultMap id="BaseResultMap" type="zy.news.web.bean.SysModule">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="modulename" jdbcType="VARCHAR" property="modulename"/>
+        <result column="parent" jdbcType="BIGINT" property="parent"/>
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_sys_module
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="zy.news.web.bean.SysModule">
+    insert into t_sys_module (id, modulename, parent, 
+      updatetime)
+    values (#{id,jdbcType=BIGINT}, #{modulename,jdbcType=VARCHAR}, #{parent,jdbcType=BIGINT}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.SysModule">
+    update t_sys_module
+    set modulename = #{modulename,jdbcType=VARCHAR},
+      parent = #{parent,jdbcType=BIGINT},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, modulename, parent, updatetime
+    from t_sys_module
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, modulename, parent, updatetime
+    from t_sys_module
+  </select>
+    <select id="getChildModules" resultType="zy.news.web.bean.SysModule">
+        select sm.*
+        ,(SELECT count(*) from T_SYS_MODULE where parent=sm.id) as haschild
+        from T_SYS_MODULE sm
+        where
+        <choose>
+            <when test="mNam ==null or mNam ==''">parent=0</when>
+            <otherwise>
+                parent=(SELECT id from T_SYS_MODULE where moduleName= #{mNam,jdbcType=VARCHAR})
+            </otherwise>
+        </choose>
+    </select>
+    <select id="getRoleRootModules" resultType="zy.news.web.bean.SysModule"
+            parameterType="java.util.ArrayList">
+        select sm.*
+        ,(SELECT count(*) from T_SYS_MODULE where parent=sm.id) as haschild
+        from T_SYS_MODULE sm
+        where parent=0
+        <if test=" '@zy.news.web.bean.SysUser@ADMIN_ROLE'!= roleName and '' != roleName and null != roleName">
+            and id in
+            <foreach collection="psIds" open="(" item="moduleid" close=")" separator=",">
+                #{moduleid,jdbcType=NUMERIC}
+            </foreach>
+        </if>
+    </select>
+    <select id="getPSModuleIdsByRole" resultType="java.lang.Long">
+        SELECT DISTINCT moduleid
+        FROM T_SYS_PERMISSION sp
+        <if test="'@zy.news.web.bean.SysUser@ADMIN_ROLE'!=roleName and '' != roleName and null != roleName">
+            LEFT JOIN T_SYS_ROLEPERMS rp ON sp.id = rp.permissionid
+            WHERE (rp.roleid =
+            (SELECT r.id FROM T_SYS_ROLE r WHERE r.role =#{roleName,jdbcType=VARCHAR})
+            or sp.mustneed=1)AND sp.type !='1'
+        </if>
+    </select>
+    <select id="unionParentAndSon" resultType="java.lang.Long" parameterType="java.util.ArrayList">
+        <foreach collection="psIds" item="moduleid" separator="union">
+            select #{moduleid,jdbcType=NUMERIC} from dual
+        </foreach>
+        union
+        select parent from T_SYS_MODULE where parent !=0 and id in
+        <foreach collection="psIds" open="(" item="moduleid" close=")" separator=",">
+            #{moduleid,jdbcType=NUMERIC}
+        </foreach>
+    </select>
+    <select id="getRoleChildModules" resultType="zy.news.web.bean.SysModule"
+            parameterType="java.util.ArrayList">
+        select sm.*
+        ,(SELECT count(*) from T_SYS_MODULE where parent=sm.id) as haschild
+        from T_SYS_MODULE sm
+        where parent=(SELECT id from T_SYS_MODULE where moduleName= #{mNam,jdbcType=VARCHAR})
+        <if test="'@zy.news.web.bean.SysUser@ADMIN_ROLE'!=roleName and '' != roleName and null != roleName">
+            AND id IN
+            <foreach collection="psIds" open="(" item="moduleid" close=")" separator=",">
+                #{moduleid,jdbcType=NUMERIC}
+            </foreach>
+        </if>
+    </select>
+</mapper>

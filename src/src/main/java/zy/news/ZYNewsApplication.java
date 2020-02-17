@@ -1,0 +1,40 @@
+package zy.news;
+
+import com.github.pagehelper.autoconfigure.PageHelperAutoConfiguration;
+import maoko.sdk.SDKCommon;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import zy.news.amain.AfterAppStartUp;
+
+/**
+ * 程序启动入口
+ *
+ * @author fanpei
+ */
+
+@PropertySource("classpath:application.yml")
+@EnableTransactionManagement(proxyTargetClass = true)
+@SpringBootApplication(exclude = {HibernateJpaAutoConfiguration.class, JpaRepositoriesAutoConfiguration.class,
+        JacksonAutoConfiguration.class,
+        DataSourceAutoConfiguration.class, PageHelperAutoConfiguration.class})
+public class ZYNewsApplication {
+    public static void main(String[] args) {
+        try {
+            SDKCommon.init();
+            SpringApplication spApplication = new SpringApplication(ZYNewsApplication.class);
+            spApplication.addListeners(new AfterAppStartUp());
+            spApplication.run(args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+
+

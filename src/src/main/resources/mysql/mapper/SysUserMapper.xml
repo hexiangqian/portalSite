@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zy.news.web.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="zy.news.web.bean.SysUser">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="realname" jdbcType="VARCHAR" property="realname"/>
+        <result column="roleid" jdbcType="BIGINT" property="roleid"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_sys_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="zy.news.web.bean.SysUser">
+    insert into t_sys_user (id, username, realname, 
+      passwd, roleid)
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR},
+      #{passwd,jdbcType=CHAR}, #{roleid,jdbcType=BIGINT})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.SysUser">
+    update t_sys_user
+    set username = #{username,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      roleid = #{roleid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, username, realname, passwd, roleid
+    from t_sys_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, username, realname, roleid
+    from t_sys_user
+    where username != '${@zy.news.web.bean.SysUser@ADMIN_NAME}'
+  </select>
+    <update id="bindUserRole">
+    update T_SYS_USER
+    set ROLEID = #{roleid,jdbcType=NUMERIC}
+    where USERNAME = #{username,jdbcType=VARCHAR}
+  </update>
+    <update id="updatePasswd">
+        update T_SYS_USER
+        set  PASSWD =#{passwd,jdbcType=CHAR}
+        where ID =#{id,jdbcType=NUMERIC}
+    </update>
+    <select id="selectByNamePasswd" resultType="zy.news.web.bean.SysUser">
+        select t.id,t.username,t.realname,t.roleid,r.role,r.descr as roleName
+        from t_sys_user t
+        left join t_sys_role r on t.roleid=r.id
+        where t.username=#{name,jdbcType=VARCHAR} and t.passwd=#{passwd,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByName" resultType="zy.news.web.bean.SysUser">
+        select * from t_sys_user t
+        where t.username=#{name,jdbcType=VARCHAR}
+    </select>
+</mapper>
