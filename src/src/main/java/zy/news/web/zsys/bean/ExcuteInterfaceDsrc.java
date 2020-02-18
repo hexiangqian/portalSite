@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target({ElementType.PARAMETER, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface ExcutInterfaceDsrc {
+public @interface ExcuteInterfaceDsrc {
 
     /**
      * 操作名称
