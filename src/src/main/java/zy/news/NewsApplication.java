@@ -23,11 +23,11 @@ import zy.news.amain.AfterAppStartUp;
 @SpringBootApplication(exclude = {HibernateJpaAutoConfiguration.class, JpaRepositoriesAutoConfiguration.class,
         JacksonAutoConfiguration.class,
         DataSourceAutoConfiguration.class, PageHelperAutoConfiguration.class})
-public class ZYNewsApplication {
+public class NewsApplication {
     public static void main(String[] args) {
         try {
             SDKCommon.init();
-            SpringApplication spApplication = new SpringApplication(ZYNewsApplication.class);
+            SpringApplication spApplication = new SpringApplication(NewsApplication.class);
             spApplication.addListeners(new AfterAppStartUp());
             spApplication.run(args);
         } catch (Exception e) {

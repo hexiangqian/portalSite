@@ -67,13 +67,13 @@
         )
     </select>
     <select id="specRoleUnEnableRootMoudles" resultType="zy.news.web.bean.SysModule">
-    select tc.*,tp.modulename as pmName from T_SYS_MODULE tc
+    select tc.id,tc.modulename,tc.parent,tp.modulename as pmName from T_SYS_MODULE tc
     left join  T_SYS_MODULE  tp on tc.parent=tp.id
      where  tc.modulename !='首页'and tc.parent =0 and tc.delflag=0
     order by tp.id asc,tc.modulename
     </select>
     <select id="specRoleUnEnableChildMoudles" resultType="zy.news.web.bean.SysModule">
-       select * from (select tc.*,tp.modulename as pmName from T_SYS_MODULE tc
+       select * from (select tc.id,tc.modulename,tc.parent,tp.modulename as pmName from T_SYS_MODULE tc
     left join  T_SYS_MODULE  tp on tc.parent=tp.id
      where  tc.id  not in (
      select distinct moduleid
@@ -82,14 +82,14 @@
                                  from T_SYS_ROLEPERMS tprms
                                  where roleid = (SELECT trole.id
                                                    from T_SYS_ROLE trole
-                                                  where trole.role =#{roleName,jdbcType=VARCHAR})
+                                                  where role =#{roleName,jdbcType=VARCHAR})
                                  )
     )and tc.parent !=0  and tc.delflag=0
     order by tp.id asc,tc.modulename)t
     where t.pmName=#{mNam,jdbcType=VARCHAR}
     </select>
     <select id="specRoleEnableMoudles" resultType="zy.news.web.bean.SysModule">
-     select tc.*,tp.modulename as pmName from T_SYS_MODULE tc
+     select tc.id,tc.modulename,tc.parent,tp.modulename as pmName from T_SYS_MODULE tc
     left join  T_SYS_MODULE  tp on tc.parent=tp.id
      where  tc.id  in (
      select distinct moduleid
@@ -113,9 +113,9 @@
         WHERE TPM.MODULEID=#{mid,jdbcType=NUMERIC})
     </insert>
     <update id="unBindSpecRoleMoudle">
-        delete from T_SYS_ROLEPERMS
-        where roleid=#{modulesBind.roleid,jdbcType=NUMERIC}
-        and permissionid in (
+        delete from T_SYS_ROLEPERMS trp
+        where trp.roleid=#{modulesBind.roleid,jdbcType=NUMERIC}
+        and trp.permissionid in (
         select tcsp.id from T_SYS_PERMISSION tcsp
         where tcsp.moduleid in
         <foreach collection="modulesBind.moudleids" open="(" close=")" separator="," item="mid">
@@ -123,7 +123,7 @@
         </foreach>
         )
     </update>
-    <select id="selectRoleByName" resultType="java.lang.Long">
+    <select id="selectRoleByName" resultType="zy.news.web.bean.SysRole">
         select  count(*) from t_sys_role t
         where t.role=#{role,jdbcType=VARCHAR}
     </select>

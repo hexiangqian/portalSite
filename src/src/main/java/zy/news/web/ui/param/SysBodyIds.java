@@ -13,7 +13,7 @@ public class SysBodyIds {
     public static List<Long> getIdArray(String idsStr) {
         List<Long> idList = null;
         if (!StringUtil.isStrNullOrWhiteSpace(idsStr)) {
-            if (!idsStr.contains(",")) {
+            if (!",".contains(idsStr)) {
                 idList = Arrays.asList(new Long(Long.parseLong(idsStr)));
             } else {
                 String[] ids = idsStr.split(",");

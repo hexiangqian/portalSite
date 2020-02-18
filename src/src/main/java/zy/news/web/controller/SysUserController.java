@@ -41,7 +41,7 @@ public class SysUserController {
     @ExcutePermission
     public void add(HttpSession session, @RequestBody SysUser record) throws Exception {
         record.validate();
-        record.setPasswd(record.getAESPassWd());
+        record.setPasswd(record.getAesPassWd());
         service.insert(record);
     }
 
@@ -102,7 +102,6 @@ public class SysUserController {
             SysUser luser = userCache.getUserFromSession(session);
             userCache.remove(luser.getUsername());
         } catch (Exception e) {
-            // log.warn("用户退出发生错误", e);
         } finally {
             session.invalidate();
         }
@@ -115,6 +114,14 @@ public class SysUserController {
         SysUser luser = userCache.getUserFromSession(session);
         luser.setPasswd(passwd.getPasswd());
         return service.selectUserByNamPasswd(luser) != null;
+    }
+
+    private static class SafePass {
+        private String passwd;
+
+        public String getPasswd() {
+            return passwd;
+        }
     }
 
     @ExcuteMethodDsrc(value = "密码修改")
@@ -142,14 +149,5 @@ public class SysUserController {
         } catch (Exception e) {
         }
         return !flag;
-    }
-
-
-    private static class SafePass {
-        private String passwd;
-
-        public String getPasswd() {
-            return passwd;
-        }
     }
 }

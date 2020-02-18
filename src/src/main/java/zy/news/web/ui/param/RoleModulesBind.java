@@ -31,7 +31,8 @@ public class RoleModulesBind extends SysBodyIds implements IValidate {
     @Override
     public void validate() throws Exception {
         if (StringUtil.isStrNullOrWhiteSpace(moudleid)
-                || roleid <= 0)
+                || roleid <= 0) {
             throw new WarningException("权限和角色必填，不能为空，请检查参数！");
+        }
     }
 }

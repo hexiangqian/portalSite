@@ -67,6 +67,7 @@ public enum DbSqlOperator implements IDbOperator {
             case "between":
                 rule = DbMatchRule.Between;
                 break;
+            default:break;
 
         }
         return rule;

@@ -54,8 +54,25 @@ public class SysRoleController {
         service.deleteByPrimaryKey(id);
     }
 
+    @ExcuteMethodDsrc("绑定权限")
+    @PostMapping("bindRolePerms")
+    @ExcutePermission
+    @Deprecated
+    public void bindRolePermission(@RequestBody RolePermsBind permsBind) throws Exception {
+        service.bindRolePerms(permsBind);
+    }
+
+    @ExcuteMethodDsrc("取消权限绑定")
+    @PostMapping("unBindRolePerms")
+    @ExcutePermission
+    @Deprecated
+    public void unBindRolePermission(@RequestBody RolePermsBind permsBind) {
+        service.unBindRolePerms(permsBind);
+    }
+
+
     @GetMapping("specRoleEnableMoudles")
-    @ExcuteMethodDsrc("获取指定角色拥有的模块列表")
+    @ExcuteMethodDsrc("获取指定角色已绑定的模块列表")
     @ExcutePermission
     public ValuesPage specRoleEnableMoudles(@RequestParam String role, @RequestParam int current, @RequestParam int pageSize) throws Exception {
         Page page = new Page();

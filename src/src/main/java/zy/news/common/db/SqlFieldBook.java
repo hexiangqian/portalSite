@@ -28,8 +28,10 @@ public class SqlFieldBook {
      */
     public static String generateKey(String fieldName, String tableNam) {
         if (tableNam == "") //-1时不考虑 默认为全部
+        {
             return new StringBuilder(fieldName).toString();
-        else
+        } else {
             return new StringBuilder(fieldName).append(tableNam).toString();
+        }
     }
 }

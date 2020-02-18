@@ -6,10 +6,22 @@ package zy.news.common;
  * @author fanpei
  */
 public enum StatusCode {
-    执行成功(600), //
-    超时重登(601), // 登录超时，需要重新登录
-    执行失败(602),// 执行发生错误，执行失败
-    权限错误(603);// 权限发生错误
+    /**
+     * 执行成功
+     */
+    执行成功(600),
+    /**
+     * 登录超时，需要重新登录
+     */
+    超时重登(601),
+    /**
+     * 执行发生错误，执行失败
+     */
+    执行失败(602),
+    /**
+     * 权限发生错误
+     */
+    权限错误(603);
 
     private int code;
 
@@ -17,7 +29,7 @@ public enum StatusCode {
         return code;
     }
 
-    private StatusCode(int code_) {
-        this.code = code_;
+    private StatusCode(int code) {
+        this.code = code;
     }
 }

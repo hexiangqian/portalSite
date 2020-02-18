@@ -54,7 +54,6 @@ public class MyDbConfSettings {
         properties.setProperty("offsetAsPageNum", "true");
         properties.setProperty("rowBoundsWithCount", "true");
         properties.setProperty("reasonable", "true");
-        // properties.setProperty("autoRunTimeDialect","true");
         interceptor.setProperties(properties);
         factoryBean.setPlugins(new Interceptor[]{interceptor});
 

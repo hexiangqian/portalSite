@@ -22,7 +22,7 @@ import static zy.news.common.db.base.DbExampleUtil.entityGetMethod;
  * @author fanpei
  */
 @SuppressWarnings("unchecked")
-public abstract class SqlBaseServiceImpl<T1, T2> extends DbServiceParent<T1, T2> implements ISqlBaseService<T1, T2> {
+public abstract class AbstractSqlBaseServiceImpl<T1, T2> extends AbstractDbServiceParent<T1, T2> implements ISqlBaseService<T1, T2> {
 
     @Override
     public void batchAdd(List<T1> records) {
@@ -96,8 +96,9 @@ public abstract class SqlBaseServiceImpl<T1, T2> extends DbServiceParent<T1, T2>
     @Override
     public ValuesPage searchRecordsWithParams(Page page, List<List<SearchParam>> params, boolean withBlobs) throws Exception {
         List<T1> records = null;
-        if (page == null)
+        if (page == null) {
             page = new Page();//不分页
+        }
         T2 example = getExampleByParams(params);
         return searchRecordsWithExample(page, example, withBlobs);
     }
@@ -105,8 +106,9 @@ public abstract class SqlBaseServiceImpl<T1, T2> extends DbServiceParent<T1, T2>
     @Override
     public ValuesPage searchRecordsWithExample(Page page, T2 example, boolean withBlobs) throws Exception {
         List<T1> records = null;
-        if (page == null)
+        if (page == null) {
             page = new Page();//不分页
+        }
         //大于0分页有效
         if (page.getCurrent() > 0) {
             // 配置分页
@@ -145,10 +147,11 @@ public abstract class SqlBaseServiceImpl<T1, T2> extends DbServiceParent<T1, T2>
      */
     protected List<T1> getT1s(boolean withBlobs, T2 example) {
         List<T1> records;
-        if (hasBlobs && withBlobs)
-            records = getMapper().selectByExampleWithBLOBs(example);
-        else
+        if (hasBlobs && withBlobs) {
+            records = getMapper().selectByExampleWithBlobs(example);
+        } else {
             records = getMapper().selectByExample(example);
+        }
         return records;
     }
 

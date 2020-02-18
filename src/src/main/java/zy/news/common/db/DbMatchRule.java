@@ -6,20 +6,63 @@ package zy.news.common.db;
  * @author fanpei
  */
 public enum DbMatchRule {
-	EqualTo(0), // 完全相等
-	In(1), // 在集合之内
-	NotIn(2), // 不在集合之内
-	Like(3), // 模糊匹配相等的
-	NotLike(4), // 模糊匹配之外的
-	Between(5), // 在起始范围之间
-	LessThan(6), // 小于某值
-	LessThanOrEqualTo(7), // 小于或等于某值
-	GreaterThan(8), // 大于某值
-	GreaterThanOrEqualTo(9), // 大于或等于某值
-	NotEqualTo(10), // 不等于
-	OrderByClause(11), // 排序参数
-	GroupbyClause(12), // 分组参数
-	IsNull(13);// 为空
+	/**
+	 * 完全相等
+	 */
+	EqualTo(0),
+	/**
+	 * 在集合之内
+	 */
+	In(1),
+	/**
+	 *不在集合之内
+	 */
+	NotIn(2),
+	/**
+	 * 模糊匹配
+	 * */
+	Like(3),
+	/**
+	 * 模糊匹配之外的
+	 * */
+	NotLike(4),
+	/**
+	 *在起始范围之间*
+	 *
+	 */
+	Between(5),
+	/**
+	 * 小于某值
+	 * */
+	LessThan(6),
+	/**
+	 * 小于或等于某值
+	 * */
+	LessThanOrEqualTo(7),
+	/**
+	 * 大于某值
+	 * */
+	GreaterThan(8),
+	/**
+	 * 大于或等于某值
+	 * */
+	GreaterThanOrEqualTo(9),
+	/**
+	 * 不等于
+	 * */
+	NotEqualTo(10),
+	/**
+	 * 排序参数
+	 * */
+	OrderByClause(11),
+	/**
+	 * 分组参数
+	 * */
+	GroupbyClause(12),
+	/**
+	 * 为空
+	 * */
+	IsNull(13);
 
 	private byte value;
 

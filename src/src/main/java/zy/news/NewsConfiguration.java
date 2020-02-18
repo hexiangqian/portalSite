@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Configuration
 @EnableWebMvc
-public class ZYNewsConfiguration extends WebMvcConfigurerAdapter {
+public class NewsConfiguration extends WebMvcConfigurerAdapter {
     /*
      * 跨域解决
      *

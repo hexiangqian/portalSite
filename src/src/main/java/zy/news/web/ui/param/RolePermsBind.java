@@ -41,10 +41,11 @@ public class RolePermsBind extends SysBodyIds implements IValidate {
         if (null != permsids && !permsids.isEmpty()) {
             boolean first = true;
             for (Long id : permsids) {
-                if (first)
+                if (first) {
                     first = false;
-                else
+                } else {
                     permsidsSb.append(",");
+                }
                 permsidsSb.append(id);
             }
         }
@@ -54,7 +55,8 @@ public class RolePermsBind extends SysBodyIds implements IValidate {
     @Override
     public void validate() throws Exception {
         if (StringUtil.isStrNullOrWhiteSpace(permsid)
-                || roleid <= 0)
+                || roleid <= 0) {
             throw new WarningException("权限和角色必填，不能为空，请检查参数！");
+        }
     }
 }

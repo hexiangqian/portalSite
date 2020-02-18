@@ -1,6 +1,5 @@
 package zy.news.web.service.impl;
 
-import maoko.common.StringUtil;
 import maoko.common.agorithm.AesCipher;
 import maoko.common.file.FileIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +36,12 @@ public class SvrImplAuthUser implements IAuthUser {
 
     @Override
     public int insert(SysUser record) throws WarningException {
-        if (SysUser.ADMIN_ROLE.equals(record.getUsername()))
+        if (SysUser.ADMIN_ROLE.equals(record.getUsername())) {
             throw new WarningException("禁止操作管理员账户");
-        if (mapper.selectByName(record.getUsername()) != null)
+        }
+        if (mapper.selectByName(record.getUsername()) != null) {
             throw new WarningException("此用户名已存在！");
+        }
         return mapper.insert(record);
     }
 
@@ -56,13 +57,16 @@ public class SvrImplAuthUser implements IAuthUser {
 
     @Override
     public int updateByPrimaryKey(SysUser record) throws WarningException {
-        if (SysUser.ADMIN_ROLE.equals(record.getUsername()))
+        if (SysUser.ADMIN_ROLE.equals(record.getUsername())) {
             throw new WarningException("禁止操作管理员账户");
-        if (null == record.getId())
+        }
+        if (null == record.getId()) {
             throw new WarningException("用户id为空，请重新填写参数！");
+        }
         SysUser oldUser = selectByPrimaryKey(record.getId());
-        if (oldUser==null)
+        if (oldUser==null) {
             throw new WarningException("用户已不存在！");
+        }
         if (!oldUser.getUsername().equals(record.getUsername())) {
             if (mapper.selectByName(record.getUsername()) != null) {
                 throw new WarningException("此用户名已存在！");
@@ -76,8 +80,9 @@ public class SvrImplAuthUser implements IAuthUser {
     public SysUser login(SysUser usr) throws Exception {
         usr.validate();
         if (null != (usr = selectUserByNamPasswd(usr))) {
-        } else
+        } else {
             throw new LoginitException("用户名或密码错误！");
+        }
         usr.setToken(FileIDUtil.getNextId());
         // 加载模块
         userCache.addUser2Cache(usr);
@@ -86,27 +91,29 @@ public class SvrImplAuthUser implements IAuthUser {
 
     @Override
     public SysUser selectUserByNamPasswd(SysUser user) {
-        return mapper.selectByNamePasswd(user.getUsername(), user.getAESPassWd());
+        return mapper.selectByNamePasswd(user.getUsername(), user.getAesPassWd());
     }
 
     @Override
     public void updatePasswd(SysUser user, String passwd) throws WarningException {
-        if (SysUser.ADMIN_ROLE.equals(user.getUsername()))
+        if (SysUser.ADMIN_ROLE.equals(user.getUsername())) {
             throw new WarningException("禁止操作管理员账户");
+        }
         user.setPasswd(AesCipher.Encrypt(passwd));
         mapper.updatePasswd(user.getPasswd(), user.getId());
     }
 
     @Override
     public void bindUserRole(String username, Long roleid) throws WarningException {
-        if (SysUser.ADMIN_ROLE.equals(username))
+        if (SysUser.ADMIN_ROLE.equals(username)) {
             throw new WarningException("禁止操作管理员账户");
+        }
         mapper.bindUserRole(username, roleid);
     }
 
     @Override
     public ValuesPage selectAllPage(Page page) throws Exception {
-        PageValuesParam pVParam = new PageValuesParam(mapper, "selectAll");
-        return ServiceUtil.getValuePage(page, pVParam);
+        PageValuesParam pvparam = new PageValuesParam(mapper, "selectAll");
+        return ServiceUtil.getValuePage(page, pvparam);
     }
 }

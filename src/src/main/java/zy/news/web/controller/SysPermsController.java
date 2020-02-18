@@ -32,6 +32,9 @@ public class SysPermsController {
     @Autowired
     private SvrImpAuthPermission service;
 
+    @Autowired
+    private IUserCache userCache;
+
 
     @GetMapping("lists")
     @ExcuteMethodDsrc("获取列表")
@@ -43,6 +46,32 @@ public class SysPermsController {
         return service.getRecords(page);
     }
 
+    /*************
+     * 一下部分为
+     * 角色管理
+     * ***********/
+    @ExcuteMethodDsrc("获取角色未绑定权限列表")
+    @GetMapping("noBindLists")
+    @ExcutePermission
+    @Deprecated
+    public ValuesPage getNoBindLists(@RequestParam int current, @RequestParam int pageSize, @RequestParam Long roleid) throws Exception {
+        Page page = new Page();
+        page.setCurrent(current);
+        page.setPageSize(pageSize);
+        return service.getUnBindPermsByRoleid(page, roleid);
+    }
+
+    @ExcuteMethodDsrc("获取角色已绑定权限列表")
+    @GetMapping("hasBindLists")
+    @ExcutePermission
+    @Deprecated
+    public ValuesPage getHasBindLists(@RequestParam int current, @RequestParam int pageSize, @RequestParam Long roleid) throws Exception {
+        Page page = new Page();
+        page.setCurrent(current);
+        page.setPageSize(pageSize);
+        return service.getHasBindPermsByRoleid(page, roleid);
+    }
+
     @ExcuteMethodDsrc("获取系统已有接口列表")
     @GetMapping("urlLists")
     @ExcutePermission
@@ -50,6 +79,18 @@ public class SysPermsController {
         Page page = new Page();
         page.setCurrent(current);
         page.setPageSize(pageSize);
+        fastSearch = DbExampleUtil.getLikeValue(fastSearch);
         return service.getUrlLists(page, fastSearch);
+    }
+
+    @ExcuteMethodDsrc("获取当前角色/模块可用权限列表")
+    @GetMapping("getEnablePermissions")
+    @ExcutePermission
+    public ValuesPage getEnablePermissions(HttpSession session, @RequestParam int current, @RequestParam int pageSize, @RequestParam String mNam) throws Exception {
+        SysUser user = userCache.getUserFromSession(session);
+        Page page = new Page();
+        page.setCurrent(current);
+        page.setPageSize(pageSize);
+        return service.getEnablePermsByRoleAndParent(page, user.getRole(), mNam);
     }
 }

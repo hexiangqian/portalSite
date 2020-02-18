@@ -9,6 +9,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 
 /**
  * app启动完成后启动
+ * @author fanpei
  */
 public class AfterAppStartUp implements ApplicationListener<ContextRefreshedEvent> {
     private static final IWriteLog LOG = new Log4j2Writer(AfterAppStartUp.class);
@@ -16,7 +17,7 @@ public class AfterAppStartUp implements ApplicationListener<ContextRefreshedEven
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         try {
-            startSDKClient();
+            startsdkclient();
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
@@ -29,7 +30,7 @@ public class AfterAppStartUp implements ApplicationListener<ContextRefreshedEven
      *
      * @throws Exception
      */
-    private void startSDKClient() throws Exception {
+    private void startsdkclient() throws Exception {
         FileIDUtil.init(1);//服务编号初始化
     }
 

@@ -38,7 +38,7 @@ public interface SysModuleMapper {
      * @param role 角色名称
      * @return
      */
-    List<Long> getPSModuleIdsByRole(@Param("roleName") String role);
+    List<Long> getPsModuleIdsByRole(@Param("roleName") String role);
 
     /**
      * 通过字父id集合获取父id集合

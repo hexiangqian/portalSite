@@ -113,11 +113,12 @@ public class SysUser implements IValidate {
 
     @Override
     public void validate() throws Exception {
-        if (StringUtil.isStrNullOrWhiteSpace(username) || StringUtil.isStrNullOrWhiteSpace(passwd))
+        if (StringUtil.isStrNullOrWhiteSpace(username) || StringUtil.isStrNullOrWhiteSpace(passwd)) {
             throw new WarningException("用户名和密码不能为空！");
+        }
     }
 
-    public String getAESPassWd() {
+    public String getAesPassWd() {
         return AesCipher.Encrypt(passwd);
     }
 }

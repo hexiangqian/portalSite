@@ -25,28 +25,29 @@ public class ServiceUtil {
      * 分页获取方法
      *
      * @param page       分页
-     * @param pageVParam 参数
+     * @param pageValuesparam 参数
      * @param <T>        返回类型
      * @return
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
-    public static <T> ValuesPage getValuePage(Page page, PageValuesParam<T> pageVParam) throws Exception {
+    public static <T> ValuesPage getValuePage(Page page, PageValuesParam<T> pageValuesparam) throws Exception {
         List<T> records = null;
-        if (page == null)
+        if (page == null) {
             page = new Page();//不分页
+        }
         //大于0分页有效
         if (page.getCurrent() > 0) {
             // 配置分页
             PageHelper.startPage(page.getCurrent(), page.getSize());
-            records = pageVParam.getRecords();
+            records = pageValuesparam.getRecords();
             PageInfo<T> pageInfo = new PageInfo<>(records);
             // 取分页信息
             page.setTotal(pageInfo.getTotal());
             page.setTotalPages(pageInfo.getPages());
         } else {
-            records = pageVParam.getRecords();
+            records = pageValuesparam.getRecords();
             page.setTotal(records != null ? records.size() : 0);
         }
         return new ValuesPage(records, page);
@@ -69,10 +70,11 @@ public class ServiceUtil {
             nodesSb = new StringBuilder();
             boolean first = true;
             for (IKeyFlag sni : values) {
-                if (first)
+                if (first) {
                     first = false;
-                else
+                } else {
                     nodesSb.append(",");
+                }
                 nodesSb.append(sni.getKeyFlg());
             }
         }
@@ -97,8 +99,8 @@ public class ServiceUtil {
             }
             String[] jKeyVs = jobjStr.split(",");
             clomns = new ArrayList<>(jKeyVs.length);
-            for (String jKeyV_item : jKeyVs) {
-                String[] colKyes = jKeyV_item.split(":");
+            for (String jKvItem : jKeyVs) {
+                String[] colKyes = jKvItem.split(":");
                 String colKey = colKyes[0].replace("\"", "");
                 clomns.add(colKey);
             }

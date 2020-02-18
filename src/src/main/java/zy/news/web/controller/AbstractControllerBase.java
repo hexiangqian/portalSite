@@ -26,8 +26,7 @@ import java.util.List;
  * @param <T1>
  * @author fanpei
  */
-@Deprecated
-public abstract class ControllerBase<T1, T2> {
+public abstract class AbstractControllerBase<T1, T2> {
     protected static final String AREADYEXIST_NAME = "this name:{} is aready Exists";
     @Autowired
     protected UserCache userCache;
@@ -62,8 +61,9 @@ public abstract class ControllerBase<T1, T2> {
     }
 
     protected void addCheckId(Long id) throws Exception {
-        if (null != id)
+        if (null != id) {
             throw new WarningException("添加时，id为系统生成，默认为空！");
+        }
     }
 
     /**
@@ -99,8 +99,9 @@ public abstract class ControllerBase<T1, T2> {
                     throw new WarningException(StringUtil.getMsgStr(AREADYEXIST_NAME, newname));
                 }
             }
-        } else
+        } else {
             throw new WarningException("old record is not found");
+        }
     }
 
     /**
@@ -122,8 +123,9 @@ public abstract class ControllerBase<T1, T2> {
                 }
                 deletebyLongList(idsLong);
             }
-        } else
+        } else {
             throw new WarningException("need deleted ids is null or uncorect!");
+        }
     }
 
     protected void deletebyLongList(List<Long> idsLong) throws Exception {
@@ -175,10 +177,8 @@ public abstract class ControllerBase<T1, T2> {
     @ExcutePermission
     public ValuesPage searchRecordsMap(HttpSession session, @RequestParam("current") int current, @RequestParam("pageSize") int pageSize,
                                        @RequestBody String params) throws Exception {
-        // LinkedTreeMap<String, Object> body = (LinkedTreeMap<String, Object>) params;
-        // String jsonStr = (String) body.values().iterator().next();
-        List<List<SearchParam>> params_obj = MyGsonUtil.genArrayObjects(params, SearchParam.class);
-        return searchRecordsbyParam(current, pageSize, params_obj);
+        List<List<SearchParam>> paramsObj = MyGsonUtil.genArrayObjects(params, SearchParam.class);
+        return searchRecordsbyParam(current, pageSize, paramsObj);
     }
 
     /**
@@ -218,12 +218,13 @@ public abstract class ControllerBase<T1, T2> {
             IllegalAccessException, IllegalArgumentException, InvocationTargetException, WarningException {
         Method getName = record.getClass().getMethod(methodName);
         Object obj = getName.invoke(record);
-        if (obj == null)
+        if (obj == null) {
             throw new WarningException(StringUtil.getMsgStr("执行对象方法{}错误，获参数值不能为空。", methodName));
+        }
         return obj;
     }
 
-    /*    *//**
+/*    *//**
      * 从会话中获取用户信息
      *
      * @param session

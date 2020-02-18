@@ -2,6 +2,9 @@ package zy.news.web.bean;
 
 import java.io.Serializable;
 
+/**
+ * @author fanpei
+ */
 public class ArticlAnnex implements Serializable {
     private Long articleid;
 

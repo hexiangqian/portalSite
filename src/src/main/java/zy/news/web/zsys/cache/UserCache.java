@@ -27,8 +27,6 @@ public class UserCache implements IUserCache {
     @Value("${server.session.timeout}")
     private int timeout;
 
-    // @Autowired
-    // private IAuthPermission permissionSvr;
 
     @PostConstruct
     public void init() {
@@ -45,10 +43,58 @@ public class UserCache implements IUserCache {
                 .build();
     }
 
+    @Override
+    public void addRolePerms(SysUser user) {
+        if (SysUser.ADMIN_ROLE.equals(user.getRole())) {
+            return;
+        }
+        String key = getPermsKey(user);
+        /*Map permissions = PERMS_CACHES.getIfPresent(key);
+        if (null == permissions || permissions.isEmpty()) {
+        }*/
+/*        Map<String, SysPermission> permrs = permissionSvr.getPermissonsByRoleid(user.getRoleid());
+        if (permrs != null && !permrs.isEmpty())
+            PERMS_CACHES.put(key, permrs);*/
+    }
+
+    @Override
+    public boolean containPerms(SysUser user, String url) {
+        String key = getPermsKey(user);
+        Map permissions = PERMS_CACHES.getIfPresent(key);
+        if (permissions == null) {
+            return false;
+        } else {
+            return permissions.containsKey(url);
+        }
+    }
+
+    @Override
+    public SysPermission getPerms(SysUser user, String url) {
+        String key = getPermsKey(user);
+        Map permissions = PERMS_CACHES.getIfPresent(key);
+        if (null != permissions) {
+            return (SysPermission) permissions.get(url);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void invalidate(long roleid) {
+        String key = Long.toString(roleid);
+        PERMS_CACHES.invalidate(key);
+        //更新
+       /* Map<String, SysPermission> permrs = permissionSvr.getPermissonsByRoleid(roleid);
+        if (permrs != null && !permrs.isEmpty())
+            PERMS_CACHES.put(key, permrs);*/
+    }
+
+    @Override
     public void addUser2Cache(SysUser user) {
         USERS_CACHES.put(user.getUsername(), user);
     }
 
+    @Override
     public SysUser getUser(String userName) {
         SysUser user = USERS_CACHES.getIfPresent(userName);
         if (null != user) {//更新
@@ -57,6 +103,7 @@ public class UserCache implements IUserCache {
         return user;
     }
 
+    @Override
     public void remove(String userName) {
       /*  List<String> keys = new ArrayList<String>() {{
             add(userName);
@@ -70,6 +117,7 @@ public class UserCache implements IUserCache {
      * @param session
      * @throws LoginTimeOutException
      */
+    @Override
     public SysUser loginTimeOutCheck(HttpSession session) throws LoginTimeOutException {
         String userName = (String) session.getAttribute(SysUser.SESSION_USER);
         SysUser luser = null;

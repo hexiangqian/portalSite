@@ -1,16 +1,15 @@
 package zy.news.web.bean;
 
-import zy.news.web.zsys.gson.MyExpose;
-
 import java.io.Serializable;
 import java.util.Date;
 
 public class SysModule implements Serializable {
     private Long id;
+
     private String modulename;
+
     private Long parent;
-    @MyExpose(serialize = true, deserialize = false)
-    private String pmName;//父模块名称
+
     private Date updatetime;
 
     private static final long serialVersionUID = 1L;
@@ -45,14 +44,6 @@ public class SysModule implements Serializable {
 
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
-    }
-
-    public String getPmName() {
-        return pmName;
-    }
-
-    public void setPmName(String pmName) {
-        this.pmName = pmName;
     }
 
     @Override

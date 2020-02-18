@@ -69,8 +69,9 @@ public class Page {
     public void setTotalElements(long totalElements) {
         this.totalElements = totalElements;
         if (totalElements != 0) {
-            if (current > 0 && size > 0)
+            if (current > 0 && size > 0) {
                 this.totalPages = totalElements / size + 1;
+            }
         }
     }
 

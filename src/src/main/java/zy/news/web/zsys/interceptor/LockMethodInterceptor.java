@@ -36,8 +36,9 @@ public class LockMethodInterceptor {
         if (-1 != localLock.argIndex()) {
             Object[] args = pjp.getArgs();
             key = pjp.getArgs()[localLock.argIndex()].toString();
-        } else
+        } else {
             key = getKey(localLock.key(), pjp.getArgs());
+        }
         if (!StringUtils.isEmpty(key)) {
             if (CACHES.getIfPresent(key) != null) {
                 throw new RuntimeException("".equals(localLock.tips()) ? "当前操作锁定中" : localLock.tips());

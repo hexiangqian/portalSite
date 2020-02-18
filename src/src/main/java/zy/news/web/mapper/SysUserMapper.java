@@ -1,9 +1,9 @@
 package zy.news.web.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import zy.news.web.bean.SysUser;
-
-import java.util.List;
 
 public interface SysUserMapper {
     int deleteByPrimaryKey(Long id);
@@ -41,14 +41,6 @@ public interface SysUserMapper {
      */
     SysUser selectByNamePasswd(@Param("name") String name, @Param("passwd") String passwd);
 
-    /**
-     * 通过名称获取用户
-     *
-     * @param name
-     * @return
-     */
     SysUser selectByName(@Param("name") String name);
-
-
 
 }

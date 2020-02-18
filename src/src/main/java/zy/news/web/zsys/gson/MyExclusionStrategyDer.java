@@ -14,12 +14,13 @@ public class MyExclusionStrategyDer implements ExclusionStrategy {
     @Override
     public boolean shouldSkipField(FieldAttributes f) {
         MyExpose expose = f.getAnnotation(MyExpose.class);
-        if (expose != null && !expose.deserialize())
+        if (expose != null && !expose.deserialize()) {
             return true;
-        else {
+        } else {
             Expose exposeSys = f.getAnnotation(Expose.class);
-            if (exposeSys != null && !exposeSys.deserialize())
+            if (exposeSys != null && !exposeSys.deserialize()) {
                 return true;
+            }
         }
         return false;
     }

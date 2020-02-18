@@ -1,24 +1,22 @@
 package zy.news.web.zsys.interceptor;
 
 
+import zy.news.web.bean.SysPermission;
+import zy.news.web.bean.SysUser;
+import zy.news.web.zsys.bean.ExcuteControllerDsrc;
+import zy.news.web.zsys.bean.ExcuteMethodDsrc;
+import zy.news.common.exception.LoginTimeOutException;
+import zy.news.web.zsys.bean.PermissionType;
+import zy.news.web.zsys.cache.UserCache;
+import zy.news.web.zsys.bean.ExcutePermission;
+import zy.news.common.exception.PermissonCheckErrorException;
+import zy.news.common.exception.RolePermissionFormatException;
 import maoko.common.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import zy.news.common.exception.LoginTimeOutException;
-import zy.news.common.exception.PermissonCheckErrorException;
-import zy.news.common.exception.RolePermissionFormatException;
-import zy.news.common.exception.WarningException;
-import zy.news.web.bean.SysPermission;
-import zy.news.web.bean.SysUser;
-import zy.news.web.mapper.SysPermissionMapper;
-import zy.news.web.zsys.bean.ExcuteControllerDsrc;
-import zy.news.web.zsys.bean.ExcuteMethodDsrc;
-import zy.news.web.zsys.bean.ExcutePermission;
-import zy.news.web.zsys.bean.PermissionType;
-import zy.news.web.zsys.cache.UserCache;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,8 +34,6 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserCache userCache;
-    @Autowired
-    private SysPermissionMapper permissionMapper;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -47,8 +43,9 @@ public class AuthorityInterceptor implements HandlerInterceptor {
             ExcuteControllerDsrc contrlDsrc = myHandler.getBeanType().getAnnotation(ExcuteControllerDsrc.class);
             ExcuteMethodDsrc methodDsrc = myHandler.getMethodAnnotation(ExcuteMethodDsrc.class);
             ExcutePermission permiss = myHandler.getMethodAnnotation(ExcutePermission.class);
-            if (null == permiss)
+            if (null == permiss) {
                 throw new RolePermissionFormatException("服务端接口权限未配置，请联系管理员！");
+            }
             checkPermissPass(request, permiss, contrlDsrc, methodDsrc);
         }
         return true;
@@ -77,20 +74,25 @@ public class AuthorityInterceptor implements HandlerInterceptor {
      * @return
      * @throws RolePermissionFormatException
      */
-    private void checkPermissPass(HttpServletRequest request, ExcutePermission permiss, ExcuteControllerDsrc contrlDsrc, ExcuteMethodDsrc methodDsrc) throws LoginTimeOutException, PermissonCheckErrorException, WarningException {
+    private void checkPermissPass(HttpServletRequest request, ExcutePermission permiss, ExcuteControllerDsrc contrlDsrc, ExcuteMethodDsrc methodDsrc) throws LoginTimeOutException, PermissonCheckErrorException {
         SysUser usr = userCache.loginTimeOutCheck(request.getSession());
-        if (null != usr.getRoleid() && SysUser.ADMIN_ROLE.equals(usr.getRole()))//admin具有所有权限 允许游客继续下一步验证
+        if (SysUser.ADMIN_ROLE.equals(usr.getRole()))//admin具有所有权限
+        {
             return;
+        }
         String url = request.getRequestURI().toString();
         boolean passrole = false;
         boolean passType = false;
-        SysPermission sp = permissionMapper.selectPermissonByUrl(usr.getRoleid(), url);
-        if (sp != null) {
+        if (userCache.containPerms(usr, url)) {
+            boolean psNotEmpty = null != permiss.Roles() && permiss.Roles().length > 0;
+            boolean ptNotEmpty = null != permiss.Types() && permiss.Types().length > 0;
             //验证含有role或者type的接口
-            if (null != permiss) {
+            if (psNotEmpty || ptNotEmpty) {
+                SysPermission sp = userCache.getPerms(usr, url);
+                PermissionType[] localTypes = PermissionType.getTypes(sp.getType());
                 //非全用户权限 Roles和Types为空，默认具有全权限
-                //region 1.验证角色
-                if (null != permiss.Roles() && permiss.Roles().length > 0) {
+                //验证角色
+                if (psNotEmpty) {
                     if (!StringUtil.isStrNullOrWhiteSpace(usr.getRole())) {
                         for (String tmpRole : permiss.Roles()) {
                             if (tmpRole.equals(usr.getRole())) {
@@ -99,23 +101,24 @@ public class AuthorityInterceptor implements HandlerInterceptor {
                             }
                         }
                     }
-                } else
+                } else {
                     passrole = true;
-                //endregion 结束验证角色
-                //region 2.验证操作类型
-                if (null != permiss.Types() && permiss.Types().length > 0) {
-                    PermissionType[] localTypes = PermissionType.getTypes(sp.getType());
+                }
+
+                //验证操作类型
+                if (ptNotEmpty) {
                     passType = isAllPermissionType(passType, localTypes);
                     if (!passType)//非全部
                     {
                         List<PermissionType> list1 = Arrays.asList(localTypes);
                         List<PermissionType> list2 = Arrays.asList(permiss.Types());
-                        if (list1.containsAll(list2))
+                        if (list1.containsAll(list2)) {
                             passType = true;
+                        }
                     }
-                } else
+                } else{
                     passType = true;
-                //endregion 结束验证操作类型
+                }
             } else {
                 passrole = true;
                 passType = true;
@@ -128,10 +131,12 @@ public class AuthorityInterceptor implements HandlerInterceptor {
             tipSb.append("当前用户不具有此操作权限，请联系管理员修改！");
             tipSb.append(System.lineSeparator()).append("用户名:").append(usr.getRealname());
             tipSb.append(System.lineSeparator()).append("角色:").append(usr.getRoleName());
-            if (contrlDsrc != null)
+            if (contrlDsrc != null) {
                 tipSb.append(System.lineSeparator()).append("模块:").append(contrlDsrc.value());
-            if (methodDsrc != null)
+            }
+            if (methodDsrc != null) {
                 tipSb.append(System.lineSeparator()).append("方法:").append(methodDsrc.value());
+            }
             tipSb.append(System.lineSeparator()).append("接口地址(URL):").append(url);
             throw new PermissonCheckErrorException(tipSb.toString());
         }

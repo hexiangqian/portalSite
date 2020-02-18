@@ -39,16 +39,19 @@ public class SvrImpAuthRole implements IAuthRole {
     public int deleteByPrimaryKey(Long id) throws WarningException {
         List<Long> ids = new ArrayList<>(1);
         ids.add(id);
-        if (mapper.countByExampleRolePerms(ids) > 0)
+        if (mapper.countByExampleRolePerms(ids) > 0) {
             throw new WarningException("角色-权限中仍存在待删除角色信息，请先取消角色关联绑定，再选择此角色进行删除。");
+        }
         int count = mapper.deleteByPrimaryKey(id);
+        userCache.invalidate(id);
         return count;
     }
 
     @Override
     public int insert(SysRole record) throws WarningException {
-        if (SysUser.ADMIN_ROLE.equals(record.getRole()) || SysUser.SYSROLE_DESCR.equals(record.getDescr()))
+        if (SysUser.ADMIN_ROLE.equals(record.getRole()) || SysUser.SYSROLE_DESCR.equals(record.getDescr())) {
             throw new WarningException("此用户名或描述已被系统占用，竞争使用，请求改其他名称或描述！");
+        }
         long count = mapper.selectRoleByName(record.getRole());
         if (count > 0) {
             throw new WarningException("此角色名称已存在，请修改后再试!");
@@ -74,8 +77,9 @@ public class SvrImpAuthRole implements IAuthRole {
     @Override
     public ValuesPage specRoleEnableMoudles(String roleName, Page page) {
         List<SysModule> records = null;
-        if (page == null)
+        if (page == null) {
             page = new Page();//不分页
+        }
         //大于0分页有效
         if (page.getCurrent() > 0) {
             // 配置分页
@@ -95,8 +99,9 @@ public class SvrImpAuthRole implements IAuthRole {
     @Override
     public ValuesPage specRoleUnEnableRootMoudles(String roleName, Page page) {
         List<SysModule> records = null;
-        if (page == null)
+        if (page == null) {
             page = new Page();//不分页
+        }
         //大于0分页有效
         if (page.getCurrent() > 0) {
             // 配置分页
@@ -116,8 +121,9 @@ public class SvrImpAuthRole implements IAuthRole {
     @Override
     public ValuesPage specRoleUnEnableChildMoudles(String roleName, String mNam, Page page) {
         List<SysModule> records = null;
-        if (page == null)
+        if (page == null) {
             page = new Page();//不分页
+        }
         //大于0分页有效
         if (page.getCurrent() > 0) {
             // 配置分页
@@ -139,7 +145,6 @@ public class SvrImpAuthRole implements IAuthRole {
     public void bindSpecRoleMoudle(RoleModulesBind modulesBind) throws Exception {
         modulesBind.validate();
         List<Long> moudleids = modulesBind.getMoudleids();
-        //mapper.delSpecRoleMoudle(modulesBind.getRoleid());
         for (Long mid : moudleids) {
             mapper.bindSpecRoleMoudle(modulesBind.getRoleid(), mid.longValue());
         }
@@ -164,17 +169,19 @@ public class SvrImpAuthRole implements IAuthRole {
             throw new WarningException("部分权限[" + bindShip.getpermisdStr() + "]已存在，请检查！");
         }
         mapper.bindRolePerms(bindShip);
+        userCache.invalidate(bindShip.getRoleid());
     }
 
     @Override
     @Deprecated
     public void unBindRolePerms(RolePermsBind bindShip) {
         mapper.unBindRolePerms(bindShip);
+        userCache.invalidate(bindShip.getRoleid());
     }
 
     @Override
     public ValuesPage selectAllPage(Page page) throws Exception {
-        PageValuesParam pVParam = new PageValuesParam(mapper, "selectAll");
-        return ServiceUtil.getValuePage(page,pVParam);
+        PageValuesParam pvparam = new PageValuesParam(mapper, "selectAll");
+        return ServiceUtil.getValuePage(page,pvparam);
     }
 }

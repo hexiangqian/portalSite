@@ -10,7 +10,7 @@ public class HexUtil {
     private static final char[] HEX_CHAR = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
             'F'};
 
-    public static String toHexWithOX(int n, int resultLen) {
+    public static String toHexWithOx(int n, int resultLen) {
         if (n < 0) {
             n += 256;
         }
@@ -26,8 +26,7 @@ public class HexUtil {
         stringBuilder.append(hexStr);
         return stringBuilder.toString();
     }
-    public  static String toHexWithOX(int n)
-    {
+    public static String toHexWithOx(int n) {
         if (n < 0) {
             n += 256;
         }

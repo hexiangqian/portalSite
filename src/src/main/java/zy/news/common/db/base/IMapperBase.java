@@ -66,7 +66,7 @@ public interface IMapperBase<T1, T2> {
      * @param example
      * @return
      */
-    List<T1> selectByExampleWithBLOBs(T2 example);
+    List<T1> selectByExampleWithBlobs(T2 example);
 
     /**
      * 通过example查询记录列表
@@ -100,7 +100,7 @@ public interface IMapperBase<T1, T2> {
      * @param example
      * @return
      */
-    int updateByExampleWithBLOBs(@Param("record") T1 record, @Param("example") T2 example);
+    int updateByExampleWithBlobs(@Param("record") T1 record, @Param("example") T2 example);
 
     /**
      * 通过example更新record
@@ -113,7 +113,7 @@ public interface IMapperBase<T1, T2> {
 
     int updateByPrimaryKeySelective(T1 record);
 
-    int updateByPrimaryKeyWithBLOBs(T1 record);
+    int updateByPrimaryKeyWithBlobs(T1 record);
 
     /**
      * 通过主键id更新记录

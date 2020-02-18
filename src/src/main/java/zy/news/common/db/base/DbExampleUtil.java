@@ -1,10 +1,10 @@
 package zy.news.common.db.base;
 
+import zy.news.common.db.DbMatchRule;
+import zy.news.common.db.SearchParam;
 import maoko.common.InstanceUitl;
 import maoko.common.exception.DataIsNotCorrectFormatException;
 import org.apache.commons.lang3.time.DateUtils;
-import zy.news.common.db.DbMatchRule;
-import zy.news.common.db.SearchParam;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -18,9 +18,6 @@ import java.util.List;
 public class DbExampleUtil {
     private static final String FIRSTFILTER = "and";
     private static final String SETFIRSTFILTER = "set";
-    //	private static final String EQUALTO = "EqualTo";
-//	private static final String BETWEEN = "Between";
-//	private static final String LIKE = "Like";
     public static final String RANGE_SEPERATOR = "|";
     public static final String ARRAY_RANGE_SEPERATOR = "\\|";
 
@@ -46,9 +43,10 @@ public class DbExampleUtil {
                     switch (param.getRule()) {
                         case Between:
                             String paramValue = (String) param.getValue();
-                            if (!paramValue.contains(RANGE_SEPERATOR))
+                            if (!paramValue.contains(RANGE_SEPERATOR)) {
                                 throw new DataIsNotCorrectFormatException(
                                         "value not contain seperator,must have two value");
+                            }
                             String[] values = paramValue.split(ARRAY_RANGE_SEPERATOR);
                             method = criteria.getClass().getMethod(methodName, argType, argType);
                             method.invoke(criteria, getArgObjValue(argType, values[0]), getArgObjValue(argType, values[1]));
@@ -71,10 +69,12 @@ public class DbExampleUtil {
                                     v = getLikeValue(param.getValue());
                                 } else if (argType != String.class) {
                                     v = getArgObjValue(argType, param.getValue());
-                                } else
+                                } else {
                                     v = param.getValue();
-                                if (v != null)
+                                }
+                                if (v != null) {
                                     method.invoke(criteria, v);
+                                }
                             } else {
                                 method = criteria.getClass().getMethod(methodName);
                                 method.invoke(criteria);
@@ -133,10 +133,11 @@ public class DbExampleUtil {
         if (param.getValue() != null && param.getValue() instanceof List) {
             return ((List) param.getValue()).get(0).getClass();
         } else {
-            if (param.getValue() != null)
+            if (param.getValue() != null) {
                 return getFeildTypeOld(target, param);
-            else
+            } else {
                 return null;
+            }
         }
     }
 
@@ -197,11 +198,15 @@ public class DbExampleUtil {
      * @return
      */
     public static String getLikeValue(Object value) {
-        if (null == value)
+        String likeStr = null;
+        if (null == value) {
             return null;
-        if ("".equals(value))
+        }
+        likeStr = new StringBuilder().append("%").append(value).append("%").toString();
+        if ("%%".equals(likeStr)) {
             return null;
-        return new StringBuilder().append("%").append(value).append("%").toString();
+        }
+        return likeStr;
     }
 
     private static final String ORCREATECRITERIA = "or";
