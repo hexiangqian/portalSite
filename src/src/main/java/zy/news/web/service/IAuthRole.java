@@ -20,6 +20,7 @@ public interface IAuthRole extends IBaseCruid<SysRole> {
      * @param bindShip
      * @return
      */
+    @Deprecated
     boolean checkRolePermsExist(RolePermsBind bindShip);
 
     /**

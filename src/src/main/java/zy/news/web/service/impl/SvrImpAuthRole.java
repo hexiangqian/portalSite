@@ -25,8 +25,6 @@ import java.util.List;
 @Service
 public class SvrImpAuthRole implements IAuthRole {
 
-
-
     @Autowired
     private SysRoleMapper mapper;
 
@@ -157,6 +155,12 @@ public class SvrImpAuthRole implements IAuthRole {
     }
 
     @Override
+    public ValuesPage selectAllPage(Page page) throws Exception {
+        PageValuesParam pvparam = new PageValuesParam(mapper, "selectAll");
+        return ServiceUtil.getValuePage(page,pvparam);
+    }
+    @Override
+    @Deprecated
     public boolean checkRolePermsExist(RolePermsBind bindShip) {
         return mapper.checkRolePermsExist(bindShip) > 1;
     }
@@ -177,11 +181,5 @@ public class SvrImpAuthRole implements IAuthRole {
     public void unBindRolePerms(RolePermsBind bindShip) {
         mapper.unBindRolePerms(bindShip);
         userCache.invalidate(bindShip.getRoleid());
-    }
-
-    @Override
-    public ValuesPage selectAllPage(Page page) throws Exception {
-        PageValuesParam pvparam = new PageValuesParam(mapper, "selectAll");
-        return ServiceUtil.getValuePage(page,pvparam);
     }
 }
