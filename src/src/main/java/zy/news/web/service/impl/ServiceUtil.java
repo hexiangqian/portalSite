@@ -56,6 +56,7 @@ public class ServiceUtil {
 
     /**
      * 获取分页结果
+     *
      * @param page
      * @param pageValuesparam
      * @param <T>
@@ -63,8 +64,8 @@ public class ServiceUtil {
      * @throws Exception
      */
     public static <T> PageValuesResult<T> getValuePageResult(Page page, PageValuesParam<T> pageValuesparam) throws Exception {
-        List<T> records = null;
-        if (page == null) {
+        List<T> records;
+        if (null == page) {
             page = new Page();//不分页
         }
         //大于0分页有效
