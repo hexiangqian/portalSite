@@ -22,6 +22,7 @@ import static zy.news.common.db.base.DbExampleUtil.entityGetMethod;
  * @author fanpei
  */
 @SuppressWarnings("unchecked")
+@Deprecated
 public abstract class AbstractSqlBaseServiceImpl<T1, T2> extends AbstractDbServiceParent<T1, T2> implements ISqlBaseService<T1, T2> {
 
     @Override

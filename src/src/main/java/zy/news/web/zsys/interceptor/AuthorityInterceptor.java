@@ -4,7 +4,7 @@ package zy.news.web.zsys.interceptor;
 import zy.news.web.bean.SysPermission;
 import zy.news.web.bean.SysUser;
 import zy.news.web.zsys.bean.ExcuteControllerDsrc;
-import zy.news.web.zsys.bean.ExcuteMethodDsrc;
+import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
 import zy.news.common.exception.LoginTimeOutException;
 import zy.news.web.zsys.bean.PermissionType;
 import zy.news.web.zsys.cache.UserCache;
@@ -41,7 +41,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
         if (handler instanceof HandlerMethod) {
             HandlerMethod myHandler = (HandlerMethod) handler;
             ExcuteControllerDsrc contrlDsrc = myHandler.getBeanType().getAnnotation(ExcuteControllerDsrc.class);
-            ExcuteMethodDsrc methodDsrc = myHandler.getMethodAnnotation(ExcuteMethodDsrc.class);
+            ExcuteInterfaceDsrc methodDsrc = myHandler.getMethodAnnotation(ExcuteInterfaceDsrc.class);
             ExcutePermission permiss = myHandler.getMethodAnnotation(ExcutePermission.class);
             if (null == permiss) {
                 throw new RolePermissionFormatException("服务端接口权限未配置，请联系管理员！");
@@ -74,7 +74,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
      * @return
      * @throws RolePermissionFormatException
      */
-    private void checkPermissPass(HttpServletRequest request, ExcutePermission permiss, ExcuteControllerDsrc contrlDsrc, ExcuteMethodDsrc methodDsrc) throws LoginTimeOutException, PermissonCheckErrorException {
+    private void checkPermissPass(HttpServletRequest request, ExcutePermission permiss, ExcuteControllerDsrc contrlDsrc, ExcuteInterfaceDsrc methodDsrc) throws LoginTimeOutException, PermissonCheckErrorException {
         SysUser usr = userCache.loginTimeOutCheck(request.getSession());
         if (SysUser.ADMIN_ROLE.equals(usr.getRole()))//admin具有所有权限
         {

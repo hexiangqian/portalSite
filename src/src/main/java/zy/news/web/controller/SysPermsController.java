@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import zy.news.common.Page;
 import zy.news.common.ValuesPage;
 import zy.news.common.db.base.DbExampleUtil;
-import zy.news.common.exception.LoginTimeOutException;
 import zy.news.web.bean.SysUser;
 import zy.news.web.service.impl.SvrImpAuthPermission;
 import zy.news.web.zsys.bean.ExcuteControllerDsrc;
-import zy.news.web.zsys.bean.ExcuteMethodDsrc;
+import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
 import zy.news.web.zsys.bean.ExcutePermission;
 import zy.news.web.zsys.cache.IUserCache;
 
@@ -37,7 +36,7 @@ public class SysPermsController {
 
 
     @GetMapping("lists")
-    @ExcuteMethodDsrc("获取列表")
+    @ExcuteInterfaceDsrc("获取列表")
     @ExcutePermission
     public ValuesPage getRecords(HttpSession session, @RequestParam int current, @RequestParam int pageSize) throws Exception {
         Page page = new Page();
@@ -46,7 +45,7 @@ public class SysPermsController {
         return service.getRecords(page);
     }
 
-    @ExcuteMethodDsrc("获取系统已有接口列表")
+    @ExcuteInterfaceDsrc("获取系统已有接口列表")
     @GetMapping("urlLists")
     @ExcutePermission
     public ValuesPage getUrlLists(@RequestParam int current, @RequestParam int pageSize, @RequestParam String fastSearch) throws Exception {
@@ -57,7 +56,7 @@ public class SysPermsController {
         return service.getUrlLists(page, fastSearch);
     }
 
-    @ExcuteMethodDsrc("获取当前角色指定模块可用权限列表")
+    @ExcuteInterfaceDsrc("获取当前角色指定模块可用权限列表")
     @GetMapping("getEnablePermissions")
     @ExcutePermission
     public ValuesPage getEnablePermissions(HttpSession session, @RequestParam int current, @RequestParam int pageSize, @RequestParam String mNam) throws Exception {

@@ -12,7 +12,7 @@ import zy.news.common.exception.WarningException;
 import zy.news.web.bean.SysUser;
 import zy.news.web.service.IAuthUser;
 import zy.news.web.zsys.bean.ExcuteControllerDsrc;
-import zy.news.web.zsys.bean.ExcuteMethodDsrc;
+import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
 import zy.news.web.zsys.bean.ExcutePermission;
 import zy.news.web.zsys.cache.IUserCache;
 
@@ -37,7 +37,7 @@ public class SysUserController {
 
 
     @PutMapping("add")
-    @ExcuteMethodDsrc("添加记录")
+    @ExcuteInterfaceDsrc("添加记录")
     @ExcutePermission
     public void add(HttpSession session, @RequestBody SysUser record) throws Exception {
         record.validate();
@@ -46,7 +46,7 @@ public class SysUserController {
     }
 
 
-    @ExcuteMethodDsrc("更新记录")
+    @ExcuteInterfaceDsrc("更新记录")
     @PostMapping("update")
     @ExcutePermission
     public void update(HttpSession session, @RequestBody SysUser record) throws Exception {
@@ -55,7 +55,7 @@ public class SysUserController {
 
 
     @GetMapping("lists")
-    @ExcuteMethodDsrc("获取列表")
+    @ExcuteInterfaceDsrc("获取列表")
     @ExcutePermission
     public ValuesPage getRecords(HttpSession session, int current, int pageSize) throws Exception {
         Page page = new Page();
@@ -65,7 +65,7 @@ public class SysUserController {
     }
 
 
-    @ExcuteMethodDsrc("绑定角色")
+    @ExcuteInterfaceDsrc("绑定角色")
     @GetMapping("bindUserRole")
     @ExcutePermission
     public void bindUserRole(@RequestParam String username, @RequestParam Long roleid) throws Exception {
@@ -79,7 +79,7 @@ public class SysUserController {
      * @throws Exception
      */
     @PostMapping(value = "signin")
-    @ExcuteMethodDsrc(value = "用户登录")
+    @ExcuteInterfaceDsrc(value = "用户登录")
     @ExcutePermission
     public SysUser login(HttpSession session, @RequestBody SysUser luser) throws Exception {
         SysUser user = service.login(luser);
@@ -94,7 +94,7 @@ public class SysUserController {
      * @return
      * @throws Exception
      */
-    @ExcuteMethodDsrc(value = "用户退出")
+    @ExcuteInterfaceDsrc(value = "用户退出")
     @GetMapping(value = "logout")
     @ExcutePermission
     public void logout(HttpSession session) {
@@ -107,7 +107,7 @@ public class SysUserController {
         }
     }
 
-    @ExcuteMethodDsrc(value = "用户校验")
+    @ExcuteInterfaceDsrc(value = "用户校验")
     @PostMapping(value = "validate")
     @ExcutePermission
     public boolean validate(HttpSession session, @RequestBody SafePass passwd) throws LoginTimeOutException, WarningException {
@@ -124,7 +124,7 @@ public class SysUserController {
         }
     }
 
-    @ExcuteMethodDsrc(value = "密码修改")
+    @ExcuteInterfaceDsrc(value = "密码修改")
     @PostMapping(value = "updatePasswd")
     @ExcutePermission
     public void updatePasswd(HttpSession session, @RequestBody SafePass passwd) throws LoginTimeOutException, WarningException {

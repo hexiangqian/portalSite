@@ -9,7 +9,7 @@ import zy.news.common.db.SearchParam;
 import zy.news.common.db.base.ISqlBaseService;
 import zy.news.common.exception.LoginTimeOutException;
 import zy.news.common.exception.WarningException;
-import zy.news.web.zsys.bean.ExcuteMethodDsrc;
+import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
 import zy.news.web.zsys.bean.ExcutePermission;
 import zy.news.web.zsys.cache.UserCache;
 import zy.news.web.zsys.gson.MyGsonUtil;
@@ -41,7 +41,7 @@ public abstract class AbstractControllerBase<T1, T2> {
      * @throws Exception
      */
     @PutMapping("add")
-    @ExcuteMethodDsrc("添加记录")
+    @ExcuteInterfaceDsrc("添加记录")
     @ExcutePermission
     public abstract void add(HttpSession session, @RequestBody T1 record) throws Exception;
 
@@ -74,7 +74,7 @@ public abstract class AbstractControllerBase<T1, T2> {
      * @throws Exception
      */
     @PostMapping("update")
-    @ExcuteMethodDsrc("更新记录")
+    @ExcuteInterfaceDsrc("更新记录")
     @ExcutePermission
     public abstract void update(HttpSession session, @RequestBody T1 record) throws Exception;
 
@@ -112,7 +112,7 @@ public abstract class AbstractControllerBase<T1, T2> {
      * @throws Exception
      */
     @DeleteMapping("delete")
-    @ExcuteMethodDsrc("删除记录/批量")
+    @ExcuteInterfaceDsrc("删除记录/批量")
     @ExcutePermission
     public void delete(@RequestParam("ids") String ids) throws Exception {
         if (!StringUtil.isStrNullOrWhiteSpace(ids)) {
@@ -140,7 +140,7 @@ public abstract class AbstractControllerBase<T1, T2> {
      * @return
      */
     @GetMapping("getByid")
-    @ExcuteMethodDsrc("通过id获取一条记录")
+    @ExcuteInterfaceDsrc("通过id获取一条记录")
     @ExcutePermission
     public T1 getRecord(long id) {
         return getService().getRecord(id);
@@ -155,7 +155,7 @@ public abstract class AbstractControllerBase<T1, T2> {
      * @throws Exception
      */
     @GetMapping("lists")
-    @ExcuteMethodDsrc("获取列表")
+    @ExcuteInterfaceDsrc("获取列表")
     @ExcutePermission
     public ValuesPage getRecords(HttpSession session, @RequestParam int current, @RequestParam int pageSize) throws Exception {
         Page page = new Page();
@@ -174,7 +174,7 @@ public abstract class AbstractControllerBase<T1, T2> {
      * @throws Exception
      */
     @PostMapping(value = "mapSearch")
-    @ExcuteMethodDsrc("高级搜索")
+    @ExcuteInterfaceDsrc("高级搜索")
     @ExcutePermission
     public ValuesPage searchRecordsMap(HttpSession session, @RequestParam("current") int current, @RequestParam("pageSize") int pageSize,
                                        @RequestBody String params) throws Exception {
