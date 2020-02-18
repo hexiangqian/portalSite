@@ -9,6 +9,7 @@ import zy.news.common.Page;
 import zy.news.common.ValuesPage;
 import zy.news.web.zsys.bean.IKeyFlag;
 import zy.news.web.zsys.bean.PageValuesParam;
+import zy.news.web.zsys.bean.PageValuesResult;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,9 +25,9 @@ public class ServiceUtil {
     /**
      * 分页获取方法
      *
-     * @param page       分页
+     * @param page            分页
      * @param pageValuesparam 参数
-     * @param <T>        返回类型
+     * @param <T>             返回类型
      * @return
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
@@ -51,6 +52,35 @@ public class ServiceUtil {
             page.setTotal(records != null ? records.size() : 0);
         }
         return new ValuesPage(records, page);
+    }
+
+    /**
+     * 获取分页结果
+     * @param page
+     * @param pageValuesparam
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    public static <T> PageValuesResult<T> getValuePageResult(Page page, PageValuesParam<T> pageValuesparam) throws Exception {
+        List<T> records = null;
+        if (page == null) {
+            page = new Page();//不分页
+        }
+        //大于0分页有效
+        if (page.getCurrent() > 0) {
+            // 配置分页
+            PageHelper.startPage(page.getCurrent(), page.getSize());
+            records = pageValuesparam.getRecords();
+            PageInfo<T> pageInfo = new PageInfo<>(records);
+            // 取分页信息
+            page.setTotal(pageInfo.getTotal());
+            page.setTotalPages(pageInfo.getPages());
+        } else {
+            records = pageValuesparam.getRecords();
+            page.setTotal(records != null ? records.size() : 0);
+        }
+        return new PageValuesResult<>(records, page);
     }
 
     /**
