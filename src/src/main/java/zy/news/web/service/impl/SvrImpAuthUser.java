@@ -20,7 +20,7 @@ import java.util.List;
  * @author fanpei
  */
 @Service
-public class SvrImplAuthUser implements IAuthUser {
+public class SvrImpAuthUser implements IAuthUser {
 
     @Autowired
     private SysUserMapper mapper;
