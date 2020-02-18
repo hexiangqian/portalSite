@@ -26,6 +26,7 @@ import java.util.List;
  * @param <T1>
  * @author fanpei
  */
+@Deprecated
 public abstract class AbstractControllerBase<T1, T2> {
     protected static final String AREADYEXIST_NAME = "this name:{} is aready Exists";
     @Autowired
