@@ -38,4 +38,5 @@ spring:
     #spring.datasource.useGlobalDataSourceStat=true
 web:
   uploadPath: D:\news_sys_files
+  staticAccessPath: /staticfile
 

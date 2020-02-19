@@ -1,16 +1,13 @@
 package zy.news.web.service.impl;
 
-import maoko.common.StrConUtil;
 import maoko.common.file.FileIDUtil;
 import org.springframework.web.multipart.MultipartFile;
-import sun.swing.plaf.synth.DefaultSynthStyle;
 import zy.news.web.bean.SysFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.ref.SoftReference;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -24,13 +21,14 @@ import java.util.UUID;
 public class FileUtils {
 
     /**
-     * @param file     文件
-     * @param savepath 文件存放路径
+     * @param file       文件
+     * @param savepath   文件存放路径
+     * @param staticPath 静态资源前缀
      * @return
      */
-    public static SysFile upload(MultipartFile file, String savepath) throws IOException {
+    public static SysFile upload(MultipartFile file, String savepath, String staticPath) throws IOException {
 
-        String simplePath = getUniquePath(file.getOriginalFilename());
+        String simplePath = getUniquePath(file.getOriginalFilename(), staticPath);
         StringBuilder fpathSb = new StringBuilder(savepath);
         fpathSb.append(File.separatorChar);
         fpathSb.append(simplePath);
@@ -49,7 +47,7 @@ public class FileUtils {
         SysFile sysFile = new SysFile();
         sysFile.setFid(FileIDUtil.getNextIdLong());
         sysFile.setName(file.getOriginalFilename());
-        sysFile.setPath(simplePath);
+        sysFile.setPath(simplePath.replace("\\", "/").replace("//", "/"));
         sysFile.setUploadtime(new Date());
         sysFile.setType(isImage(sysFile.getName()) ? new Byte((byte) 1) : new Byte((byte) 0));
         return sysFile;
@@ -77,14 +75,17 @@ public class FileUtils {
      * @param fileName 文件名
      * @return
      */
-    private static String getUniquePath(String fileName) {
+    private static String getUniquePath(String fileName, String staticPath) {
         StringBuilder fileNameSb = new StringBuilder();
+        fileNameSb.append(staticPath);
         fileNameSb.append(File.separatorChar);
         fileNameSb.append(gerCurrentDateDir());
         fileNameSb.append(File.separatorChar);
-        fileNameSb.append(getUUID());
-        fileNameSb.append("_");
-        fileNameSb.append(fileName);
+        //获取文件后缀
+        int endflagIndex = fileName.lastIndexOf(".");
+        String endFileFlag = fileName.substring(endflagIndex, fileName.length());
+        String urlFileName = new StringBuilder(getUUID()).append(endFileFlag).toString();
+        fileNameSb.append(urlFileName);
         return fileNameSb.toString();
     }
 

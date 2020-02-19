@@ -17,4 +17,12 @@ public interface IFiles {
      * @throws Exception
      */
     SysFile uploadFile(MultipartFile file) throws Exception;
+
+    /**
+     * 下载文件
+     *
+     * @param file
+     * @throws Exception
+     */
+    void downLoadFile(SysFile file) throws Exception;
 }

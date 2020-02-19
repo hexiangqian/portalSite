@@ -11,6 +11,7 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.*;
+import zy.news.web.UploadFilePathConfig;
 import zy.news.web.zsys.gson.MyGsonUtil;
 import zy.news.web.zsys.interceptor.AuthorityInterceptor;
 
@@ -44,6 +45,9 @@ public class NewsConfiguration extends WebMvcConfigurerAdapter {
                 .maxAge(3600);// 单位：秒，缓存预检测结果时长，避免每次请求进行预检测
     }
 
+    @Autowired
+    private UploadFilePathConfig uploadFilePathConfig;
+
     /*
      * 静态资源访问
      *
@@ -55,10 +59,9 @@ public class NewsConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-
-        // String userdir = System.getProperty("user.dir");
-        // registry.addResourceHandler("/static/**")//
-        // .addResourceLocations(userdir + File.separator + "static" + File.separator);
+        //文件静态资源配置
+        registry.addResourceHandler(uploadFilePathConfig.getStaticAccessPath() + "/**")
+                .addResourceLocations(uploadFilePathConfig.getUploadPath());
         super.addResourceHandlers(registry);
     }
 

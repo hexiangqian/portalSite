@@ -1,4 +1,4 @@
-package zy.news.amain;
+package zy.news.web;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,9 +16,13 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties(prefix = "web")
-public class CusWebConfig {
+public class UploadFilePathConfig {
     /**
      * 文件上传位置
      */
     private String uploadPath;
+    /**
+     * 文件静态访问前缀配置 例如：/static/file/
+     */
+    private String staticAccessPath;
 }
