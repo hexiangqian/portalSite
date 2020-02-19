@@ -4,6 +4,12 @@ server:
     timeout: 1800
 
 spring:
+  #文件大小上传限制
+  http:
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 500MB
   datasource:
     #数据库配置
     url: jdbc:mysql://127.0.0.1:3306/news?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
