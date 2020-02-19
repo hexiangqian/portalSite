@@ -81,7 +81,7 @@ public class NewsConfiguration extends WebMvcConfigurerAdapter {
         // 拦截所有路径
         registration.addPathPatterns("/**");
         // 排除路径
-        registration.excludePathPatterns(new String[]{"/error", "/user/signin", "/user/logout", "/websocket",
+        registration.excludePathPatterns(new String[]{"/error", "/back/user/signin", "/back/user/logout", "/websocket",
                 "/static/**"});
 
         // 调试用
