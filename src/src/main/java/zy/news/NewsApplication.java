@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfig
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import zy.news.amain.AfterAppStartUp;
@@ -19,6 +20,7 @@ import zy.news.amain.AfterAppStartUp;
  */
 
 @PropertySource("classpath:application.yml")
+@EnableConfigurationProperties
 @EnableTransactionManagement(proxyTargetClass = true)
 @SpringBootApplication(exclude = {HibernateJpaAutoConfiguration.class, JpaRepositoriesAutoConfiguration.class,
         JacksonAutoConfiguration.class,
