@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f89c74cd-0fc2-453b-b943-3b45d5211937",
+		"_postman_id": "b71875f6-72ad-41ce-be78-9eb2dc131bb7",
 		"name": "zy_news",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -22,16 +22,17 @@
 					"raw": "{\"username\":\"admin\",\"passwd\":\"zytm\"}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/user/signin",
+					"raw": "http://127.0.0.1:8289/back/user/signin",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"user",
 						"signin"
 					]
@@ -59,16 +60,17 @@
 					"raw": "{\"username\":\"admin\",\"passwd\":\"zytm\"}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/user/logout",
+					"raw": "http://127.0.0.1:8289/back/user/logout",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"user",
 						"logout"
 					]
@@ -93,16 +95,17 @@
 					"raw": "{\"username\":\"test2\",\"realname\":\"测试用户2\", \"passwd\":\"zytm\"}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/user/add",
+					"raw": "http://127.0.0.1:8289/back/user/add",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"user",
 						"add"
 					]
@@ -127,7 +130,7 @@
 					"raw": "{\n\t\"id\":3,\n\t\"username\":\"test02\",\n\t\"realname\":\"测试02啊\",\n\t\"roleid\":2\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/user/update",
+					"raw": "http://127.0.0.1:8289/back/user/update",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -137,6 +140,7 @@
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"user",
 						"update"
 					]
@@ -161,16 +165,17 @@
 					"raw": "{\"passwd\":\"zytm\"}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/user/updatePasswd",
+					"raw": "http://127.0.0.1:8289/back/user/updatePasswd",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"user",
 						"updatePasswd"
 					]
@@ -198,7 +203,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/user/lists?current=1&pageSize=20",
+					"raw": "http://127.0.0.1:8289/back/user/lists?current=1&pageSize=20",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -208,6 +213,7 @@
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"user",
 						"lists"
 					],
@@ -242,16 +248,17 @@
 					"raw": "{\"passwd\":\"zytm\"}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/user/validate",
+					"raw": "http://127.0.0.1:8289/back/user/validate",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"user",
 						"validate"
 					]
@@ -269,16 +276,17 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/sysPermission/lists?current=1&pageSize=10",
+					"raw": "http://127.0.0.1:8289/back/sysPermission/lists?current=1&pageSize=10",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"sysPermission",
 						"lists"
 					],
@@ -306,16 +314,17 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/sysPermission/urlLists?current=1&pageSize=10&fastSearch=",
+					"raw": "http://127.0.0.1:8289/back/sysPermission/urlLists?current=1&pageSize=10&fastSearch=",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"sysPermission",
 						"urlLists"
 					],
@@ -348,16 +357,17 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/sysPermission/getEnablePermissions?current=1&pageSize=10&mNam=",
+					"raw": "http://127.0.0.1:8289/back/sysPermission/getEnablePermissions?current=1&pageSize=10&mNam=",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"sysPermission",
 						"getEnablePermissions"
 					],
@@ -390,16 +400,17 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/sysRole/lists?current=1&pageSize=10",
+					"raw": "http://127.0.0.1:8289/back/sysRole/lists?current=1&pageSize=10",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"sysRole",
 						"lists"
 					],
@@ -434,16 +445,17 @@
 					"raw": "{\n\t\"role\":\"ceshirole\",\n\t\"descr\":\"测试角色\"\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/sysRole/add",
+					"raw": "http://127.0.0.1:8289/back/sysRole/add",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"sysRole",
 						"add"
 					]
@@ -468,16 +480,17 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/sysRole/delete?id=3",
+					"raw": "http://127.0.0.1:8289/back/sysRole/delete?id=3",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"sysRole",
 						"delete"
 					],
@@ -501,16 +514,17 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/sysRole/specRoleEnableMoudles?role=normal&current=1&pageSize=10",
+					"raw": "http://127.0.0.1:8289/back/sysRole/specRoleEnableMoudles?role=normal&current=1&pageSize=10",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"sysRole",
 						"specRoleEnableMoudles"
 					],
@@ -542,16 +556,17 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/sysRole/specRoleUnEnableRootMoudles?role=normal&current=1&pageSize=10",
+					"raw": "http://127.0.0.1:8289/back/sysRole/specRoleUnEnableRootMoudles?role=normal&current=1&pageSize=10",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"sysRole",
 						"specRoleUnEnableRootMoudles"
 					],
@@ -583,16 +598,17 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/sysRole/specRoleUnEnableChildMoudles?role=normal&mNam=系统管理&current=1&pageSize=10",
+					"raw": "http://127.0.0.1:8289/back/sysRole/specRoleUnEnableChildMoudles?role=normal&mNam=系统管理&current=1&pageSize=10",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"sysRole",
 						"specRoleUnEnableChildMoudles"
 					],
@@ -640,16 +656,17 @@
 					"raw": "{\n\t\"roleid\":2,\n\t\"moudleid\":-1\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/sysRole/bindSpecRoleMoudle",
+					"raw": "http://127.0.0.1:8289/back/sysRole/bindSpecRoleMoudle",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"sysRole",
 						"bindSpecRoleMoudle"
 					]
@@ -659,11 +676,8 @@
 		},
 		{
 			"name": "【角色管理】解除指定角色绑定的模块",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -677,18 +691,86 @@
 					"raw": "{\n\t\"roleid\":2,\n\t\"moudleid\":-1\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/sysRole/unBindSpecRoleMoudle",
+					"raw": "http://127.0.0.1:8289/back/sysRole/unBindSpecRoleMoudle",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"9",
-						"48"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"sysRole",
 						"unBindSpecRoleMoudle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【新闻管理】分页获取新闻列表",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"current\":1,\n\t\"pageSize\":10\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/news/getNews",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"news",
+						"getNews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【文件管理】文件上传",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "myfile",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/files/upload",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"files",
+						"upload"
 					]
 				}
 			},
