@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  * @author fanpei
  */
 @RestController
-@RequestMapping("/sysPermission")
+@RequestMapping("/back/sysPermission")
 @ExcuteControllerDsrc("权限管理")
 public class SysPermsController {
 

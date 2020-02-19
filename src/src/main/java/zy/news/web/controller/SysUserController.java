@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("back/user")
 @ExcuteControllerDsrc("用户管理")
 public class SysUserController {
 

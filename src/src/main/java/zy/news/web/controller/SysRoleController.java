@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  * @author fanpei
  */
 @RestController
-@RequestMapping("/sysRole")
+@RequestMapping("/back/sysRole")
 @ExcuteControllerDsrc("角色管理")
 public class SysRoleController {
 
