@@ -30,7 +30,6 @@ public class FileUtils {
 
         String simplePath = getUniquePath(file.getOriginalFilename(), staticPath);
         StringBuilder fpathSb = new StringBuilder(savepath);
-        fpathSb.append(File.separatorChar);
         fpathSb.append(simplePath);
         String realPath = fpathSb.toString();
         File dest = new File(realPath);
@@ -61,6 +60,7 @@ public class FileUtils {
     private static String gerCurrentDateDir() {
         StringBuilder dirSb = new StringBuilder();
         Calendar cal = Calendar.getInstance();
+        dirSb.append(File.separatorChar);
         dirSb.append(cal.get(Calendar.YEAR));
         dirSb.append(File.separatorChar);
         dirSb.append(cal.get(Calendar.HOUR_OF_DAY));
@@ -78,7 +78,6 @@ public class FileUtils {
     private static String getUniquePath(String fileName, String staticPath) {
         StringBuilder fileNameSb = new StringBuilder();
         fileNameSb.append(staticPath);
-        fileNameSb.append(File.separatorChar);
         fileNameSb.append(gerCurrentDateDir());
         fileNameSb.append(File.separatorChar);
         //获取文件后缀

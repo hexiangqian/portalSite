@@ -19,10 +19,12 @@ import org.springframework.stereotype.Component;
 public class UploadFilePathConfig {
     /**
      * 文件上传位置
+     * windows下路径分割符配置 \\
+     * linux下路径配置分割符 /
      */
     private String uploadPath;
     /**
-     * 文件静态访问前缀配置 例如：/static/file/
+     * 文件静态访问前缀配置
      */
-    private String staticAccessPath;
+    private String staticAccessPath = "/static";
 }

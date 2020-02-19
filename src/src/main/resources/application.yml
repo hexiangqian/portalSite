@@ -15,7 +15,7 @@ spring:
     # 初始化大小，最小等待连接数量，最大等待连接数量，最大连接数
     initialSize: 1
     minIdle: 1
-    maxIdle: 5
+    #maxIdle: 5 alibaba已经过时
     maxActive: 20
     # 配置获取连接等待超时的时间
     maxWait: 60000
@@ -37,6 +37,6 @@ spring:
     # 合并多个DruidDataSource的监控数据
     #spring.datasource.useGlobalDataSourceStat=true
 web:
-  uploadPath: D:\news_sys_files
-  staticAccessPath: /staticfile
+  #注意事项:要有后缀 /
+  uploadPath: D:/news_sys_files/
 

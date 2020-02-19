@@ -58,10 +58,9 @@ public class NewsConfiguration extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-        //文件静态资源配置
-        registry.addResourceHandler(uploadFilePathConfig.getStaticAccessPath() + "/**")
-                .addResourceLocations(uploadFilePathConfig.getUploadPath());
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("file:" + uploadFilePathConfig.getUploadPath() + uploadFilePathConfig.getStaticAccessPath() + "/")
+                .addResourceLocations("classpath:/static/");
         super.addResourceHandlers(registry);
     }
 
@@ -80,15 +79,16 @@ public class NewsConfiguration extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration registration = registry.addInterceptor(athinterceptor);
 
-        //[部署时启用]
         // 拦截所有路径
         registration.addPathPatterns("/**");
         // 排除路径
-        registration.excludePathPatterns(new String[]{"/error", "/back/user/signin", "/back/user/logout", "/websocket",
-                "/static/**"});
-
-        // 调试用
-        //registration.excludePathPatterns("/**");
+        registration.excludePathPatterns(new String[]{
+                "/error",//
+                "/back/user/signin", //
+                "/back/user/logout", //
+                "/websocket",//
+                "/static/**"
+        });
 
         super.addInterceptors(registry);
     }
