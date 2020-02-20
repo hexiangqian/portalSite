@@ -16,6 +16,13 @@ import java.lang.annotation.*;
 @Documented
 public @interface ExcutePermission {
     /**
+     * 用户类型，必须登录还是游客权限
+     *
+     * @return
+     */
+    ExcuteUserType userType() default ExcuteUserType.登录用户;
+
+    /**
      * 角色----具有此中一个角色即可
      *
      * @return

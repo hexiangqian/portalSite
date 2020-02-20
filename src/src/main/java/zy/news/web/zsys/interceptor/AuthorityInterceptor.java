@@ -3,12 +3,9 @@ package zy.news.web.zsys.interceptor;
 
 import zy.news.web.bean.SysPermission;
 import zy.news.web.bean.SysUser;
-import zy.news.web.zsys.bean.ExcuteControllerDsrc;
-import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
+import zy.news.web.zsys.bean.*;
 import zy.news.common.exception.LoginTimeOutException;
-import zy.news.web.zsys.bean.PermissionType;
 import zy.news.web.zsys.cache.UserCache;
-import zy.news.web.zsys.bean.ExcutePermission;
 import zy.news.common.exception.PermissonCheckErrorException;
 import zy.news.common.exception.RolePermissionFormatException;
 import maoko.common.StringUtil;
@@ -75,70 +72,75 @@ public class AuthorityInterceptor implements HandlerInterceptor {
      * @throws RolePermissionFormatException
      */
     private void checkPermissPass(HttpServletRequest request, ExcutePermission permiss, ExcuteControllerDsrc contrlDsrc, ExcuteInterfaceDsrc methodDsrc) throws LoginTimeOutException, PermissonCheckErrorException {
-        SysUser usr = userCache.loginTimeOutCheck(request.getSession());
-        if (SysUser.ADMIN_ROLE.equals(usr.getRole()))//admin具有所有权限
-        {
+        //游客无需验证权限
+        if (ExcuteUserType.游客 == permiss.userType()) {
             return;
-        }
-        String url = request.getRequestURI().toString();
-        boolean passrole = false;
-        boolean passType = false;
-        if (userCache.containPerms(usr, url)) {
-            boolean psNotEmpty = null != permiss.Roles() && permiss.Roles().length > 0;
-            boolean ptNotEmpty = null != permiss.Types() && permiss.Types().length > 0;
-            //验证含有role或者type的接口
-            if (psNotEmpty || ptNotEmpty) {
-                SysPermission sp = userCache.getPerms(usr, url);
-                PermissionType[] localTypes = PermissionType.getTypes(sp.getType());
-                //非全用户权限 Roles和Types为空，默认具有全权限
-                //验证角色
-                if (psNotEmpty) {
-                    if (!StringUtil.isStrNullOrWhiteSpace(usr.getRole())) {
-                        for (String tmpRole : permiss.Roles()) {
-                            if (tmpRole.equals(usr.getRole())) {
-                                passrole = true;
-                                break;
+        } else {
+            SysUser usr = userCache.loginTimeOutCheck(request.getSession());
+            if (SysUser.ADMIN_ROLE.equals(usr.getRole()))//admin具有所有权限
+            {
+                return;
+            }
+            String url = request.getRequestURI().toString();
+            boolean passrole = false;
+            boolean passType = false;
+            if (userCache.containPerms(usr, url)) {
+                boolean psNotEmpty = null != permiss.Roles() && permiss.Roles().length > 0;
+                boolean ptNotEmpty = null != permiss.Types() && permiss.Types().length > 0;
+                //验证含有role或者type的接口
+                if (psNotEmpty || ptNotEmpty) {
+                    SysPermission sp = userCache.getPerms(usr, url);
+                    PermissionType[] localTypes = PermissionType.getTypes(sp.getType());
+                    //非全用户权限 Roles和Types为空，默认具有全权限
+                    //验证角色
+                    if (psNotEmpty) {
+                        if (!StringUtil.isStrNullOrWhiteSpace(usr.getRole())) {
+                            for (String tmpRole : permiss.Roles()) {
+                                if (tmpRole.equals(usr.getRole())) {
+                                    passrole = true;
+                                    break;
+                                }
                             }
                         }
+                    } else {
+                        passrole = true;
+                    }
+
+                    //验证操作类型
+                    if (ptNotEmpty) {
+                        passType = isAllPermissionType(passType, localTypes);
+                        if (!passType)//非全部
+                        {
+                            List<PermissionType> list1 = Arrays.asList(localTypes);
+                            List<PermissionType> list2 = Arrays.asList(permiss.Types());
+                            if (list1.containsAll(list2)) {
+                                passType = true;
+                            }
+                        }
+                    } else {
+                        passType = true;
                     }
                 } else {
                     passrole = true;
-                }
-
-                //验证操作类型
-                if (ptNotEmpty) {
-                    passType = isAllPermissionType(passType, localTypes);
-                    if (!passType)//非全部
-                    {
-                        List<PermissionType> list1 = Arrays.asList(localTypes);
-                        List<PermissionType> list2 = Arrays.asList(permiss.Types());
-                        if (list1.containsAll(list2)) {
-                            passType = true;
-                        }
-                    }
-                } else{
                     passType = true;
                 }
-            } else {
-                passrole = true;
-                passType = true;
             }
-        }
 
-        boolean pass = passrole & passType;
-        if (!pass) {
-            StringBuilder tipSb = new StringBuilder();
-            tipSb.append("当前用户不具有此操作权限，请联系管理员修改！");
-            tipSb.append(System.lineSeparator()).append("用户名:").append(usr.getRealname());
-            tipSb.append(System.lineSeparator()).append("角色:").append(usr.getRoleName());
-            if (contrlDsrc != null) {
-                tipSb.append(System.lineSeparator()).append("模块:").append(contrlDsrc.value());
+            boolean pass = passrole & passType;
+            if (!pass) {
+                StringBuilder tipSb = new StringBuilder();
+                tipSb.append("当前用户不具有此操作权限，请联系管理员修改！");
+                tipSb.append(System.lineSeparator()).append("用户名:").append(usr.getRealname());
+                tipSb.append(System.lineSeparator()).append("角色:").append(usr.getRoleName());
+                if (contrlDsrc != null) {
+                    tipSb.append(System.lineSeparator()).append("模块:").append(contrlDsrc.value());
+                }
+                if (methodDsrc != null) {
+                    tipSb.append(System.lineSeparator()).append("方法:").append(methodDsrc.value());
+                }
+                tipSb.append(System.lineSeparator()).append("接口地址(URL):").append(url);
+                throw new PermissonCheckErrorException(tipSb.toString());
             }
-            if (methodDsrc != null) {
-                tipSb.append(System.lineSeparator()).append("方法:").append(methodDsrc.value());
-            }
-            tipSb.append(System.lineSeparator()).append("接口地址(URL):").append(url);
-            throw new PermissonCheckErrorException(tipSb.toString());
         }
     }
 
