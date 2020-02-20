@@ -1,5 +1,6 @@
 package zy.news.web.service.impl;
 
+import maoko.common.StringUtil;
 import maoko.common.agorithm.AesCipher;
 import maoko.common.file.FileIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class SvrImpAuthUser implements IAuthUser {
             throw new WarningException("用户id为空，请重新填写参数！");
         }
         SysUser oldUser = selectByPrimaryKey(record.getId());
-        if (oldUser==null) {
+        if (oldUser == null) {
             throw new WarningException("用户已不存在！");
         }
         if (!oldUser.getUsername().equals(record.getUsername())) {
@@ -80,6 +81,9 @@ public class SvrImpAuthUser implements IAuthUser {
     public SysUser login(SysUser usr) throws Exception {
         usr.validate();
         if (null != (usr = selectUserByNamPasswd(usr))) {
+            if (StringUtil.isStrNullOrWhiteSpace(usr.getRole()) || null == usr.getId()) {
+                throw new LoginitException("用户还未分配角色无法登录，请联系管理员！");
+            }
         } else {
             throw new LoginitException("用户名或密码错误！");
         }
