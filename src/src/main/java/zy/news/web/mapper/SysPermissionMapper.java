@@ -3,8 +3,10 @@ package zy.news.web.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import zy.news.web.bean.SysPermission;
 
+@Repository
 public interface SysPermissionMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -17,6 +19,7 @@ public interface SysPermissionMapper {
     int updateByPrimaryKey(SysPermission record);
 
     //append
+
     /**
      * 通过角色获取当前指定模块的权限列表
      *

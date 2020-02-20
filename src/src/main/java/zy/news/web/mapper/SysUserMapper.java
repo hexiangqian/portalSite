@@ -3,8 +3,10 @@ package zy.news.web.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import zy.news.web.bean.SysUser;
 
+@Repository
 public interface SysUserMapper {
     int deleteByPrimaryKey(Long id);
 

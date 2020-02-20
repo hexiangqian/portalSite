@@ -3,11 +3,13 @@ package zy.news.web.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import zy.news.web.bean.SysModule;
 import zy.news.web.bean.SysRole;
 import zy.news.web.ui.param.RoleModulesBind;
 import zy.news.web.ui.param.RolePermsBind;
 
+@Repository
 public interface SysRoleMapper {
     int deleteByPrimaryKey(Long id);
 
