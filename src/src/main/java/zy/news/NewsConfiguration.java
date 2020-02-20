@@ -20,13 +20,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 跨域配置
+ * web配置
+ * 静态资源为static为匹配路径
  *
  * @author fanpei
  */
 @Configuration
 @EnableWebMvc
 public class NewsConfiguration extends WebMvcConfigurerAdapter {
+    public static final String STATICFLAG = "static";
+
     /*
      * 跨域解决
      *
@@ -58,9 +61,9 @@ public class NewsConfiguration extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("file:" + uploadFilePathConfig.getUploadPath() + uploadFilePathConfig.getStaticAccessPath() + "/")
-                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/" + STATICFLAG + "/**")
+                .addResourceLocations("file:" + uploadFilePathConfig.getRealSavePath() + "/")
+                .addResourceLocations("classpath:/" + STATICFLAG + "/");
         super.addResourceHandlers(registry);
     }
 
@@ -82,13 +85,11 @@ public class NewsConfiguration extends WebMvcConfigurerAdapter {
         // 拦截所有路径
         registration.addPathPatterns("/**");
         // 排除路径
-        registration.excludePathPatterns(new String[]{
-                "/error",//
-                "/back/user/signin", //
-                "/back/user/logout", //
-                "/websocket",//
-                "/static/**"
-        });
+        registration.excludePathPatterns("/error",
+                "/back/user/signin",
+                "/back/user/logout",
+                "/websocket",
+                "/static/**");
 
         super.addInterceptors(registry);
     }
