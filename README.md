@@ -8,7 +8,7 @@ zytm公司内部门户网站，包含以下功能模块：
 6.质量专栏  
 7.荣誉中亚  
 8.知识共享    
-#前端  
+# 前端  
 https://github.com/maokofan/portalSite_UI_vue
 # 首页  
 ![index image](https://github.com/maokofan/portalSite/raw/master/img/index.jpg)
