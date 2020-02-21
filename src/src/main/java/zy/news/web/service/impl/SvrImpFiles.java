@@ -38,7 +38,30 @@ public class SvrImpFiles implements IFiles {
 
     @Override
     public void downLoadFile(HttpServletResponse resp, SysFile file) throws IOException, DataIsNullException {
+        file = fileInfoCheck(file);
+        //2.下载
+        FileUtils.download(resp, file, filePathConfig.getUploadPath());
+    }
 
+
+    @Override
+    public void deleteFile(SysFile file) throws IOException, DataIsNullException {
+        file = fileInfoCheck(file);
+        if (fileMapper.deleteByChoose(file) > 0) {
+            FileUtils.deleteFile(file, filePathConfig.getUploadPath());
+        }
+
+    }
+
+    /**
+     * 文件信息检查
+     *
+     * @param file
+     * @return
+     * @throws FileNotFoundException
+     * @throws DataIsNullException
+     */
+    private SysFile fileInfoCheck(SysFile file) throws FileNotFoundException, DataIsNullException {
         //1.验证和查询文件信息
         if (!StringUtil.isStrNullOrWhiteSpace(file.getName())
                 && !StringUtil.isStrNullOrWhiteSpace(file.getPath())) {
@@ -51,8 +74,7 @@ public class SvrImpFiles implements IFiles {
         } else {
             throw new DataIsNullException("文件下载信息不能为空。1.可通过文件id下载; 2.通过文件名称和路径组合进行下载！");
         }
-
-        //2.下载
-        FileUtils.download(resp, file, filePathConfig.getUploadPath());
+        return file;
     }
+
 }

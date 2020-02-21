@@ -96,6 +96,21 @@ public class FileUtils {
     }
 
     /**
+     * 删除文件
+     *
+     * @param file
+     * @param savepath
+     * @throws IOException
+     */
+    public static void deleteFile(SysFile file, String savepath) throws IOException {
+        String fileRealPath = PathUtil.combinePath(savepath, file.getPath());
+        File delFile = new File(fileRealPath);
+        if (delFile.isFile() && delFile.exists()) {
+            delFile.delete();
+        }
+    }
+
+    /**
      * 获取以日期分割的目录结构
      *
      * @return

@@ -6,6 +6,7 @@ import zy.news.web.bean.SysFile;
 import zy.news.web.ui.param.ModuleType;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -30,4 +31,11 @@ public interface IFiles {
      * @throws Exception
      */
     void downLoadFile(HttpServletResponse resp, SysFile file) throws IOException, DataIsNullException;
+
+    /**
+     * 删除文件
+     *
+     * @param file 1.可通过文件id删除; 2.通过文件名称和路径组合进行删除
+     */
+    void deleteFile(SysFile file) throws IOException, DataIsNullException;
 }

@@ -16,4 +16,6 @@ public interface SysFileMapper {
     List<SysFile> selectAll();
 
     int updateByPrimaryKey(SysFile record);
+
+    int deleteByChoose(SysFile file);
 }
