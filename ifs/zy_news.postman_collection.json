@@ -271,10 +271,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://127.0.0.1:8289/back/sysPermission/lists?current=1&pageSize=10",
 					"protocol": "http",
@@ -309,10 +305,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://127.0.0.1:8289/back/sysPermission/urlLists?current=1&pageSize=10&fastSearch=",
 					"protocol": "http",
@@ -352,10 +344,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://127.0.0.1:8289/back/sysPermission/getEnablePermissions?current=1&pageSize=10&mNam=",
 					"protocol": "http",
@@ -395,10 +383,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://127.0.0.1:8289/back/sysRole/lists?current=1&pageSize=10",
 					"protocol": "http",
@@ -509,10 +493,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://127.0.0.1:8289/back/sysRole/specRoleEnableMoudles?role=normal&current=1&pageSize=10",
 					"protocol": "http",
@@ -551,10 +531,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://127.0.0.1:8289/back/sysRole/specRoleUnEnableRootMoudles?role=normal&current=1&pageSize=10",
 					"protocol": "http",
@@ -593,10 +569,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://127.0.0.1:8289/back/sysRole/specRoleUnEnableChildMoudles?role=normal&mNam=系统管理&current=1&pageSize=10",
 					"protocol": "http",
@@ -753,8 +725,8 @@
 					"formdata": [
 						{
 							"key": "myfile",
-							"type": "file",
-							"src": ""
+							"value": null,
+							"type": "file"
 						}
 					]
 				},
@@ -773,6 +745,167 @@
 						"upload"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "【文件管理】文件下载",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b6c42668-2514-493b-8118-94820954d064",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fid\": 6629966040509976576,\r\n    \"name\": \"api-ms-win-core-handle-l1-1-0.dll\",\r\n    \"path\": \"/2020/18/2/e43d4cadbfd54933b7b6d406f1912e09.dll\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/files/download",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"files",
+						"download"
+					]
+				},
+				"description": "文件下载有两种方式：\n1.只通过fid\n2.通过name和path\n\n以上两个参数任选1都可"
+			},
+			"response": [
+				{
+					"name": "【文件管理】文件下载",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fid\": 6629966040509976576,\r\n    \"name\": \"api-ms-win-core-handle-l1-1-0.dll\",\r\n    \"path\": \"/2020/18/2/e43d4cadbfd54933b7b6d406f1912e09.dll\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8289/files/download",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8289",
+							"path": [
+								"files",
+								"download"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "【文件管理】文件访问或下载",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8289/static/2020/19/2/628ad706e434473bb8a1edc730808f51.jpg",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"static",
+						"2020",
+						"19",
+						"2",
+						"628ad706e434473bb8a1edc730808f51.jpg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【文件管理】文件删除",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"fid\": 6630320655629815808,\r\n     \"name\": \"LEN_ThinkPadX1_1920x1080.jpg\",\r\n    \"path\": \"/static/2020/18/2/5bd691a44219476b8e0e16d4e0a0ab2f.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/files/delete",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"files",
+						"delete"
+					]
+				},
+				"description": "文件删除有两种方式：\n1.只通过fid\n2.通过name和path\n\n以上两个参数任选1都可"
 			},
 			"response": []
 		}
