@@ -1,25 +1,15 @@
 package zy.news.web.bean;
 
+import com.google.gson.annotations.Expose;
 import lombok.Data;
+import maoko.common.StringUtil;
+import zy.news.web.zsys.bean.IValidate;
 
-import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
-public class News implements Serializable {
-    private Long id;
-
-    private Long imageid;
-
-    private String titile;
-
-    private Long ntid;
-
-    private String author;
-
-    private Date publishdate;
-
-    private Byte reviewstatus;
+public class News extends NewsSimple implements IValidate {
 
     private String reviewer;
 
@@ -27,34 +17,40 @@ public class News implements Serializable {
 
     private Long pageview;
 
-    private byte[] content;
+    @Expose(serialize = false, deserialize = false)
+    protected byte[] content;
 
-    private static final long serialVersionUID = 1L;
+    //append
+    protected String contentStr;
+    private List<ArticlAnnex> annexes;//附件列表
 
-    //辅助变量 非数据库变量
-    private String newsTName;//新闻类型名称
-    private String imageUrl;//图片地址
-
+    public void setContent(byte[] content) {
+        this.content = content;
+        if (null != content && content.length > 0) {
+            this.contentStr = StringUtil.getUtf8Str(content);
+        } else {
+            this.contentStr = "";
+        }
+    }
 
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", imageid=").append(imageid);
-        sb.append(", titile=").append(titile);
-        sb.append(", ntid=").append(ntid);
-        sb.append(", author=").append(author);
-        sb.append(", publishdate=").append(publishdate);
-        sb.append(", reviewstatus=").append(reviewstatus);
-        sb.append(", reviewer=").append(reviewer);
-        sb.append(", reviewdate=").append(reviewdate);
-        sb.append(", pageview=").append(pageview);
-        sb.append(", content=").append(content);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+    public void validate() throws Exception {
+        if (StringUtil.isStringNull(titile)) {
+            throw new Exception("新闻标题titile字段为空！");
+        }
+        if (ntid == null) {
+            throw new Exception("新闻类型ntid字段为空！");
+        }
+        if (StringUtil.isStringNull(contentStr)) {
+            throw new Exception("新闻内容contentStr字段为空！");
+        }
+    }
+
+
+    /**
+     * 将新闻内容转换为数据库blob
+     */
+    public void convertContent2Blob() throws Exception {
+        content = StringUtil.getUtf8Bytes(contentStr);
     }
 }

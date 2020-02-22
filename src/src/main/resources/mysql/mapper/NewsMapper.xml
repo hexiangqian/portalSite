@@ -48,12 +48,25 @@
     from t_news
     where id = #{id,jdbcType=BIGINT}
   </select>
-    <select id="selectAll" resultMap="BaseResultMap">
-  SELECT
+    <select id="selectAll" resultType="zy.news.web.bean.NewsSimple">
+    SELECT
 	tmp_news.*,
 	file.path AS imageUrl
-  FROM
-      ( SELECT news.*, newstype.newsTName FROM t_news news, t_newstype newstype ) tmp_news
-      LEFT JOIN t_file file ON file.fid = tmp_news.imageid
+    FROM
+        (
+        SELECT
+            id,
+            imageid,
+            titile,
+            news.ntid,
+            newstype.newsTName,
+            author,
+            publishdate,
+            reviewstatus
+        FROM
+            t_news news
+        LEFT JOIN t_newstype newstype ON news.ntid = newstype.ntid
+        ) tmp_news
+        LEFT JOIN t_file file ON file.fid = tmp_news.imageid
   </select>
 </mapper>

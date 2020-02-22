@@ -1,14 +1,18 @@
 package zy.news.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import zy.news.common.Page;
 import zy.news.web.bean.News;
+import zy.news.web.bean.NewsSimple;
 import zy.news.web.service.INews;
-import zy.news.web.zsys.bean.ExcuteControllerDsrc;
-import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
-import zy.news.web.zsys.bean.ExcutePermission;
-import zy.news.web.zsys.bean.PageValuesResult;
+import zy.news.web.zsys.bean.*;
+import zy.news.web.zsys.cache.IUserCache;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 新闻管理
@@ -22,13 +26,21 @@ import zy.news.web.zsys.bean.PageValuesResult;
 public class NewsController {
 
     @Autowired
-    private INews svrImpNews;
+    private INews newsService;
+
 
     @PostMapping("getNews")
     @ExcuteInterfaceDsrc("获取新闻列表")
+    @ExcutePermission(userType = ExcuteUserType.游客)
+    public PageValuesResult<NewsSimple> getNews(@RequestBody Page page) throws Exception {
+        return newsService.getNews(page);
+    }
+
+    @PostMapping("addNews")
+    @ExcuteInterfaceDsrc("添加新闻")
     @ExcutePermission
-    public PageValuesResult<News> getNews(@RequestBody Page page) throws Exception {
-        return svrImpNews.getNews(page);
+    public void addNews(HttpSession session, @RequestBody News news) throws Exception {
+        newsService.addNews(session, news);
     }
 }
 

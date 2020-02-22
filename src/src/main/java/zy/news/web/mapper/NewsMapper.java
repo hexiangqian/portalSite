@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import zy.news.web.bean.News;
+import zy.news.web.bean.NewsSimple;
 
 @Repository
 public interface NewsMapper {
@@ -13,7 +14,7 @@ public interface NewsMapper {
 
     News selectByPrimaryKey(Long id);
 
-    List<News> selectAll();
+    List<NewsSimple> selectAll();
 
     int updateByPrimaryKey(News record);
 }

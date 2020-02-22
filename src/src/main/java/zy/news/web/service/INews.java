@@ -2,7 +2,10 @@ package zy.news.web.service;
 
 import zy.news.common.Page;
 import zy.news.web.bean.News;
+import zy.news.web.bean.NewsSimple;
 import zy.news.web.zsys.bean.PageValuesResult;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 新闻管理接口
@@ -17,5 +20,22 @@ public interface INews {
      * @param page
      * @return
      */
-    PageValuesResult<News> getNews(Page page) throws Exception;
+    PageValuesResult<NewsSimple> getNews(Page page) throws Exception;
+
+    /**
+     * 添加新闻
+     *
+     * @param session
+     * @param news
+     */
+    void addNews(HttpSession session, News news) throws Exception;
+
+    /**
+     * 获取新闻详情
+     *
+     * @param newsid
+     * @return
+     * @throws Exception
+     */
+    News getNewDetail(Long newsid) throws Exception;
 }
