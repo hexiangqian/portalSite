@@ -7,5 +7,10 @@ package zy.news.web.zsys.bean;
  * @date 2020/1/13 17:18
  */
 public interface IValidate {
+    /**
+     * 实体校验
+     *
+     * @throws Exception
+     */
     void validate() throws Exception;
 }
