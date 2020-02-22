@@ -25,4 +25,28 @@ public interface ArticlAnnexMapper {
      * @return
      */
     List<ArticlAnnex> selectAll();
+
+    //append
+
+    /**
+     * 批量添加附件
+     *
+     * @param records
+     */
+    void addAnnexs(List<ArticlAnnex> records);
+
+    /**
+     * 删除指定文章附件
+     *
+     * @param articleid
+     */
+    void deleteByArtAnnexId(Long articleid);
+
+    /**
+     * 获取指定文章附件列表
+     *
+     * @param articleid
+     * @return
+     */
+    List<ArticlAnnex> getAnnexRecords(Long articleid);
 }

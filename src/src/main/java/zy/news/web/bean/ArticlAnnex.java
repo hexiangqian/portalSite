@@ -1,10 +1,13 @@
 package zy.news.web.bean;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
  * @author fanpei
  */
+@Data
 public class ArticlAnnex implements Serializable {
     private Long articleid;
 
@@ -12,21 +15,8 @@ public class ArticlAnnex implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Long getArticleid() {
-        return articleid;
-    }
-
-    public void setArticleid(Long articleid) {
-        this.articleid = articleid;
-    }
-
-    public Long getFid() {
-        return fid;
-    }
-
-    public void setFid(Long fid) {
-        this.fid = fid;
-    }
+    //辅助变量 非数据库变量
+    private String name;//附件名称
 
     @Override
     public String toString() {
