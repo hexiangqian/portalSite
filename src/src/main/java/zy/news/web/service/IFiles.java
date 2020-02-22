@@ -10,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
+ * 文件处理接口
+ *
  * @author maoko
  * @date 2020/2/19 15:30
  */
