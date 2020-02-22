@@ -29,6 +29,11 @@ import java.util.List;
 @EnableWebMvc
 public class NewsConfiguration extends WebMvcConfigurerAdapter {
     public static final String STATICFLAG = "static";
+    @Autowired
+    private UploadFilePathConfig uploadFilePathConfig;
+
+    @Autowired
+    private AuthorityInterceptor athinterceptor;
 
     /*
      * 跨域解决
@@ -48,8 +53,6 @@ public class NewsConfiguration extends WebMvcConfigurerAdapter {
                 .maxAge(3600);// 单位：秒，缓存预检测结果时长，避免每次请求进行预检测
     }
 
-    @Autowired
-    private UploadFilePathConfig uploadFilePathConfig;
 
     /*
      * 静态资源访问
@@ -66,9 +69,6 @@ public class NewsConfiguration extends WebMvcConfigurerAdapter {
                 .addResourceLocations("classpath:/" + STATICFLAG + "/");
         super.addResourceHandlers(registry);
     }
-
-    @Autowired
-    private AuthorityInterceptor athinterceptor;
 
     /*
      * 拦截器

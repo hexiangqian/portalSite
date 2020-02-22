@@ -1,6 +1,5 @@
 package zy.news.web.service.impl;
 
-import maoko.common.StringUtil;
 import maoko.common.file.FileIDUtil;
 import maoko.common.file.PathUtil;
 import org.apache.commons.io.IOUtils;
