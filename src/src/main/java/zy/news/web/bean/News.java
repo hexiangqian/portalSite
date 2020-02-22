@@ -1,8 +1,11 @@
 package zy.news.web.bean;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
 public class News implements Serializable {
     private Long id;
 
@@ -28,93 +31,10 @@ public class News implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
-        return id;
-    }
+    //辅助变量 非数据库变量
+    private String newsTName;//新闻类型名称
+    private String imageUrl;//图片地址
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getImageid() {
-        return imageid;
-    }
-
-    public void setImageid(Long imageid) {
-        this.imageid = imageid;
-    }
-
-    public String getTitile() {
-        return titile;
-    }
-
-    public void setTitile(String titile) {
-        this.titile = titile == null ? null : titile.trim();
-    }
-
-    public Long getNtid() {
-        return ntid;
-    }
-
-    public void setNtid(Long ntid) {
-        this.ntid = ntid;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author == null ? null : author.trim();
-    }
-
-    public Date getPublishdate() {
-        return publishdate;
-    }
-
-    public void setPublishdate(Date publishdate) {
-        this.publishdate = publishdate;
-    }
-
-    public Byte getReviewstatus() {
-        return reviewstatus;
-    }
-
-    public void setReviewstatus(Byte reviewstatus) {
-        this.reviewstatus = reviewstatus;
-    }
-
-    public String getReviewer() {
-        return reviewer;
-    }
-
-    public void setReviewer(String reviewer) {
-        this.reviewer = reviewer == null ? null : reviewer.trim();
-    }
-
-    public Date getReviewdate() {
-        return reviewdate;
-    }
-
-    public void setReviewdate(Date reviewdate) {
-        this.reviewdate = reviewdate;
-    }
-
-    public Long getPageview() {
-        return pageview;
-    }
-
-    public void setPageview(Long pageview) {
-        this.pageview = pageview;
-    }
-
-    public byte[] getContent() {
-        return content;
-    }
-
-    public void setContent(byte[] content) {
-        this.content = content;
-    }
 
     @Override
     public String toString() {

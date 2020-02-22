@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zy.news.web.mapper.NewsMapper">
-  <resultMap id="BaseResultMap" type="zy.news.web.bean.News">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="imageid" jdbcType="BIGINT" property="imageid" />
-    <result column="titile" jdbcType="VARCHAR" property="titile" />
-    <result column="ntid" jdbcType="BIGINT" property="ntid" />
-    <result column="author" jdbcType="VARCHAR" property="author" />
-    <result column="publishdate" jdbcType="TIMESTAMP" property="publishdate" />
-    <result column="reviewstatus" jdbcType="TINYINT" property="reviewstatus" />
-    <result column="reviewer" jdbcType="VARCHAR" property="reviewer" />
-    <result column="reviewdate" jdbcType="TIMESTAMP" property="reviewdate" />
-    <result column="pageview" jdbcType="BIGINT" property="pageview" />
-    <result column="content" jdbcType="LONGVARBINARY" property="content" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <resultMap id="BaseResultMap" type="zy.news.web.bean.News">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="imageid" jdbcType="BIGINT" property="imageid"/>
+        <result column="titile" jdbcType="VARCHAR" property="titile"/>
+        <result column="ntid" jdbcType="BIGINT" property="ntid"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="publishdate" jdbcType="TIMESTAMP" property="publishdate"/>
+        <result column="reviewstatus" jdbcType="TINYINT" property="reviewstatus"/>
+        <result column="reviewer" jdbcType="VARCHAR" property="reviewer"/>
+        <result column="reviewdate" jdbcType="TIMESTAMP" property="reviewdate"/>
+        <result column="pageview" jdbcType="BIGINT" property="pageview"/>
+        <result column="content" jdbcType="LONGVARBINARY" property="content"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_news
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="zy.news.web.bean.News">
+    <insert id="insert" parameterType="zy.news.web.bean.News">
     insert into t_news (id, imageid, titile, 
       ntid, author, publishdate, 
       reviewstatus, reviewer, reviewdate, 
@@ -28,7 +28,7 @@
       #{reviewstatus,jdbcType=TINYINT}, #{reviewer,jdbcType=VARCHAR}, #{reviewdate,jdbcType=TIMESTAMP}, 
       #{pageview,jdbcType=BIGINT}, #{content,jdbcType=LONGVARBINARY})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.News">
+    <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.News">
     update t_news
     set imageid = #{imageid,jdbcType=BIGINT},
       titile = #{titile,jdbcType=VARCHAR},
@@ -42,15 +42,18 @@
       content = #{content,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select id, imageid, titile, ntid, author, publishdate, reviewstatus, reviewer, reviewdate, 
     pageview, content
     from t_news
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, imageid, titile, ntid, author, publishdate, reviewstatus, reviewer, reviewdate, 
-    pageview, content
-    from t_news
+    <select id="selectAll" resultMap="BaseResultMap">
+  SELECT
+	tmp_news.*,
+	file.path AS imageUrl
+  FROM
+      ( SELECT news.*, newstype.newsTName FROM t_news news, t_newstype newstype ) tmp_news
+      LEFT JOIN t_file file ON file.fid = tmp_news.imageid
   </select>
 </mapper>
