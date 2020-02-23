@@ -1,10 +1,7 @@
 package zy.news.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import zy.news.common.Page;
 import zy.news.web.bean.News;
 import zy.news.web.bean.NewsSimple;
@@ -34,6 +31,15 @@ public class NewsController {
     @ExcutePermission(userType = ExcuteUserType.游客)
     public PageValuesResult<NewsSimple> getNews(@RequestBody Page page) throws Exception {
         return newsService.getNews(page);
+    }
+
+    @GetMapping("existTitle")
+    @ExcuteInterfaceDsrc("标题已存在个数")
+    @ExcutePermission
+    public boolean existTitle(@RequestParam String title) throws Exception {
+        News news = new News();
+        news.setTitile(title);
+        return newsService.exist(news);
     }
 
     @PostMapping("addNews")
