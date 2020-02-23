@@ -25,8 +25,12 @@ import java.io.IOException;
 @RequestMapping("/files")
 @ExcuteControllerDsrc("文件管理")
 public class FilesController {
+    private final IFiles fileService;
+
     @Autowired
-    private IFiles fileService;
+    public FilesController(IFiles fileService) {
+        this.fileService = fileService;
+    }
 
     @PostMapping("/upload")
     @ResponseBody
