@@ -22,8 +22,12 @@ import javax.servlet.http.HttpSession;
 @ExcuteControllerDsrc("新闻管理")
 public class NewsController {
 
+    private final INews newsService;
+
     @Autowired
-    private INews newsService;
+    public NewsController(INews newsService) {
+        this.newsService = newsService;
+    }
 
 
     @PostMapping("getNews")
