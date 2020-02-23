@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zy.news.web.mapper.SettingsMapper">
+    <!--新闻-->
+    <select id="newsTypeCount" resultType="java.lang.Integer">
+        select count(*) from t_newstype
+        where newsTName=#{name ,jdbcType=VARCHAR}
+    </select>
+    <select id="selectNewsType" resultType="zy.news.web.bean.NewsType">
+        select * from t_newstype
+        where ntid=#{ntid,jdbcType=BIGINT}
+    </select>
+    <select id="addNewsType">
+        insert into t_newstype(ntid,newsTName)
+        values(#{ntid,jdbcType=BIGINT},#{newsTName ,jdbcType=VARCHAR})
+    </select>
+    <update id="updateNewsType">
+        update t_newstype set newsTName=#{newsTName ,jdbcType=VARCHAR}
+        where ntid=#{ntid,jdbcType=BIGINT}
+    </update>
+    <select id="selectAllNewsType" resultType="zy.news.web.bean.NewsType">
+        select * from t_newstype
+    </select>
+    <!--通知-->
+    <select id="noticeTypeCount" resultType="java.lang.Integer">
+        select count(*) from t_noticeType
+        where newsTName=#{name ,jdbcType=VARCHAR}
+    </select>
+    <select id="selectNoticeType" resultType="zy.news.web.bean.NoticeType">
+        select * from t_NoticeType
+        where ntid=#{ntid,jdbcType=BIGINT}
+    </select>
+    <select id="addNoticeType">
+        insert into t_NoticeType(ntid,atName)
+        values(#{ntid,jdbcType=BIGINT},#{atName ,jdbcType=VARCHAR})
+    </select>
+    <update id="updateNoticeType">
+        update t_NoticeType set atName=#{atName ,jdbcType=VARCHAR}
+        where ntid=#{ntid,jdbcType=BIGINT}
+    </update>
+    <select id="selectAllNoticeType" resultType="zy.news.web.bean.NoticeType">
+        select * from t_NoticeType
+    </select>
+</mapper>
