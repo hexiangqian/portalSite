@@ -14,7 +14,7 @@ public interface NewsMapper {
 
     News selectByPrimaryKey(Long id);
 
-    List<NewsSimple> selectAll();
+    List<NewsSimple> selectAll(Integer reviewStatus);
 
     int updateByPrimaryKey(News record);
 

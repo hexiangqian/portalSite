@@ -11,6 +11,7 @@ import zy.news.web.bean.SysUser;
 import zy.news.web.mapper.NewsMapper;
 import zy.news.web.service.IAnnex;
 import zy.news.web.service.INews;
+import zy.news.web.ui.param.ReviewStatus;
 import zy.news.web.zsys.bean.PageValuesParam;
 import zy.news.web.zsys.bean.PageValuesResult;
 import zy.news.web.zsys.cache.IUserCache;
@@ -39,8 +40,9 @@ public class SvrImpNews implements INews {
     }
 
     @Override
-    public PageValuesResult<NewsSimple> getNews(Page page) throws Exception {
+    public PageValuesResult<NewsSimple> getNews(Page page, ReviewStatus reviewStatus) throws Exception {
         PageValuesParam<NewsSimple> params = new PageValuesParam<>(mapper, "selectAll");
+        params.addParam(reviewStatus.getValue());
         return ServiceUtil.getValuePageResult(page, params);
     }
 

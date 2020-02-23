@@ -66,6 +66,7 @@
         FROM
             t_news news
         LEFT JOIN t_newstype newstype ON news.ntid = newstype.ntid
+        WHERE news.reviewstatus=#{reviewstatus,jdbcType=TINYINT}
         ) tmp_news
         LEFT JOIN t_file file ON file.fid = tmp_news.imageid
   </select>

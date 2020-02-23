@@ -6,6 +6,7 @@ import zy.news.common.Page;
 import zy.news.web.bean.News;
 import zy.news.web.bean.NewsSimple;
 import zy.news.web.service.INews;
+import zy.news.web.ui.param.ReviewStatus;
 import zy.news.web.zsys.bean.*;
 import zy.news.web.zsys.cache.IUserCache;
 
@@ -34,7 +35,14 @@ public class NewsController {
     @ExcuteInterfaceDsrc("获取新闻列表")
     @ExcutePermission(userType = ExcuteUserType.游客)
     public PageValuesResult<NewsSimple> getNews(@RequestBody Page page) throws Exception {
-        return newsService.getNews(page);
+        return newsService.getNews(page, ReviewStatus.已审核);
+    }
+
+    @PostMapping("getNewsUnReview")
+    @ExcuteInterfaceDsrc("获取新闻列表")
+    @ExcutePermission
+    public PageValuesResult<NewsSimple> getNewsUnReview(@RequestBody Page page) throws Exception {
+        return newsService.getNews(page, ReviewStatus.未审核);
     }
 
     @GetMapping("existTitle")

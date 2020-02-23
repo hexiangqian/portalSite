@@ -3,6 +3,7 @@ package zy.news.web.service;
 import zy.news.common.Page;
 import zy.news.web.bean.News;
 import zy.news.web.bean.NewsSimple;
+import zy.news.web.ui.param.ReviewStatus;
 import zy.news.web.zsys.bean.PageValuesResult;
 
 import javax.servlet.http.HttpSession;
@@ -18,9 +19,10 @@ public interface INews {
      * 分页获取新闻列表
      *
      * @param page
+     * @param reviewStatus 审核状态
      * @return
      */
-    PageValuesResult<NewsSimple> getNews(Page page) throws Exception;
+    PageValuesResult<NewsSimple> getNews(Page page, ReviewStatus reviewStatus) throws Exception;
 
     /**
      * 判断此新闻是否存在

@@ -57,7 +57,7 @@ public class PageValuesParam<T> {
         if (params.isEmpty()) {
             return (List<T>) getMethod().invoke(invoker);
         } else {
-            return (List<T>) getMethod().invoke(invoker, params);
+            return (List<T>) getMethod().invoke(invoker, params.toArray());
         }
     }
 }
