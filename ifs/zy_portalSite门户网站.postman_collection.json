@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "83c0a3f9-21d8-4a44-b398-f7bade35ab38",
-		"name": "zy_portalSite门户网站",
+		"name": "zy_news",
 		"description": "公司门户网站开发接口doc，用于指导前端开发人员开发。",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
