@@ -23,6 +23,14 @@ public interface INews {
     PageValuesResult<NewsSimple> getNews(Page page) throws Exception;
 
     /**
+     * 判断此新闻是否存在
+     *
+     * @param news
+     * @return
+     */
+    boolean exist(News news);
+
+    /**
      * 添加新闻
      *
      * @param session

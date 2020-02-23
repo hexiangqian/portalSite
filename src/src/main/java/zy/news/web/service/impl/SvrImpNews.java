@@ -44,10 +44,19 @@ public class SvrImpNews implements INews {
         return ServiceUtil.getValuePageResult(page, params);
     }
 
+    @Override
+    public boolean exist(News news) {
+        return mapper.exist(news) > 0;
+    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void addNews(HttpSession session, News news) throws Exception {
         news.validate();
+
+        if (exist(news)) {
+            throw new Exception("新闻名称已存在，请修改后再试一试！");
+        }
         SysUser user = userCache.getUserFromSession(session);
         //赋值
         news.setId(new Long(FileIDUtil.getNextIdLong()));

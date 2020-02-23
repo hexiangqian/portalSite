@@ -17,4 +17,14 @@ public interface NewsMapper {
     List<NewsSimple> selectAll();
 
     int updateByPrimaryKey(News record);
+
+    //apend
+
+    /**
+     * 此新闻是否存在
+     *
+     * @param news
+     * @return
+     */
+    int exist(News news);
 }

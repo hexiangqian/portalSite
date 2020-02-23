@@ -69,4 +69,8 @@
         ) tmp_news
         LEFT JOIN t_file file ON file.fid = tmp_news.imageid
   </select>
+    <select id="exist" parameterType="zy.news.web.bean.News">
+    SELECT count( * ) FROM t_news t
+    WHERE t.titile=#{titile,jdbcType=VARCHAR}
+    </select>
 </mapper>
