@@ -3,6 +3,7 @@ package zy.news.web.service.impl;
 import maoko.common.file.FileIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import zy.news.common.Page;
 import zy.news.web.bean.News;
 import zy.news.web.bean.NewsSimple;
@@ -43,6 +44,7 @@ public class SvrImpNews implements INews {
         return ServiceUtil.getValuePageResult(page, params);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void addNews(HttpSession session, News news) throws Exception {
         news.validate();
