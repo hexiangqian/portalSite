@@ -8,7 +8,7 @@
 7.荣誉中亚  
 8.知识共享    
 # Documentation  
-https://documenter.getpostman.com/view/10489749/SzKVQxhN?version=latest  
+https://documenter.getpostman.com/view/10489749/SzKVQy9p    
 # 前端项目  
 https://github.com/maokofan/portalSite_UI_vue 
 # 首页
