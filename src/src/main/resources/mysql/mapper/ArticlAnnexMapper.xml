@@ -22,7 +22,7 @@
       insert into t_articleannex  (articleid, fid)
       values
       <foreach collection="records" item="item" separator=",">
-        (#{item.articleid,jdbcType=BIGINT},#{item.fid,jdbcType=BIGINT})
+        (#{articleid,jdbcType=BIGINT},#{item.fid,jdbcType=BIGINT})
       </foreach>
     </select>
     <delete id="deleteByArtAnnexId" parameterType="java.lang.Long">

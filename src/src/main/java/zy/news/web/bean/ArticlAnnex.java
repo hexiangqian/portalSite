@@ -1,5 +1,6 @@
 package zy.news.web.bean;
 
+import com.google.gson.annotations.Expose;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.io.Serializable;
  */
 @Data
 public class ArticlAnnex implements Serializable {
+    @Expose(serialize = false, deserialize = false)
     private Long articleid;
 
     private Long fid;

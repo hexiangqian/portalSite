@@ -25,21 +25,21 @@ public class SvrlmpAnnex implements IAnnex {
     }
 
     @Override
-    public void adds(List<ArticlAnnex> records) throws Exception {
+    public void adds(Long articleid, List<ArticlAnnex> records) throws Exception {
         if (null != records && !records.isEmpty()) {
-            annexMapper.addAnnexs(records);
+            annexMapper.addAnnexs(articleid, records);
         }
     }
 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updates(List<ArticlAnnex> records) throws Exception {
+    public void updates(Long articleid, List<ArticlAnnex> records) throws Exception {
         if (null == records || records.isEmpty()) {
             throw new Exception("附件列表为空，禁止添加！");
         }
         annexMapper.deleteByArtAnnexId(records.get(0).getArticleid());
-        annexMapper.addAnnexs(records);
+        annexMapper.addAnnexs(articleid, records);
     }
 
     @Override

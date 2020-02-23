@@ -15,10 +15,11 @@ public interface IAnnex {
     /**
      * 批量添加附件
      *
+     * @param articleid 文章id
      * @param records
      * @throws Exception
      */
-    void adds(List<ArticlAnnex> records) throws Exception;
+    void adds(Long articleid,List<ArticlAnnex> records) throws Exception;
 
     /**
      * 批量更新附件
@@ -27,7 +28,7 @@ public interface IAnnex {
      * @throws Exception
      */
     @Transactional(rollbackFor = Exception.class)
-    void updates(List<ArticlAnnex> records) throws Exception;
+    void updates(Long articleid,List<ArticlAnnex> records) throws Exception;
 
     /**
      * 获取指定文章的附件列表

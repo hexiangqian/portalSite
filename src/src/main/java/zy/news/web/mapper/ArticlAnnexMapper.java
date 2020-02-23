@@ -31,9 +31,10 @@ public interface ArticlAnnexMapper {
     /**
      * 批量添加附件
      *
+     * @param articleid
      * @param records
      */
-    void addAnnexs(List<ArticlAnnex> records);
+    void addAnnexs(@Param("articleid") Long articleid, @Param("records") List<ArticlAnnex> records);
 
     /**
      * 删除指定文章附件

@@ -64,7 +64,7 @@ public class SvrImpNews implements INews {
         mapper.insert(news);
 
         //插入附件
-        annexService.adds(news.getAnnexes());
+        annexService.adds(news.getId(), news.getAnnexes());
     }
 
     @Override
