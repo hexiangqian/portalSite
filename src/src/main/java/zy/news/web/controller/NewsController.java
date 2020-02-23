@@ -38,7 +38,7 @@ public class NewsController {
     }
 
     @GetMapping("existTitle")
-    @ExcuteInterfaceDsrc("标题已存在个数")
+    @ExcuteInterfaceDsrc("标题是否重复")
     @ExcutePermission
     public boolean existTitle(@RequestParam String title) throws Exception {
         News news = new News();
