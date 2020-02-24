@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zy.news.web.mapper.DepartMentMapper">
+  <resultMap id="BaseResultMap" type="zy.news.web.bean.DepartMent">
+    <id column="dptid" jdbcType="INTEGER" property="dptid" />
+    <id column="dptname" jdbcType="VARCHAR" property="dptname" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from t_sys_dept
+    where dptid = #{dptid,jdbcType=INTEGER}
+      and dptname = #{dptname,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="zy.news.web.bean.DepartMent">
+    insert into t_sys_dept (dptid, dptname)
+    values (#{dptid,jdbcType=INTEGER}, #{dptname,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select dptid, dptname
+    from t_sys_dept
+  </select>
+</mapper>
