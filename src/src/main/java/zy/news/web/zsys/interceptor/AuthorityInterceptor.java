@@ -3,6 +3,7 @@ package zy.news.web.zsys.interceptor;
 
 import zy.news.web.bean.SysPermission;
 import zy.news.web.bean.SysUser;
+import zy.news.web.mapper.SysPermissionMapper;
 import zy.news.web.zsys.bean.*;
 import zy.news.common.exception.LoginTimeOutException;
 import zy.news.web.zsys.cache.UserCache;
@@ -31,6 +32,9 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserCache userCache;
+
+    @Autowired
+    private SysPermissionMapper permissionMapper;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -77,61 +81,11 @@ public class AuthorityInterceptor implements HandlerInterceptor {
             return;
         } else {
             SysUser usr = userCache.loginTimeOutCheck(request.getSession());
-            if (SysUser.ADMIN_ROLE.equals(usr.getRole()))//admin具有所有权限
-            {
-                return;
-            }
-            String url = request.getRequestURI().toString();
-            boolean passrole = false;
-            boolean passType = false;
-            if (userCache.containPerms(usr, url)) {
-                boolean psNotEmpty = null != permiss.Roles() && permiss.Roles().length > 0;
-                boolean ptNotEmpty = null != permiss.Types() && permiss.Types().length > 0;
-                //验证含有role或者type的接口
-                if (psNotEmpty || ptNotEmpty) {
-                    SysPermission sp = userCache.getPerms(usr, url);
-                    PermissionType[] localTypes = PermissionType.getTypes(sp.getType());
-                    //非全用户权限 Roles和Types为空，默认具有全权限
-                    //验证角色
-                    if (psNotEmpty) {
-                        if (!StringUtil.isStrNullOrWhiteSpace(usr.getRole())) {
-                            for (String tmpRole : permiss.Roles()) {
-                                if (tmpRole.equals(usr.getRole())) {
-                                    passrole = true;
-                                    break;
-                                }
-                            }
-                        }
-                    } else {
-                        passrole = true;
-                    }
-
-                    //验证操作类型
-                    if (ptNotEmpty) {
-                        passType = isAllPermissionType(passType, localTypes);
-                        if (!passType)//非全部
-                        {
-                            List<PermissionType> list1 = Arrays.asList(localTypes);
-                            List<PermissionType> list2 = Arrays.asList(permiss.Types());
-                            if (list1.containsAll(list2)) {
-                                passType = true;
-                            }
-                        }
-                    } else {
-                        passType = true;
-                    }
-                } else {
-                    passrole = true;
-                    passType = true;
-                }
-            }
-
-            boolean pass = passrole & passType;
-            if (!pass) {
+            String url = request.getRequestURI();
+            if (permissionMapper.containPermissonByUrl(usr.getId(), usr.getUsername(), url) == 0) {
                 StringBuilder tipSb = new StringBuilder();
                 tipSb.append("当前用户不具有此操作权限，请联系管理员修改！");
                 tipSb.append(System.lineSeparator()).append("用户名:").append(usr.getRealname());
-                tipSb.append(System.lineSeparator()).append("角色:").append(usr.getRoleName());
                 if (contrlDsrc != null) {
                     tipSb.append(System.lineSeparator()).append("模块:").append(contrlDsrc.value());
                 }
@@ -141,6 +95,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
                 tipSb.append(System.lineSeparator()).append("接口地址(URL):").append(url);
                 throw new PermissonCheckErrorException(tipSb.toString());
             }
+            userCache.updateUserTimeOut(usr);
         }
     }
 
@@ -151,6 +106,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
      * @param localTypes
      * @return
      */
+    @Deprecated
     private boolean isAllPermissionType(boolean passType, PermissionType[] localTypes) {
         if (localTypes != null) {
             for (PermissionType pt : localTypes) {
@@ -166,6 +122,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
     /**
      * 角色权限容器
      */
+    @Deprecated
     private static class RolePermissionContaner {
         private String[] roles;
         @Deprecated

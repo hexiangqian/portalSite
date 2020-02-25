@@ -51,8 +51,10 @@ public interface SysModuleMapper {
     List<Long> unionParentAndSon(@Param("psIds") List<Long> ids);
 
     /**
-     * 获取当前角色指定模块的的子模块列表
+     * 获取指定角色指定模块指定父亲id集合的子模块列表
      *
+     * @param role
+     * @param mNam
      * @param ids
      * @return
      */

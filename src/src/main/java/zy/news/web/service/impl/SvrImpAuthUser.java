@@ -1,5 +1,6 @@
 package zy.news.web.service.impl;
 
+import com.alibaba.druid.sql.visitor.functions.If;
 import maoko.common.StringUtil;
 import maoko.common.agorithm.AesCipher;
 import maoko.common.file.FileIDUtil;
@@ -10,6 +11,7 @@ import zy.news.common.ValuesPage;
 import zy.news.common.exception.LoginitException;
 import zy.news.common.exception.WarningException;
 import zy.news.web.bean.SysUser;
+import zy.news.web.mapper.SysRoleMapper;
 import zy.news.web.mapper.SysUserMapper;
 import zy.news.web.service.IAuthUser;
 import zy.news.web.zsys.bean.PageValuesParam;
@@ -23,11 +25,16 @@ import java.util.List;
 @Service
 public class SvrImpAuthUser implements IAuthUser {
 
-    @Autowired
-    private SysUserMapper mapper;
+    private final SysUserMapper mapper;
+    private final SysRoleMapper roleMapper;
+    private final IUserCache userCache;
 
     @Autowired
-    private IUserCache userCache;
+    public SvrImpAuthUser(SysUserMapper mapper, SysRoleMapper roleMapper, IUserCache userCache) {
+        this.mapper = mapper;
+        this.roleMapper = roleMapper;
+        this.userCache = userCache;
+    }
 
 
     @Override
@@ -43,7 +50,8 @@ public class SvrImpAuthUser implements IAuthUser {
         if (mapper.selectByName(record.getUsername()) != null) {
             throw new WarningException("此用户名已存在！");
         }
-        return mapper.insert(record);
+        int result = mapper.insert(record);
+        return result;
     }
 
     @Override
@@ -81,7 +89,7 @@ public class SvrImpAuthUser implements IAuthUser {
     public SysUser login(SysUser usr) throws Exception {
         usr.validate();
         if (null != (usr = selectUserByNamPasswd(usr))) {
-            if (StringUtil.isStrNullOrWhiteSpace(usr.getRole()) || null == usr.getId()) {
+            if (!SysUser.ADMIN_NAME.equals(usr.getUsername()) && roleMapper.selectUserRoleCount(usr.getId()) == 0) {
                 throw new LoginitException("用户还未分配角色无法登录，请联系管理员！");
             }
         } else {
@@ -89,12 +97,18 @@ public class SvrImpAuthUser implements IAuthUser {
         }
         usr.setToken(FileIDUtil.getNextId());
         // 加载模块
-        userCache.addUser2Cache(usr);
+        userCache.updateUserTimeOut(usr);
+        if (!SysUser.ADMIN_NAME.equals(usr.getUsername())) {
+            usr.setRoleList(roleMapper.selectUserRoles(usr.getId()));
+        }
         return usr;
     }
 
     @Override
-    public SysUser selectUserByNamPasswd(SysUser user) {
+    public SysUser selectUserByNamPasswd(SysUser user) throws WarningException {
+        if (SysUser.ADMIN_ROLE.equals(user.getUsername())) {
+            throw new WarningException("禁止操作管理员账户");
+        }
         return mapper.selectByNamePasswd(user.getUsername(), user.getAesPassWd());
     }
 

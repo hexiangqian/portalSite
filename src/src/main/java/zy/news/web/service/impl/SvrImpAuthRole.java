@@ -41,7 +41,6 @@ public class SvrImpAuthRole implements IAuthRole {
             throw new WarningException("角色-权限中仍存在待删除角色信息，请先取消角色关联绑定，再选择此角色进行删除。");
         }
         int count = mapper.deleteByPrimaryKey(id);
-        userCache.invalidate(id);
         return count;
     }
 
@@ -157,8 +156,9 @@ public class SvrImpAuthRole implements IAuthRole {
     @Override
     public ValuesPage selectAllPage(Page page) throws Exception {
         PageValuesParam pvparam = new PageValuesParam(mapper, "selectAll");
-        return ServiceUtil.getValuePage(page,pvparam);
+        return ServiceUtil.getValuePage(page, pvparam);
     }
+
     @Override
     @Deprecated
     public boolean checkRolePermsExist(RolePermsBind bindShip) {
@@ -173,13 +173,13 @@ public class SvrImpAuthRole implements IAuthRole {
             throw new WarningException("部分权限[" + bindShip.getpermisdStr() + "]已存在，请检查！");
         }
         mapper.bindRolePerms(bindShip);
-        userCache.invalidate(bindShip.getRoleid());
+        //userCache.invalidate(bindShip.getRoleid());
     }
 
     @Override
     @Deprecated
     public void unBindRolePerms(RolePermsBind bindShip) {
         mapper.unBindRolePerms(bindShip);
-        userCache.invalidate(bindShip.getRoleid());
+        //userCache.invalidate(bindShip.getRoleid());
     }
 }

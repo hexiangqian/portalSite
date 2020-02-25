@@ -24,7 +24,7 @@ public interface IAuthUser extends IBaseCruid<SysUser> {
      *
      * @return
      */
-    SysUser selectUserByNamPasswd(SysUser user);
+    SysUser selectUserByNamPasswd(SysUser user) throws WarningException;
 
     /**
      * 绑定角色

@@ -18,39 +18,16 @@ public interface SysPermissionMapper {
 
     int updateByPrimaryKey(SysPermission record);
 
-    //append
+    //apend
 
     /**
-     * 通过角色获取当前指定模块的权限列表
+     * 判断指定用户是否包含url权限
      *
-     * @param roleName
-     * @param mNam
+     * @param usrid
+     * @param username
+     * @param url
      * @return
      */
-    List<SysPermission> getPermissonsByRoleModule(@Param("roleName") String roleName, @Param("mNam") String mNam);
+    int containPermissonByUrl(@Param("userid") Long usrid, @Param("username") String username, @Param("url") String url);
 
-    /**
-     * 通过角色id获取权限列表
-     *
-     * @param roleid
-     * @return
-     */
-    List<SysPermission> getHasBindPermsByRoleid(@Param("roleid") Long roleid);
-
-    /**
-     * 获取指定角色未绑定的权限列表
-     *
-     * @param roleid
-     * @return
-     */
-    @Deprecated
-    List<SysPermission> getNoBindLists(@Param("roleid") Long roleid);
-
-    /**
-     * 模糊匹配获取Url列表
-     *
-     * @param fastSearch
-     * @return
-     */
-    List<String> getUrlLists(@Param("fastSearch") String fastSearch);
 }

@@ -1,11 +1,15 @@
 package zy.news.web.bean;
 
+import lombok.Data;
 import maoko.common.StringUtil;
 import maoko.common.agorithm.AesCipher;
 import zy.news.common.exception.WarningException;
 import zy.news.web.zsys.bean.IValidate;
 import zy.news.web.zsys.gson.MyExpose;
 
+import java.util.List;
+
+@Data
 public class SysUser implements IValidate {
     public static final String ADMIN_ROLE = "admin";//mapper.xml文件中使用 与数据库统一
     public static final String ADMIN_NAME = "admin";//mapper.xml文件中使用 与数据库统一
@@ -21,95 +25,9 @@ public class SysUser implements IValidate {
     private String realname;
     @MyExpose(serialize = false)
     private String passwd;
-    private Long roleid;//隶属于角色ID
-    private String role;//隶属于角色
-    private String roleName;//隶属于角色名称
+    private List<SysRole> roleList;
     private String token;//登录验证码
 
-    //region getter setter
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
-
-    public String getRealname() {
-        return realname;
-    }
-
-    public void setRealname(String realname) {
-        this.realname = realname == null ? null : realname.trim();
-    }
-
-    public String getPasswd() {
-        return passwd;
-    }
-
-    public void setPasswd(String passwd) {
-        this.passwd = passwd == null ? null : passwd.trim();
-    }
-
-    public Long getRoleid() {
-        return roleid;
-    }
-
-    public void setRoleid(Long roleid) {
-        this.roleid = roleid;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public static String getSessionUser() {
-        return SESSION_USER;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-    //endregion
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", username=").append(username);
-        sb.append(", realname=").append(realname);
-        sb.append(", passwd=").append(passwd);
-        sb.append(", roleid=").append(roleid);
-        sb.append("]");
-        return sb.toString();
-    }
 
     @Override
     public void validate() throws Exception {

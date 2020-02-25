@@ -63,9 +63,9 @@
         FROM T_SYS_PERMISSION sp
         <if test="'@zy.news.web.bean.SysUser@ADMIN_ROLE'!=roleName and '' != roleName and null != roleName">
             LEFT JOIN T_SYS_ROLEPERMS rp ON sp.id = rp.permissionid
-            WHERE (rp.roleid =
+            WHERE rp.roleid =
             (SELECT r.id FROM T_SYS_ROLE r WHERE r.role =#{roleName,jdbcType=VARCHAR})
-            or sp.mustneed=1)AND sp.type !='1'
+            or sp.mustneed=1
         </if>
     </select>
     <select id="unionParentAndSon" resultType="java.lang.Long" parameterType="java.util.ArrayList">

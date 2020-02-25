@@ -105,4 +105,20 @@ public interface SysRoleMapper {
      * @return
      */
     long selectRoleByName(@Param("role") String roleNam);
+
+    /**
+     * 检查用户具有权限个数
+     *
+     * @param userid
+     * @return
+     */
+    int selectUserRoleCount(long userid);
+
+    /**
+     * 获取用户角色列表
+     *
+     * @param userid
+     * @return
+     */
+    List<SysRole> selectUserRoles(long userid);
 }

@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import zy.news.common.Page;
-import zy.news.common.ValuesPage;
-import zy.news.common.db.base.DbExampleUtil;
+import zy.news.web.bean.SysModule;
 import zy.news.web.bean.SysUser;
-import zy.news.web.service.impl.SvrImpAuthPermission;
+import zy.news.web.service.impl.SvrImpAuthPerms;
 import zy.news.web.zsys.bean.ExcuteControllerDsrc;
 import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
 import zy.news.web.zsys.bean.ExcutePermission;
+import zy.news.web.zsys.bean.PageValuesResult;
 import zy.news.web.zsys.cache.IUserCache;
 
 import javax.servlet.http.HttpSession;
@@ -28,42 +28,55 @@ import javax.servlet.http.HttpSession;
 @ExcuteControllerDsrc("权限管理")
 public class SysPermsController {
 
-    @Autowired
-    private SvrImpAuthPermission service;
+    private final SvrImpAuthPerms service;
+    private final IUserCache userCache;
 
     @Autowired
-    private IUserCache userCache;
+    public SysPermsController(IUserCache userCache, SvrImpAuthPerms service) {
+        this.userCache = userCache;
+        this.service = service;
+    }
 
-
-    @GetMapping("lists")
-    @ExcuteInterfaceDsrc("获取列表")
+/*    @GetMapping("getRootModules")
+    @ExcuteInterfaceDsrc("获取一级模块列表")
     @ExcutePermission
-    public ValuesPage getRecords(HttpSession session, @RequestParam int current, @RequestParam int pageSize) throws Exception {
+    public PageValuesResult<SysModule> getRootModules(@RequestParam int current, @RequestParam int pageSize) throws Exception {
         Page page = new Page();
         page.setCurrent(current);
         page.setPageSize(pageSize);
-        return service.getRecords(page);
+        return service.getRootModules(page);
     }
 
-    @ExcuteInterfaceDsrc("获取系统已有接口列表")
-    @GetMapping("urlLists")
+    @GetMapping("getChildModulesByParet")
+    @ExcuteInterfaceDsrc("获取子模块列表")
     @ExcutePermission
-    public ValuesPage getUrlLists(@RequestParam int current, @RequestParam int pageSize, @RequestParam String fastSearch) throws Exception {
+    public PageValuesResult<SysModule> getChildModulesByParet(@RequestParam int current, @RequestParam int pageSize, @RequestParam String mNam) throws Exception {
         Page page = new Page();
         page.setCurrent(current);
         page.setPageSize(pageSize);
-        fastSearch = DbExampleUtil.getLikeValue(fastSearch);
-        return service.getUrlLists(page, fastSearch);
+        return service.getChildModulesByParet(page, mNam);
     }
 
-    @ExcuteInterfaceDsrc("获取当前角色指定模块可用权限列表")
-    @GetMapping("getEnablePermissions")
+    @GetMapping("getRootModulesByRole")
+    @ExcuteInterfaceDsrc("获取当前角色拥有一级模块列表")
     @ExcutePermission
-    public ValuesPage getEnablePermissions(HttpSession session, @RequestParam int current, @RequestParam int pageSize, @RequestParam String mNam) throws Exception {
+    public PageValuesResult<SysModule> getRootModulesByRole(HttpSession session, @RequestParam int current, @RequestParam int pageSize) throws Exception {
+        Page page = new Page();
+        page.setCurrent(current);
+        page.setPageSize(pageSize);
         SysUser user = userCache.getUserFromSession(session);
+        return service.getRootModulesByRole(user.getRole());
+    }
+
+    @GetMapping("getChildModulesByParetByRole")
+    @ExcuteInterfaceDsrc("获取当前角色某模块拥有的子模块列表")
+    @ExcutePermission
+    public PageValuesResult<SysModule> getChildModulesByParetByRole(HttpSession session, @RequestParam int current, @RequestParam int pageSize, @RequestParam String mNam) throws Exception {
         Page page = new Page();
         page.setCurrent(current);
         page.setPageSize(pageSize);
-        return service.getEnablePermsByRoleAndParent(page, user.getRole(), mNam);
-    }
+        SysUser user = userCache.getUserFromSession(session);
+        return service.getChildModulesByParetRole(user.getRole(), mNam);
+    }*/
+
 }

@@ -21,18 +21,4 @@ public @interface ExcutePermission {
      * @return
      */
     ExcuteUserType userType() default ExcuteUserType.登录用户;
-
-    /**
-     * 角色----具有此中一个角色即可
-     *
-     * @return
-     */
-    String[] Roles() default {};
-
-    /**
-     * 操作类型-----具有此中所有操作类型即可
-     *
-     * @return
-     */
-    PermissionType[] Types() default {};
 }

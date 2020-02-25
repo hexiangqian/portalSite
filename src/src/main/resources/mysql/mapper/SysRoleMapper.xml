@@ -127,4 +127,11 @@
         select  count(*) from t_sys_role t
         where t.role=#{role,jdbcType=VARCHAR}
     </select>
+    <select id="selectUserRoleCount" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select count(*) from t_sys_roleusers where userid=#{userid,jdbcType=BIGINT}
+    </select>
+    <select id="selectUserRoles" parameterType="java.lang.Long" resultType="zy.news.web.bean.SysRole" >
+        select * from t_sys_role where id in
+        (select roleid from t_sys_roleusers where userid=#{userid,jdbcType=BIGINT})
+    </select>
 </mapper>

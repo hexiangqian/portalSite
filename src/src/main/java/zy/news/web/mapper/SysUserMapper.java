@@ -43,6 +43,12 @@ public interface SysUserMapper {
      */
     SysUser selectByNamePasswd(@Param("name") String name, @Param("passwd") String passwd);
 
+    /**
+     * 通过用户名获取用户
+     *
+     * @param name
+     * @return
+     */
     SysUser selectByName(@Param("name") String name);
 
 }
