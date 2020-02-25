@@ -3,12 +3,15 @@ package zy.news.web.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zy.news.common.Page;
+import zy.news.web.bean.DepartMent;
 import zy.news.web.bean.NewsType;
 import zy.news.web.bean.NoticeType;
 import zy.news.web.mapper.SettingsMapper;
 import zy.news.web.service.ISettings;
 import zy.news.web.zsys.bean.PageValuesParam;
 import zy.news.web.zsys.bean.PageValuesResult;
+
+import java.util.List;
 
 /**
  * 系统设置
@@ -85,5 +88,14 @@ public class SvrImpSettings implements ISettings {
         PageValuesParam<NoticeType> params = new PageValuesParam<>(settingsMapper, "selectAllNoticeType");
         return ServiceUtil.getValuePageResult(page, params);
     }
+    //endregion
+
+    //region 部门
+
+    @Override
+    public List<DepartMent> getDepartMents() {
+        return null;
+    }
+
     //endregion
 }

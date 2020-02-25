@@ -1,9 +1,12 @@
 package zy.news.web.service;
 
 import zy.news.common.Page;
+import zy.news.web.bean.DepartMent;
 import zy.news.web.bean.NewsType;
 import zy.news.web.bean.NoticeType;
 import zy.news.web.zsys.bean.PageValuesResult;
+
+import java.util.List;
 
 /**
  * 系统设置接口
@@ -63,5 +66,14 @@ public interface ISettings {
      */
     PageValuesResult<NoticeType> getNoticeType(Page page) throws Exception;
 
+    //endregion
+
+    //region 公司部门
+
+    /**
+     * 获取所有部门列表
+     * @return
+     */
+    List<DepartMent> getDepartMents();
     //endregion
 }

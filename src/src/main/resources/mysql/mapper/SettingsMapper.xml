@@ -41,4 +41,8 @@
     <select id="selectAllNoticeType" resultType="zy.news.web.bean.NoticeType">
         select * from t_NoticeType
     </select>
+    <!--部门-->
+    <select id="selectDepartMents" resultType="zy.news.web.bean">
+        select * from t_sys_dept;
+    </select>
 </mapper>

@@ -1,18 +1,15 @@
 package zy.news.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import zy.news.common.Page;
+import zy.news.web.bean.DepartMent;
 import zy.news.web.bean.NewsType;
 import zy.news.web.bean.NoticeType;
 import zy.news.web.service.ISettings;
-import zy.news.web.zsys.bean.ExcuteControllerDsrc;
-import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
-import zy.news.web.zsys.bean.ExcutePermission;
-import zy.news.web.zsys.bean.PageValuesResult;
+import zy.news.web.zsys.bean.*;
+
+import java.util.List;
 
 /**
  * 系统设置
@@ -21,7 +18,7 @@ import zy.news.web.zsys.bean.PageValuesResult;
  * @date 2020/2/23 22:29
  */
 @RestController
-@RequestMapping("/settings")
+@RequestMapping("/back/settings")
 @ExcuteControllerDsrc("系统设置")
 public class SettingsController {
 
@@ -80,6 +77,17 @@ public class SettingsController {
     @ExcutePermission
     public PageValuesResult<NoticeType> getNoticeType(@RequestBody Page page) throws Exception {
         return settingsService.getNoticeType(page);
+    }
+
+    //endregion
+
+    //region 部门
+
+    @GetMapping("/dept/getDepartMents")
+    @ExcuteInterfaceDsrc("获取部门列表")
+    @ExcutePermission(userType = ExcuteUserType.游客)
+    public List<DepartMent> getDepartMents() {
+        return settingsService.getDepartMents();
     }
 
     //endregion
