@@ -47,7 +47,7 @@ public class SvrImpAuthRole implements IAuthRole {
     @Override
     public int insert(SysRole record) throws WarningException {
         if (SysUser.ADMIN_ROLE.equals(record.getRole()) || SysUser.SYSROLE_DESCR.equals(record.getDescr())) {
-            throw new WarningException("此用户名或描述已被系统占用，竞争使用，请求改其他名称或描述！");
+            throw new WarningException("此角色名或描述已被系统占用，竞争使用，请求改其他名称或描述！");
         }
         long count = mapper.selectRoleByName(record.getRole());
         if (count > 0) {
@@ -72,73 +72,22 @@ public class SvrImpAuthRole implements IAuthRole {
     }
 
     @Override
-    public ValuesPage specRoleEnableMoudles(String roleName, Page page) {
-        List<SysModule> records = null;
-        if (page == null) {
-            page = new Page();//不分页
-        }
-        //大于0分页有效
-        if (page.getCurrent() > 0) {
-            // 配置分页
-            PageHelper.startPage(page.getCurrent(), page.getSize());
-            records = mapper.specRoleEnableMoudles(roleName);
-            PageInfo<SysModule> pageInfo = new PageInfo<>(records);
-            // 取分页信息
-            page.setTotal(pageInfo.getTotal());
-            page.setTotalPages(pageInfo.getPages());
-        } else {
-            records = mapper.specRoleEnableMoudles(roleName);
-            page.setTotal(records != null ? records.size() : 0);
-        }
-        return new ValuesPage(records, page);
+    public List<SysModule> specRoleEnableMoudles(Long roleid) {
+        return mapper.specRoleEnableMoudles(roleid);
     }
 
     @Override
-    public ValuesPage specRoleUnEnableRootMoudles(String roleName, Page page) {
-        List<SysModule> records = null;
-        if (page == null) {
-            page = new Page();//不分页
-        }
-        //大于0分页有效
-        if (page.getCurrent() > 0) {
-            // 配置分页
-            PageHelper.startPage(page.getCurrent(), page.getSize());
-            records = mapper.specRoleUnEnableRootMoudles(roleName);
-            PageInfo<SysModule> pageInfo = new PageInfo<>(records);
-            // 取分页信息
-            page.setTotal(pageInfo.getTotal());
-            page.setTotalPages(pageInfo.getPages());
-        } else {
-            records = mapper.specRoleUnEnableRootMoudles(roleName);
-            page.setTotal(records != null ? records.size() : 0);
-        }
-        return new ValuesPage(records, page);
+    public List<SysModule> specRoleUnEnableRootMoudles(Long roleid) {
+        return mapper.specRoleUnEnableRootMoudles(roleid);
     }
 
     @Override
-    public ValuesPage specRoleUnEnableChildMoudles(String roleName, String mNam, Page page) {
-        List<SysModule> records = null;
-        if (page == null) {
-            page = new Page();//不分页
-        }
-        //大于0分页有效
-        if (page.getCurrent() > 0) {
-            // 配置分页
-            PageHelper.startPage(page.getCurrent(), page.getSize());
-            records = mapper.specRoleUnEnableChildMoudles(roleName, mNam);
-            PageInfo<SysModule> pageInfo = new PageInfo<>(records);
-            // 取分页信息
-            page.setTotal(pageInfo.getTotal());
-            page.setTotalPages(pageInfo.getPages());
-        } else {
-            records = mapper.specRoleUnEnableChildMoudles(roleName, mNam);
-            page.setTotal(records != null ? records.size() : 0);
-        }
-        return new ValuesPage(records, page);
+    public List<SysModule> specRoleUnEnableChildMoudles(Long roleid, Long moduleid) {
+        return mapper.specRoleUnEnableChildMoudles(roleid, moduleid);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void bindSpecRoleMoudle(RoleModulesBind modulesBind) throws Exception {
         modulesBind.validate();
         List<Long> moudleids = modulesBind.getMoudleids();

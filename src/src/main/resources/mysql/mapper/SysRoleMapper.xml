@@ -67,59 +67,69 @@
         )
     </select>
     <select id="specRoleUnEnableRootMoudles" resultType="zy.news.web.bean.SysModule">
-    select tc.id,tc.modulename,tc.parent,tp.modulename as pmName from T_SYS_MODULE tc
-    left join  T_SYS_MODULE  tp on tc.parent=tp.id
-     where  tc.modulename !='首页'and tc.parent =0 and tc.delflag=0
-    order by tp.id asc,tc.modulename
+    SELECT
+        tc.id,
+        tc.modulename,
+        tc.parent,
+        tp.modulename AS pmName
+    FROM
+        T_SYS_MODULE tc
+        LEFT JOIN T_SYS_MODULE tp ON tc.parent = tp.id
+    WHERE
+        tc.parent = 0 AND tc.delflag = 0
+    ORDER BY
+        tp.id ASC,
+        tc.modulename
     </select>
     <select id="specRoleUnEnableChildMoudles" resultType="zy.news.web.bean.SysModule">
-       select * from (select tc.id,tc.modulename,tc.parent,tp.modulename as pmName from T_SYS_MODULE tc
-    left join  T_SYS_MODULE  tp on tc.parent=tp.id
-     where  tc.id  not in (
-     select distinct moduleid
-                    from T_SYS_PERMISSION
-                   where id in (select distinct tprms.permissionid
-                                 from T_SYS_ROLEPERMS tprms
-                                 where roleid = (SELECT trole.id
-                                                   from T_SYS_ROLE trole
-                                                  where role =#{roleName,jdbcType=VARCHAR})
-                                 )
-    )and tc.parent !=0  and tc.delflag=0
-    order by tp.id asc,tc.modulename)t
-    where t.pmName=#{mNam,jdbcType=VARCHAR}
+	SELECT
+		tc.id,
+		tc.modulename,
+		tc.parent,
+		tp.modulename AS pmName
+	FROM
+		T_SYS_MODULE tc
+		LEFT JOIN T_SYS_MODULE tp ON tc.parent = tp.id
+	WHERE
+		tc.id NOT IN ( SELECT DISTINCT moduleid FROM T_SYS_PERMISSION  WHERE id !=-1 AND mustneed != 1
+		               AND id IN (SELECT DISTINCT tprms.permissionid FROM  T_SYS_ROLEPERMS tprms WHERE roleid =  #{roleid,jdbcType=BIGINT})
+				          )
+		AND tc.parent != 0
+		AND tc.delflag = 0
+		AND tc.parent = #{moduleid,jdbcType=BIGINT}
     </select>
     <select id="specRoleEnableMoudles" resultType="zy.news.web.bean.SysModule">
-     select tc.id,tc.modulename,tc.parent,tp.modulename as pmName from T_SYS_MODULE tc
-    left join  T_SYS_MODULE  tp on tc.parent=tp.id
-     where  tc.id  in (
-     select distinct moduleid
-                    from T_SYS_PERMISSION
-                   where id in (select distinct tprms.permissionid
-                                 from T_SYS_ROLEPERMS tprms
-                                 where roleid = (SELECT trole.id
-                                                   from T_SYS_ROLE trole
-                                                  where role =#{roleName,jdbcType=VARCHAR})
-                                 )
-    )and tc.parent !=0 and tc.delflag=0 or tc.modulename='首页'
-    order by tp.id desc,tc.modulename
+    SELECT
+        tc.id,
+        tc.modulename,
+        tc.parent,
+        tp.modulename AS pmName
+    FROM
+        T_SYS_MODULE tc
+        LEFT JOIN T_SYS_MODULE tp ON tc.parent = tp.id
+    WHERE
+        tc.parent != 0
+        AND tc.delflag = 0
+        AND tc.id IN (
+        SELECT DISTINCT moduleid FROM T_SYS_PERMISSION WHERE id IN ( SELECT DISTINCT permissionid FROM T_SYS_ROLEPERMS WHERE roleid = #{roleid,jdbcType=BIGINT} ))
     </select>
     <update id="delSpecRoleMoudle">
         delete from T_SYS_ROLEPERMS trp
-        where trp.roleid=#{roleid,jdbcType=NUMERIC}
+        where trp.roleid=#{roleid,jdbcType=BIGINT}
     </update>
     <insert id="bindSpecRoleMoudle">
         INSERT INTO T_SYS_ROLEPERMS(ROLEID,PERMISSIONID)
-        (SELECT #{roleid,jdbcType=NUMERIC},TPM.ID FROM T_SYS_PERMISSION TPM
-        WHERE TPM.MODULEID=#{mid,jdbcType=NUMERIC})
+        (SELECT #{roleid,jdbcType=BIGINT},TPM.ID FROM T_SYS_PERMISSION TPM
+        WHERE TPM.mustneed !=1 AND TPM.moduleid !=-1 AND TPM.MODULEID=#{mid,jdbcType=BIGINT})
     </insert>
     <update id="unBindSpecRoleMoudle">
         delete from T_SYS_ROLEPERMS trp
-        where trp.roleid=#{modulesBind.roleid,jdbcType=NUMERIC}
+        where trp.roleid=#{modulesBind.roleid,jdbcType=BIGINT}
         and trp.permissionid in (
-        select tcsp.id from T_SYS_PERMISSION tcsp
-        where tcsp.moduleid in
+        select TPM.id from T_SYS_PERMISSION TPM
+        where TPM.moduleid in
         <foreach collection="modulesBind.moudleids" open="(" close=")" separator="," item="mid">
-            #{mid,jdbcType=NUMERIC}
+            #{mid,jdbcType=BIGINT}
         </foreach>
         )
     </update>
@@ -130,7 +140,7 @@
     <select id="selectUserRoleCount" parameterType="java.lang.Long" resultType="java.lang.Integer">
         select count(*) from t_sys_roleusers where userid=#{userid,jdbcType=BIGINT}
     </select>
-    <select id="selectUserRoles" parameterType="java.lang.Long" resultType="zy.news.web.bean.SysRole" >
+    <select id="selectUserRoles" parameterType="java.lang.Long" resultType="zy.news.web.bean.SysRole">
         select * from t_sys_role where id in
         (select roleid from t_sys_roleusers where userid=#{userid,jdbcType=BIGINT})
     </select>

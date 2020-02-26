@@ -24,6 +24,7 @@ public interface SysRoleMapper {
     //append
 
     //region Deprecated
+
     /**
      * 检查权限是否存在
      *
@@ -63,24 +64,24 @@ public interface SysRoleMapper {
      *
      * @return
      */
-    List<SysModule> specRoleEnableMoudles(@Param("roleName") String roleName);
+    List<SysModule> specRoleEnableMoudles(@Param("roleid") Long roleid);
 
     /**
      * 获取指定角色指定模块未拥有的模块列表
      *
-     * @param roleName
+     * @param roleid
      * @return
      */
-    List<SysModule> specRoleUnEnableRootMoudles(@Param("roleName") String roleName);
+    List<SysModule> specRoleUnEnableRootMoudles(@Param("roleid") Long roleid);
 
     /**
      * 获取指定角色指定模块未拥有的模块列表
      *
-     * @param roleName
-     * @param mNam
+     * @param roleid
+     * @param moduleid
      * @return
      */
-    List<SysModule> specRoleUnEnableChildMoudles(@Param("roleName") String roleName, @Param("mNam") String mNam);
+    List<SysModule> specRoleUnEnableChildMoudles(@Param("roleid") Long roleid, @Param("moduleid") Long moduleid);
 
     /**
      * 删除指定角色所有权限

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import zy.news.common.Page;
 import zy.news.common.ValuesPage;
+import zy.news.web.bean.SysModule;
 import zy.news.web.bean.SysRole;
 import zy.news.web.service.IAuthRole;
 import zy.news.web.ui.param.RoleModulesBind;
@@ -14,6 +15,7 @@ import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
 import zy.news.web.zsys.bean.ExcutePermission;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author fanpei
@@ -71,31 +73,22 @@ public class SysRoleController {
     @GetMapping("specRoleEnableMoudles")
     @ExcuteInterfaceDsrc("获取指定角色已绑定的模块列表")
     @ExcutePermission
-    public ValuesPage specRoleEnableMoudles(@RequestParam String role, @RequestParam int current, @RequestParam int pageSize) throws Exception {
-        Page page = new Page();
-        page.setCurrent(current);
-        page.setPageSize(pageSize);
-        return service.specRoleEnableMoudles(role, page);
+    public List<SysModule> specRoleEnableMoudles(@RequestParam Long roleid) throws Exception {
+        return service.specRoleEnableMoudles(roleid);
     }
 
     @GetMapping("specRoleUnEnableRootMoudles")
     @ExcuteInterfaceDsrc("获取指定角色未拥有的一级模块列表")
     @ExcutePermission
-    public ValuesPage specRoleUnEnableRootMoudles(@RequestParam String role, @RequestParam int current, @RequestParam int pageSize) throws Exception {
-        Page page = new Page();
-        page.setCurrent(current);
-        page.setPageSize(pageSize);
-        return service.specRoleUnEnableRootMoudles(role, page);
+    public List<SysModule> specRoleUnEnableRootMoudles(@RequestParam Long roleid) throws Exception {
+        return service.specRoleUnEnableRootMoudles(roleid);
     }
 
     @GetMapping("specRoleUnEnableChildMoudles")
     @ExcuteInterfaceDsrc("获取指定角色指定模块未拥有的模块列表")
     @ExcutePermission
-    public ValuesPage specRoleUnEnableChildMoudles(@RequestParam String role, @RequestParam String mNam, @RequestParam int current, @RequestParam int pageSize) throws Exception {
-        Page page = new Page();
-        page.setCurrent(current);
-        page.setPageSize(pageSize);
-        return service.specRoleUnEnableChildMoudles(role, mNam, page);
+    public List<SysModule> specRoleUnEnableChildMoudles(@RequestParam Long roleid, @RequestParam Long moduleid) throws Exception {
+        return service.specRoleUnEnableChildMoudles(roleid, moduleid);
     }
 
     @PostMapping("bindSpecRoleMoudle")

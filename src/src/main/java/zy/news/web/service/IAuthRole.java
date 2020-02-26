@@ -4,6 +4,7 @@ package zy.news.web.service;
 import org.springframework.transaction.annotation.Transactional;
 import zy.news.common.Page;
 import zy.news.common.ValuesPage;
+import zy.news.web.bean.SysModule;
 import zy.news.web.bean.SysRole;
 import zy.news.web.ui.param.RoleModulesBind;
 import zy.news.web.ui.param.RolePermsBind;
@@ -44,24 +45,24 @@ public interface IAuthRole extends IBaseCruid<SysRole> {
      *
      * @return
      */
-    ValuesPage specRoleEnableMoudles(String roleName, Page page);
+    List<SysModule> specRoleEnableMoudles(Long roleid);
 
     /**
      * 获取指定角色未拥有的一级模块列表
      *
-     * @param roleName
+     * @param roleid
      * @return
      */
-    ValuesPage specRoleUnEnableRootMoudles(String roleName, Page page);
+    List<SysModule> specRoleUnEnableRootMoudles(Long roleid);
 
     /**
      * 获取指定角色指定模块未拥有的模块列表
      *
-     * @param roleName
-     * @param mNam
+     * @param roleid
+     * @param moduleid
      * @return
      */
-    ValuesPage specRoleUnEnableChildMoudles(String roleName, String mNam, Page page);
+    List<SysModule> specRoleUnEnableChildMoudles(Long roleid, Long moduleid);
 
     /**
      * 绑定指定角色的模块
