@@ -10,10 +10,12 @@ import zy.news.common.Page;
 import zy.news.common.ValuesPage;
 import zy.news.common.exception.LoginitException;
 import zy.news.common.exception.WarningException;
+import zy.news.web.bean.SysRole;
 import zy.news.web.bean.SysUser;
 import zy.news.web.mapper.SysRoleMapper;
 import zy.news.web.mapper.SysUserMapper;
 import zy.news.web.service.IAuthUser;
+import zy.news.web.ui.param.RoleUserBind;
 import zy.news.web.zsys.bean.PageValuesParam;
 import zy.news.web.zsys.cache.IUserCache;
 
@@ -130,5 +132,27 @@ public class SvrImpAuthUser implements IAuthUser {
     public ValuesPage selectAllPage(Page page) throws Exception {
         PageValuesParam pvparam = new PageValuesParam(mapper, "selectAll");
         return ServiceUtil.getValuePage(page, pvparam);
+    }
+
+    @Override
+    public List<SysRole> specUserEnableRoles(Long userid) throws Exception {
+        return mapper.specUserEnableRoles(userid);
+    }
+
+    @Override
+    public List<SysRole> specUserUnEnableRoles(Long userid) throws Exception {
+        return mapper.specUserUnEnableRoles(userid);
+    }
+
+    @Override
+    public void bindSpecUserRole(RoleUserBind userBind) throws Exception {
+        userBind.validate();
+        mapper.bindSpecUserRole(userBind);
+    }
+
+    @Override
+    public void unBindSpecUserRole(RoleUserBind userBind) throws Exception {
+        userBind.validate();
+        mapper.unBindSpecUserRole(userBind);
     }
 }

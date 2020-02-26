@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import zy.news.web.bean.SysRole;
 import zy.news.web.bean.SysUser;
+import zy.news.web.ui.param.RoleUserBind;
 
 @Repository
 public interface SysUserMapper {
@@ -24,6 +28,7 @@ public interface SysUserMapper {
      * @param username
      * @param roleid
      */
+    @Deprecated
     void bindUserRole(@Param("username") String username, @Param("roleid") Long roleid);
 
     /**
@@ -50,5 +55,39 @@ public interface SysUserMapper {
      * @return
      */
     SysUser selectByName(@Param("name") String name);
+
+    /**
+     * 获取指定用户已绑定角色列表
+     *
+     * @param userid
+     * @return
+     * @throws Exception
+     */
+    List<SysRole> specUserEnableRoles(Long userid);
+
+    /**
+     * 获取指定用户未绑定角色列表
+     *
+     * @param userid
+     * @return
+     * @throws Exception
+     */
+    List<SysRole> specUserUnEnableRoles(Long userid);
+
+    /**
+     * 绑定用户角色
+     *
+     * @param userBind
+     * @throws Exception
+     */
+    void bindSpecUserRole(@Param("userBind") RoleUserBind userBind);
+
+    /**
+     * 解除用户角色绑定
+     *
+     * @param userBind
+     * @throws Exception
+     */
+    void unBindSpecUserRole(@Param("userBind")RoleUserBind userBind);
 
 }

@@ -51,4 +51,40 @@
         select * from t_sys_user t
         where t.username=#{name,jdbcType=VARCHAR}
     </select>
+    <select id="specUserEnableRoles" resultType="zy.news.web.bean.SysRole">
+    SELECT
+        *
+    FROM
+        t_sys_role tsr
+    WHERE
+         tsr.id IN ( SELECT DISTINCT roleid FROM t_sys_roleusers WHERE userid=#{userid,jdbcType=BIGINT} )
+    </select>
+    <select id="specUserUnEnableRoles" resultType="zy.news.web.bean.SysRole">
+    SELECT
+        *
+    FROM
+        t_sys_role tsr
+    WHERE
+        tsr.role != '${@zy.news.web.bean.SysUser@ADMIN_ROLE}'
+        AND
+        tsr.id NOT IN ( SELECT DISTINCT roleid FROM t_sys_roleusers WHERE userid=#{userid,jdbcType=BIGINT} )
+    </select>
+    <insert id="bindSpecUserRole" parameterType="zy.news.web.ui.param.RoleUserBind">
+        insert into t_sys_roleusers (userid,roleid)
+        values
+        <foreach collection="userBind.roleids" item="roleid" separator=",">
+            (#{userBind.userid,jdbcType=BIGINT},#{roleid,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+    <update id="unBindSpecUserRole" parameterType="zy.news.web.ui.param.RoleUserBind">
+        DELETE
+        FROM
+        t_sys_roleusers tsr
+        WHERE
+        tsr.userid = #{userBind.userid,jdbcType=BIGINT}
+        AND tsr.roleid IN
+        <foreach collection="userBind.roleids" item="roleid" open="(" separator="," close=")">
+            #{roleid,jdbcType=BIGINT}
+        </foreach>
+    </update>
 </mapper>

@@ -153,7 +153,7 @@ public class SysUserController {
     }
 
     @PostMapping("unBindSpecUserRole")
-    @ExcuteInterfaceDsrc("给指定用户接触绑定角色")
+    @ExcuteInterfaceDsrc("给指定用户解除绑定角色")
     @ExcutePermission
     public void unBindSpecUserRole(@RequestBody RoleUserBind userBind) throws Exception {
         service.unBindSpecUserRole(userBind);
