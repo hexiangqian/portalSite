@@ -106,9 +106,6 @@ public class SvrImpAuthUser implements IAuthUser {
 
     @Override
     public SysUser selectUserByNamPasswd(SysUser user) throws WarningException {
-        if (SysUser.ADMIN_ROLE.equals(user.getUsername())) {
-            throw new WarningException("禁止操作管理员账户");
-        }
         return mapper.selectByNamePasswd(user.getUsername(), user.getAesPassWd());
     }
 

@@ -112,6 +112,9 @@ public class SysUserController {
     @ExcutePermission
     public boolean validate(HttpSession session, @RequestBody SafePass passwd) throws LoginTimeOutException, WarningException {
         SysUser luser = userCache.getUserFromSession(session);
+        if (SysUser.ADMIN_ROLE.equals(luser.getUsername())) {
+            throw new WarningException("禁止操作管理员账户");
+        }
         luser.setPasswd(passwd.getPasswd());
         return service.selectUserByNamPasswd(luser) != null;
     }
