@@ -57,7 +57,7 @@ public class SysUserController {
     @GetMapping("lists")
     @ExcuteInterfaceDsrc("获取列表")
     @ExcutePermission
-    public ValuesPage getRecords(HttpSession session, int current, int pageSize) throws Exception {
+    public ValuesPage getRecords(int current, int pageSize) throws Exception {
         Page page = new Page();
         page.setCurrent(current);
         page.setPageSize(pageSize);
