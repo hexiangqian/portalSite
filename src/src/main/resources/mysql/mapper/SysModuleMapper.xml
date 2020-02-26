@@ -39,56 +39,49 @@
         from T_SYS_MODULE sm
         where
         <choose>
-            <when test="mNam ==null or mNam ==''">parent=0</when>
+            <when test="moduleid ==null">parent=0</when>
             <otherwise>
-                parent=(SELECT id from T_SYS_MODULE where moduleName= #{mNam,jdbcType=VARCHAR})
+                parent=#{moduleid,jdbcType=BIGINT}
             </otherwise>
         </choose>
     </select>
-    <select id="getRoleRootModules" resultType="zy.news.web.bean.SysModule"
-            parameterType="java.util.ArrayList">
-        select sm.*
-        ,(SELECT count(*) from T_SYS_MODULE where parent=sm.id) as haschild
-        from T_SYS_MODULE sm
-        where parent=0
-        <if test=" '@zy.news.web.bean.SysUser@ADMIN_ROLE'!= roleName and '' != roleName and null != roleName">
-            and id in
-            <foreach collection="psIds" open="(" item="moduleid" close=")" separator=",">
-                #{moduleid,jdbcType=NUMERIC}
-            </foreach>
-        </if>
+    <select id="getUserEnableModuleIds" resultType="java.lang.Long">
+     SELECT DISTINCT
+            moduleid
+            FROM
+            T_SYS_PERMISSION sp
+            WHERE
+            sp.mustneed = 0
+            AND sp.id IN (
+            SELECT
+            rp.permissionid
+            FROM
+            t_sys_roleperms rp
+            WHERE
+            rp.roleid IN ( SELECT r.roleid FROM t_sys_roleusers r WHERE r.userid = #{userid,jdbcType=BIGINT} ))
     </select>
-    <select id="getPSModuleIdsByRole" resultType="java.lang.Long">
-        SELECT DISTINCT moduleid
-        FROM T_SYS_PERMISSION sp
-        <if test="'@zy.news.web.bean.SysUser@ADMIN_ROLE'!=roleName and '' != roleName and null != roleName">
-            LEFT JOIN T_SYS_ROLEPERMS rp ON sp.id = rp.permissionid
-            WHERE rp.roleid =
-            (SELECT r.id FROM T_SYS_ROLE r WHERE r.role =#{roleName,jdbcType=VARCHAR})
-            or sp.mustneed=1
-        </if>
-    </select>
-    <select id="unionParentAndSon" resultType="java.lang.Long" parameterType="java.util.ArrayList">
-        <foreach collection="psIds" item="moduleid" separator="union">
-            select #{moduleid,jdbcType=NUMERIC} from dual
-        </foreach>
-        union
-        select parent from T_SYS_MODULE where parent !=0 and id in
+    <select id="getParentModuleIdsBySonIds" resultType="java.lang.Long" parameterType="java.util.ArrayList">
+        select DISTINCT parent from T_SYS_MODULE where id in
         <foreach collection="psIds" open="(" item="moduleid" close=")" separator=",">
-            #{moduleid,jdbcType=NUMERIC}
+            #{moduleid,jdbcType=BIGINT}
         </foreach>
     </select>
-    <select id="getRoleChildModules" resultType="zy.news.web.bean.SysModule"
+    <select id="getModuleIdsByParent" resultType="java.lang.Long">
+        select id from t_sys_module
+        where parent=#{moduleid,jdbcType=BIGINT}
+        and id in
+        <foreach collection="psIds" open="(" item="mid" close=")" separator=",">
+            #{mid,jdbcType=BIGINT}
+        </foreach>
+    </select>
+    <select id="getUserEnableModules" resultType="zy.news.web.bean.SysModule"
             parameterType="java.util.ArrayList">
         select sm.*
         ,(SELECT count(*) from T_SYS_MODULE where parent=sm.id) as haschild
         from T_SYS_MODULE sm
-        where parent=(SELECT id from T_SYS_MODULE where moduleName= #{mNam,jdbcType=VARCHAR})
-        <if test="'@zy.news.web.bean.SysUser@ADMIN_ROLE'!=roleName and '' != roleName and null != roleName">
-            AND id IN
-            <foreach collection="psIds" open="(" item="moduleid" close=")" separator=",">
-                #{moduleid,jdbcType=NUMERIC}
-            </foreach>
-        </if>
+        where id in
+        <foreach collection="psIds" open="(" item="mid" close=")" separator=",">
+            #{mid,jdbcType=BIGINT}
+        </foreach>
     </select>
 </mapper>

@@ -23,12 +23,14 @@ public interface SysRoleMapper {
 
     //append
 
+    //region Deprecated
     /**
      * 检查权限是否存在
      *
      * @param bindShip
      * @return
      */
+    @Deprecated
     long checkRolePermsExist(@Param("bindShip") RolePermsBind bindShip);
 
     /**
@@ -36,6 +38,7 @@ public interface SysRoleMapper {
      *
      * @param bindShip
      */
+    @Deprecated
     void bindRolePerms(@Param("bindShip") RolePermsBind bindShip);
 
     /**
@@ -43,7 +46,9 @@ public interface SysRoleMapper {
      *
      * @param bindShip
      */
+    @Deprecated
     void unBindRolePerms(@Param("bindShip") RolePermsBind bindShip);
+    //endregion Deprecated
 
     /**
      * 检查roleids 是否在T_SYS_ROLEPERMS表中存在记录

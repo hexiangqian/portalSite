@@ -17,4 +17,6 @@ public class SysModule {
     @Expose(serialize = false, deserialize = false)
     private Date updatetime;
 
+    private int haschild;//0 不包含儿子 >0：包含儿子
+
 }

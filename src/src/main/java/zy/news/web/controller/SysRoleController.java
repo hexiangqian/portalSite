@@ -49,6 +49,8 @@ public class SysRoleController {
         service.deleteByPrimaryKey(id);
     }
 
+    //region Deprecated
+
     @ExcuteInterfaceDsrc("绑定权限")
     @PostMapping("bindRolePerms")
     @ExcutePermission
@@ -64,7 +66,7 @@ public class SysRoleController {
     public void unBindRolePermission(@RequestBody RolePermsBind permsBind) {
         service.unBindRolePerms(permsBind);
     }
-
+    //endregion Deprecated
 
     @GetMapping("specRoleEnableMoudles")
     @ExcuteInterfaceDsrc("获取指定角色已绑定的模块列表")

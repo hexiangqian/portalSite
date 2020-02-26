@@ -46,15 +46,15 @@ public class SvrImpSysModule implements IModule {
         List<Long> psIds = null;
         List<SysModule> modules = null;
         if (!SysUser.ADMIN_NAME.equals(user.getUsername())) {
-            //获取权限关联的模块id[除数据地图外，全二级以下模块]
-            psIds = mapper.getPsModuleIdsByUser(user.getId());
+            //获取权限关联的模块id[全二级以下模块]
+            psIds = mapper.getUserEnableModuleIds(user.getId());
             //获取二级模块的一级模块
             if (!psIds.isEmpty()) {
-                psIds = mapper.unionParentAndSon(psIds);
+                psIds = mapper.getParentModuleIdsBySonIds(psIds);
             }
-            //获取一级模块列表
+            //获取模块列表
             if (!psIds.isEmpty()) {
-                modules = mapper.getRoleRootModules(user.getId(), psIds);
+                modules = mapper.getUserEnableModules(psIds);
             }
         } else {
             modules = getRootModules();
@@ -70,10 +70,14 @@ public class SvrImpSysModule implements IModule {
         List<SysModule> modules = null;
         if (!SysUser.ADMIN_NAME.equals(user.getUsername())) {
             //获取权限关联的模块id[除数据地图外，全二级以下模块]
-            psIds = mapper.getPsModuleIdsByUser(user.getId());
-            //获取指定模块的二级模块列表
+            psIds = mapper.getUserEnableModuleIds(user.getId());
+            //获取指定模块的二级模块id
             if (!psIds.isEmpty()) {
-                modules = mapper.getRoleChildModules(user.getId(), moduleid, psIds);
+                psIds = mapper.getModuleIdsByParent(moduleid, psIds);
+            }
+            //获取模块列表
+            if (!psIds.isEmpty()) {
+                modules = mapper.getUserEnableModules(psIds);
             }
         } else {
             modules = getChildModules(moduleid);

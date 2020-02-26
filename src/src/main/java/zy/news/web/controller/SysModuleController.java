@@ -41,7 +41,7 @@ public class SysModuleController {
     @GetMapping("getChildModules")
     @ExcuteInterfaceDsrc("获取子模块列表")
     @ExcutePermission
-    public List<SysModule> getChildModules(HttpSession session, @RequestParam Long moduleid) throws Exception {
+    public List<SysModule> getChildModules(@RequestParam Long moduleid) throws Exception {
         return moduleService.getChildModules(moduleid);
     }
 
