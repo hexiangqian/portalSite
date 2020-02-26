@@ -60,7 +60,15 @@
     </delete>
     <select id="countByExampleRolePerms" parameterType="java.util.List" resultType="java.lang.Long">
         select count(*) from T_SYS_ROLEPERMS
-        where 1=1 and roleid in (
+        where roleid in (
+        <foreach collection="roleids" item="rid" separator=",">
+            #{rid,jdbcType=BIGINT}
+        </foreach>
+        )
+    </select>
+    <select id="countRoleUsers" parameterType="java.util.List" resultType="java.lang.Long">
+        select count(*) from t_sys_roleusers
+        where roleid in (
         <foreach collection="roleids" item="rid" separator=",">
             #{rid,jdbcType=BIGINT}
         </foreach>

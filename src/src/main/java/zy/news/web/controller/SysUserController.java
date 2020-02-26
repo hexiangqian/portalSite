@@ -9,14 +9,18 @@ import zy.news.common.Page;
 import zy.news.common.ValuesPage;
 import zy.news.common.exception.LoginTimeOutException;
 import zy.news.common.exception.WarningException;
+import zy.news.web.bean.SysRole;
 import zy.news.web.bean.SysUser;
 import zy.news.web.service.IAuthUser;
+import zy.news.web.ui.param.RoleModulesBind;
+import zy.news.web.ui.param.RoleUserBind;
 import zy.news.web.zsys.bean.ExcuteControllerDsrc;
 import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
 import zy.news.web.zsys.bean.ExcutePermission;
 import zy.news.web.zsys.cache.IUserCache;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 用户验证控制器
@@ -62,14 +66,6 @@ public class SysUserController {
         page.setCurrent(current);
         page.setPageSize(pageSize);
         return service.selectAllPage(page);
-    }
-
-
-    @ExcuteInterfaceDsrc("绑定角色")
-    @GetMapping("bindUserRole")
-    @ExcutePermission
-    public void bindUserRole(@RequestParam String username, @RequestParam Long roleid) throws Exception {
-        service.bindUserRole(username, roleid);
     }
 
     /**
@@ -135,22 +131,31 @@ public class SysUserController {
         service.updatePasswd(luser, passwd.getPasswd());
     }
 
-    /**
-     * 回话是否超时:false 未超时，true 超时
-     *
-     * @param session
-     * @return
-     */
-    @GetMapping("sessionTimeout")
+    @GetMapping("specUserRoles")
+    @ExcuteInterfaceDsrc("获取指定用户已绑定的角色列表")
     @ExcutePermission
-    @Deprecated
-    public boolean getSessionTimeOut(HttpSession session) {
-        boolean flag = false;
-        try {
-            userCache.loginTimeOutCheck(session);
-            flag = true;
-        } catch (Exception e) {
-        }
-        return !flag;
+    public List<SysRole> specUserRoles(@RequestParam Long userid) throws Exception {
+        return service.specUserEnableRoles(userid);
+    }
+
+    @GetMapping("specUserUnEnableRoles")
+    @ExcuteInterfaceDsrc("获取指定用户已绑定的角色列表")
+    @ExcutePermission
+    public List<SysRole> specUserUnEnableRoles(@RequestParam Long userid) throws Exception {
+        return service.specUserUnEnableRoles(userid);
+    }
+
+    @PostMapping("bindSpecUserRole")
+    @ExcuteInterfaceDsrc("给指定用户绑定角色")
+    @ExcutePermission
+    public void bindSpecUserRole(@RequestBody RoleUserBind userBind) throws Exception {
+        service.bindSpecUserRole(userBind);
+    }
+
+    @PostMapping("unBindSpecUserRole")
+    @ExcuteInterfaceDsrc("给指定用户接触绑定角色")
+    @ExcutePermission
+    public void unBindSpecUserRole(@RequestBody RoleUserBind userBind) throws Exception {
+        service.unBindSpecUserRole(userBind);
     }
 }

@@ -60,6 +60,14 @@ public interface SysRoleMapper {
     long countByExampleRolePerms(@Param("roleids") List<Long> roleids);
 
     /**
+     * 检查roleids 是否在 t_sys_roleusers 表中存在记录
+     *
+     * @param roleids
+     * @return
+     */
+    long countRoleUsers(@Param("roleids") List<Long> roleids);
+
+    /**
      * 获取指定角色已绑定的模块列表
      *
      * @return
