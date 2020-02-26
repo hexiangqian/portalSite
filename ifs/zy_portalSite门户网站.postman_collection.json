@@ -268,6 +268,246 @@
 			"response": []
 		},
 		{
+			"name": "【用户管理】获取指定用户已绑定角色列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8289/back/user/specUserRoles?userid=2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"back",
+						"user",
+						"specUserRoles"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "【用户管理】获取指定用户已绑定角色列表",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8289/back/user/specUserRoles?userid=2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8289",
+							"path": [
+								"back",
+								"user",
+								"specUserRoles"
+							],
+							"query": [
+								{
+									"key": "userid",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Feb 2020 13:34:07 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 2,\n        \"role\": \"normal\",\n        \"descr\": \"普通用户\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "【用户管理】获取指定用户未绑定的角色列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8289/back/user/specUserUnEnableRoles?userid=2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"back",
+						"user",
+						"specUserUnEnableRoles"
+					],
+					"query": [
+						{
+							"key": "userid",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "【用户管理】获取指定用户已绑定的角色列表",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8289/back/user/specUserUnEnableRoles?userid=2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8289",
+							"path": [
+								"back",
+								"user",
+								"specUserUnEnableRoles"
+							],
+							"query": [
+								{
+									"key": "userid",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Feb 2020 13:39:08 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 3,\n        \"role\": \"reviewer\",\n        \"descr\": \"审核者\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "【用户管理】给指定用户绑定角色",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userid\":2,\n\t\"roleid\":\"2,3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/back/user/bindSpecUserRole",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"back",
+						"user",
+						"bindSpecUserRole"
+					]
+				},
+				"description": "roleid：角色id,以逗号分隔"
+			},
+			"response": []
+		},
+		{
+			"name": "【用户管理】给指定用户解除绑定角色",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userid\":2,\n\t\"roleid\":\"2,3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/back/user/unBindSpecUserRole",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"back",
+						"user",
+						"unBindSpecUserRole"
+					]
+				},
+				"description": "roleid：角色id,以逗号分隔"
+			},
+			"response": []
+		},
+		{
 			"name": "弃用-【权限管理】获取权限列表",
 			"request": {
 				"method": "GET",
@@ -794,12 +1034,12 @@
 			"response": []
 		},
 		{
-			"name": "【角色管理】获取某角色拥有的模块列表",
+			"name": "【角色管理】获取某角色拥有的模块列表[已绑定]",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8289/back/sysRole/specRoleEnableMoudles?role=normal&current=1&pageSize=10",
+					"raw": "http://127.0.0.1:8289/back/sysRole/specRoleEnableMoudles?roleid=2",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -815,16 +1055,8 @@
 					],
 					"query": [
 						{
-							"key": "role",
-							"value": "normal"
-						},
-						{
-							"key": "current",
-							"value": "1"
-						},
-						{
-							"key": "pageSize",
-							"value": "10"
+							"key": "roleid",
+							"value": "2"
 						}
 					]
 				}
@@ -832,12 +1064,12 @@
 			"response": []
 		},
 		{
-			"name": "【角色管理】获取某角色未拥有的一级模块列表",
+			"name": "【角色管理】获取某角色未拥有的一级模块列表[未绑定]",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8289/back/sysRole/specRoleUnEnableRootMoudles?role=normal&current=1&pageSize=10",
+					"raw": "http://127.0.0.1:8289/back/sysRole/specRoleUnEnableRootMoudles?roleid=2",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -853,29 +1085,70 @@
 					],
 					"query": [
 						{
-							"key": "role",
-							"value": "normal"
-						},
-						{
-							"key": "current",
-							"value": "1"
-						},
-						{
-							"key": "pageSize",
-							"value": "10"
+							"key": "roleid",
+							"value": "2"
 						}
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "【角色管理】获取某角色未拥有的一级模块列表[未绑定]",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8289/back/sysRole/specRoleUnEnableRootMoudles?roleid=2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8289",
+							"path": [
+								"back",
+								"sysRole",
+								"specRoleUnEnableRootMoudles"
+							],
+							"query": [
+								{
+									"key": "roleid",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Feb 2020 10:38:41 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 6,\n        \"modulename\": \"内容发布\",\n        \"parent\": 0,\n        \"haschild\": 0\n    },\n    {\n        \"id\": 14,\n        \"modulename\": \"内容审核\",\n        \"parent\": 0,\n        \"haschild\": 0\n    },\n    {\n        \"id\": 1,\n        \"modulename\": \"系统管理\",\n        \"parent\": 0,\n        \"haschild\": 0\n    }\n]"
+				}
+			]
 		},
 		{
-			"name": "【角色管理】获取某角色指定模块未拥有的子模块列表",
+			"name": "【角色管理】获取某角色指定模块未拥有的子模块列表[未绑定]",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8289/back/sysRole/specRoleUnEnableChildMoudles?role=normal&mNam=系统管理&current=1&pageSize=10",
+					"raw": "http://127.0.0.1:8289/back/sysRole/specRoleUnEnableChildMoudles?roleid=2&moduleid=1",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -891,25 +1164,17 @@
 					],
 					"query": [
 						{
-							"key": "role",
-							"value": "normal"
-						},
-						{
-							"key": "mNam",
-							"value": "系统管理"
-						},
-						{
-							"key": "current",
-							"value": "1"
-						},
-						{
-							"key": "pageSize",
-							"value": "10"
-						},
-						{
 							"key": "mNam",
 							"value": "",
 							"disabled": true
+						},
+						{
+							"key": "roleid",
+							"value": "2"
+						},
+						{
+							"key": "moduleid",
+							"value": "1"
 						}
 					]
 				}
@@ -930,7 +1195,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"roleid\":2,\n\t\"moudleid\":-1\n}"
+					"raw": "{\n\t\"roleid\":2,\n\t\"moudleid\":4\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:8289/back/sysRole/bindSpecRoleMoudle",
@@ -947,7 +1212,8 @@
 						"sysRole",
 						"bindSpecRoleMoudle"
 					]
-				}
+				},
+				"description": "moudleid:角色id,以逗号分隔"
 			},
 			"response": []
 		},
@@ -965,7 +1231,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"roleid\":2,\n\t\"moudleid\":-1\n}"
+					"raw": "{\n\t\"roleid\":2,\n\t\"moudleid\":4\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:8289/back/sysRole/unBindSpecRoleMoudle",
@@ -982,7 +1248,8 @@
 						"sysRole",
 						"unBindSpecRoleMoudle"
 					]
-				}
+				},
+				"description": "moudleid:角色id,以逗号分隔"
 			},
 			"response": []
 		},
