@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "83c0a3f9-21d8-4a44-b398-f7bade35ab38",
+		"_postman_id": "642b2954-0585-4432-9aa2-1b698b036d39",
 		"name": "zy_portalSite门户网站",
 		"description": "公司门户网站开发接口doc，用于指导前端开发人员开发。",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -80,7 +80,7 @@
 			"response": []
 		},
 		{
-			"name": "【用户管理】新增用户",
+			"name": "弃用-【用户管理】新增用户",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -115,15 +115,15 @@
 			"response": []
 		},
 		{
-			"name": "【用户管理】更新用户",
+			"name": "弃用-【用户管理】更新用户",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"body": {
@@ -268,7 +268,7 @@
 			"response": []
 		},
 		{
-			"name": "【权限管理】获取权限列表",
+			"name": "弃用-【权限管理】获取权限列表",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -302,7 +302,7 @@
 			"response": []
 		},
 		{
-			"name": "【权限管理】获取系统已有接口列表",
+			"name": "弃用-【权限管理】获取系统已有接口列表",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -341,7 +341,7 @@
 			"response": []
 		},
 		{
-			"name": "【权限管理】获取当前角色指定模块可用权限列表",
+			"name": "弃用-【权限管理】获取当前角色指定模块可用权限列表",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -378,6 +378,310 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "【模块】获取一级模块列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8289/back/sysModule/getRootModules",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"back",
+						"sysModule",
+						"getRootModules"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "【模块】获取一级模块列表",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8289/back/sysModule/getRootModules",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8289",
+							"path": [
+								"back",
+								"sysModule",
+								"getRootModules"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Feb 2020 09:34:09 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"modulename\": \"系统管理\",\n        \"parent\": 0,\n        \"haschild\": 4\n    },\n    {\n        \"id\": 6,\n        \"modulename\": \"内容发布\",\n        \"parent\": 0,\n        \"haschild\": 7\n    },\n    {\n        \"id\": 14,\n        \"modulename\": \"内容审核\",\n        \"parent\": 0,\n        \"haschild\": 3\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "【模块】获取指定模块子模块列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8289/back/sysModule/getChildModules?moduleid=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"back",
+						"sysModule",
+						"getChildModules"
+					],
+					"query": [
+						{
+							"key": "moduleid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "【模块】获取指定模块子模块列表",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8289/back/sysModule/getChildModules?moduleid=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8289",
+							"path": [
+								"back",
+								"sysModule",
+								"getChildModules"
+							],
+							"query": [
+								{
+									"key": "moduleid",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Feb 2020 09:39:40 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 2,\n        \"modulename\": \"角色管理\",\n        \"parent\": 1,\n        \"haschild\": 0\n    },\n    {\n        \"id\": 3,\n        \"modulename\": \"用户管理\",\n        \"parent\": 1,\n        \"haschild\": 0\n    },\n    {\n        \"id\": 4,\n        \"modulename\": \"新闻类型\",\n        \"parent\": 1,\n        \"haschild\": 0\n    },\n    {\n        \"id\": 5,\n        \"modulename\": \"通告类型\",\n        \"parent\": 1,\n        \"haschild\": 0\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "【模块】获取当前用户可用一级模块列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8289/back/sysModule/getCurrentUserRootModules",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"back",
+						"sysModule",
+						"getCurrentUserRootModules"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "【模块】获取当前用户可用一级模块列表",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8289/back/sysModule/getCurrentUserRootModules",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8289",
+							"path": [
+								"back",
+								"sysModule",
+								"getCurrentUserRootModules"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Feb 2020 09:39:53 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 14,\n        \"modulename\": \"内容审核\",\n        \"parent\": 0,\n        \"haschild\": 3\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "【模块】获取当前用户指定模块可用子模块列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8289/back/sysModule/getCurrentUserChildModules?moduleid=14",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"back",
+						"sysModule",
+						"getCurrentUserChildModules"
+					],
+					"query": [
+						{
+							"key": "moduleid",
+							"value": "14"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "【模块】获取当前用户指定模块可用子模块列表",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8289/back/sysModule/getCurrentUserChildModules?moduleid=14",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8289",
+							"path": [
+								"back",
+								"sysModule",
+								"getCurrentUserChildModules"
+							],
+							"query": [
+								{
+									"key": "moduleid",
+									"value": "14"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Feb 2020 09:40:10 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 15,\n        \"modulename\": \"新闻审核\",\n        \"parent\": 14,\n        \"haschild\": 0\n    }\n]"
+				}
+			]
 		},
 		{
 			"name": "【角色管理】分页获取角色列表",
@@ -490,7 +794,7 @@
 			"response": []
 		},
 		{
-			"name": "【角色管理】获取指定角色拥有的模块列表",
+			"name": "【角色管理】获取某角色拥有的模块列表",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -528,7 +832,7 @@
 			"response": []
 		},
 		{
-			"name": "【角色管理】获取指定角色未拥有的一级模块列表",
+			"name": "【角色管理】获取某角色未拥有的一级模块列表",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -566,7 +870,7 @@
 			"response": []
 		},
 		{
-			"name": "【角色管理】获取指定角色指定模块未拥有的模块列表",
+			"name": "【角色管理】获取某角色指定模块未拥有的子模块列表",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -1104,7 +1408,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/settings/newsType/getTypes",
+					"raw": "http://127.0.0.1:8289/back/settings/newsType/getTypes",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1114,6 +1418,7 @@
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"settings",
 						"newsType",
 						"getTypes"
@@ -1203,7 +1508,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/settings/newsType/add",
+					"raw": "http://127.0.0.1:8289/back/settings/newsType/add",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1213,6 +1518,7 @@
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"settings",
 						"newsType",
 						"add"
@@ -1243,7 +1549,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/settings/newsType/update",
+					"raw": "http://127.0.0.1:8289/back/settings/newsType/update",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1253,6 +1559,7 @@
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"settings",
 						"newsType",
 						"update"
@@ -1283,7 +1590,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/settings/noticeType/getTypes",
+					"raw": "http://127.0.0.1:8289/back/settings/noticeType/getTypes",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1293,6 +1600,7 @@
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"settings",
 						"noticeType",
 						"getTypes"
@@ -1374,7 +1682,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"newsTName\":\"测试新闻类型\"\n}",
+					"raw": "{\n\t\"atName\":\"测试通告类型\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1382,7 +1690,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/settings/noticeType/add",
+					"raw": "http://127.0.0.1:8289/back/settings/noticeType/add",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1392,6 +1700,7 @@
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"settings",
 						"noticeType",
 						"add"
@@ -1414,7 +1723,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"ntid\":7,\n\t\"newsTName\":\"测试新闻类型2\"\n}",
+					"raw": "{\n\t\"ntid\":7,\n\t\"atName\":\"测试新闻类型2\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1422,7 +1731,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8289/settings/noticeType/update",
+					"raw": "http://127.0.0.1:8289/back/settings/noticeType/update",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1432,6 +1741,7 @@
 					],
 					"port": "8289",
 					"path": [
+						"back",
 						"settings",
 						"noticeType",
 						"update"
