@@ -30,8 +30,9 @@
      WHERE artAnnex.articleid=#{articleid,jdbcType=BIGINT}
     </delete>
     <select id="getAnnexRecords" parameterType="java.lang.Long" resultType="zy.news.web.bean.ArticlAnnex">
-      SELECT artAnnex.*,file.`name`
-      FROM t_articleannex artAnnex,t_file file
+     SELECT artAnnex.*,file.`name`
+      FROM t_articleannex artAnnex
+			LEFT JOIN t_file file ON artAnnex.fid=file.fid
       WHERE artAnnex.articleid=#{articleid,jdbcType=BIGINT}
     </select>
 </mapper>
