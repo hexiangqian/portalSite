@@ -3,9 +3,11 @@ package zy.news.web.service.impl;
 import maoko.common.StringUtil;
 import maoko.common.exception.DataIsNullException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import zy.news.web.UploadFilePathConfig;
+import zy.news.web.bean.ArticlAnnex;
 import zy.news.web.bean.SysFile;
 import zy.news.web.mapper.SysFileMapper;
 import zy.news.web.service.IFiles;
@@ -13,6 +15,7 @@ import zy.news.web.service.IFiles;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 文件管理
@@ -51,6 +54,17 @@ public class SvrImpFiles implements IFiles {
             FileUtils.deleteFile(file, filePathConfig.getUploadPath());
         }
 
+    }
+
+    @Async
+    @Override
+    public void deleteFiles(List<SysFile> files) {
+        for (SysFile file : files) {
+            try {
+                deleteFile(file);
+            } catch (Exception e) {
+            }
+        }
     }
 
     /**

@@ -38,8 +38,13 @@ public class SvrlmpAnnex implements IAnnex {
         if (null == records || records.isEmpty()) {
             throw new Exception("附件列表为空，禁止添加！");
         }
-        annexMapper.deleteByArtAnnexId(records.get(0).getArticleid());
+        annexMapper.deleteByArtAnnexId(articleid);
         annexMapper.addAnnexs(articleid, records);
+    }
+
+    @Override
+    public void delete(Long articleid) {
+        annexMapper.deleteByArtAnnexId(articleid);
     }
 
     @Override

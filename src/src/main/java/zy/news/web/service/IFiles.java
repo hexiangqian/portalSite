@@ -1,13 +1,16 @@
 package zy.news.web.service;
 
 import maoko.common.exception.DataIsNullException;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.multipart.MultipartFile;
+import zy.news.web.bean.ArticlAnnex;
 import zy.news.web.bean.SysFile;
 import zy.news.web.ui.param.ModuleType;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 文件处理接口
@@ -40,4 +43,14 @@ public interface IFiles {
      * @param file 1.可通过文件id删除; 2.通过文件名称和路径组合进行删除
      */
     void deleteFile(SysFile file) throws IOException, DataIsNullException;
+
+    /**
+     * 批量删除
+     *
+     * @param files
+     * @throws IOException
+     * @throws DataIsNullException
+     */
+    @Async
+    void deleteFiles(List<SysFile> files);
 }
