@@ -638,12 +638,6 @@
 						"back",
 						"sysModule",
 						"getRootModules"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": ""
-						}
 					]
 				}
 			},
@@ -1264,7 +1258,7 @@
 						{
 							"key": "myfile",
 							"type": "file",
-							"src": []
+							"src": "/C:/Users/ThinkPad/Pictures/response.jpeg"
 						}
 					]
 				},
@@ -1447,211 +1441,6 @@
 				"description": "文件删除有两种方式：\n1.只通过fid\n2.通过name和path\n\n以上两个参数任选1都可"
 			},
 			"response": []
-		},
-		{
-			"name": "【新闻管理】标题是否重复校验",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:8289/news/existTitle?title=测试新闻标题",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8289",
-					"path": [
-						"news",
-						"existTitle"
-					],
-					"query": [
-						{
-							"key": "title",
-							"value": "测试新闻标题"
-						}
-					]
-				},
-				"description": "返回true/false"
-			},
-			"response": []
-		},
-		{
-			"name": "【新闻管理】发布新闻",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"titile\": \"测试新闻标题\",\r\n  \"ntid\": 0,\r\n  \"contentStr\": \"测试内容【html标记格式】\",\r\n  \"imageid\": 0,\r\n  \"annexes\": [\r\n    {\r\n      \"fid\": 6629966040509976576\r\n    },\r\n    {\r\n      \"fid\": 6630686027428139008\r\n    }\r\n  ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8289/news/addNews",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8289",
-					"path": [
-						"news",
-						"addNews"
-					]
-				},
-				"description": "# 必填项  \n新闻类型、标题、内容（html标记格式）  \n# 选填项  \n轮播图片：只能单张，轮播图片若为空，服务端填充默认轮播图片  \n附件：可选多个附件,附件为空时  \n# 新闻图片和附件添加步骤 \n1.轮播图片添加  \n  先调用文件上传接口上传图片，得到图片id    \n2.附件添加    \n  与图片类似，先调用文件上传接口上传附件，得到文件id  \n3.新闻发布  \n  完成轮播图片和附件添加、新闻要素填充后，调用此接口发布新闻"
-			},
-			"response": []
-		},
-		{
-			"name": "【新闻管理】分页获取新闻列表(游客)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"current\":1,\n\t\"pageSize\":10\n}",
-					"options": {
-						"raw": {}
-					}
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8289/news/getNews",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8289",
-					"path": [
-						"news",
-						"getNews"
-					]
-				},
-				"description": "# 无需登录  \n# 返回字段\nid, imageid,imageUrl, titile, ntid, newsTName, author, publishdate  \n# 字段解释\nid: 新闻id  \nimgeid: 轮播图片文件id  \nimageUrl: 新闻图片url地址，加上服务端地址和端口直接获取，例如：http://127.0.0.1:8289/imageUrl  \ntitle: 新闻标题  \nntid： 新闻类型id  \nnewsTName: 新闻类型名称  \nauthor: 作者,发布者  \npublishdate: 发布日期"
-			},
-			"response": []
-		},
-		{
-			"name": "【新闻管理】分页获取新闻列表—未审核",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"current\":1,\n\t\"pageSize\":10\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8289/news/getNewsUnReview",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8289",
-					"path": [
-						"news",
-						"getNewsUnReview"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "【新闻管理】分页获取新闻列表—未审核",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"current\":1,\n\t\"pageSize\":10\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:8289/news/getNewsUnReview",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8289",
-							"path": [
-								"news",
-								"getNewsUnReview"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json;charset=UTF-8"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Sun, 23 Feb 2020 14:17:18 GMT"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"ext\": null,\n    \"page\": {\n        \"current\": 1,\n        \"pageSize\": 10,\n        \"total\": 3,\n        \"totalPages\": 1\n    },\n    \"value\": [\n        {\n            \"id\": 6630798280286539776,\n            \"imageid\": 0,\n            \"titile\": \"测试新闻标题\",\n            \"ntid\": 0,\n            \"author\": \"超级管理员\",\n            \"publishdate\": \"2020-02-23 01:57:43\",\n            \"reviewstatus\": 0,\n            \"newsTName\": \"重大新闻\",\n            \"imageUrl\": \"/static/news/news_img_default.jpg\",\n            \"reviewstatusStr\": \"未审核\"\n        },\n        {\n            \"id\": 6631070294603730944,\n            \"imageid\": 0,\n            \"titile\": \"测试新闻标题\",\n            \"ntid\": 0,\n            \"author\": \"超级管理员\",\n            \"publishdate\": \"2020-02-23 19:58:36\",\n            \"reviewstatus\": 0,\n            \"newsTName\": \"重大新闻\",\n            \"imageUrl\": \"/static/news/news_img_default.jpg\",\n            \"reviewstatusStr\": \"未审核\"\n        },\n        {\n            \"id\": 6631093757338980352,\n            \"imageid\": 0,\n            \"titile\": \"测试新闻标题\",\n            \"ntid\": 0,\n            \"author\": \"超级管理员\",\n            \"publishdate\": \"2020-02-23 21:31:50\",\n            \"reviewstatus\": 0,\n            \"newsTName\": \"重大新闻\",\n            \"imageUrl\": \"/static/news/news_img_default.jpg\",\n            \"reviewstatusStr\": \"未审核\"\n        }\n    ]\n}"
-				}
-			]
 		},
 		{
 			"name": "【系统设置/新闻类型】获取新闻类型列表",
@@ -2014,6 +1803,475 @@
 						"update"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "【新闻管理/发布】标题是否重复校验",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8289/news/existTitle?title=测试新闻标题",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"news",
+						"existTitle"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "测试新闻标题"
+						}
+					]
+				},
+				"description": "返回true/false"
+			},
+			"response": []
+		},
+		{
+			"name": "【新闻管理/发布】发布新闻",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titile\": \"测试新闻标题3\",\r\n  \"ntid\": 0,\r\n  \"contentStr\": \"测试内容【html标记格式】\",\r\n  \"imageid\": 0,\r\n  \"annexes\": [\r\n    {\r\n      \"fid\": 6629966040509976576\r\n    },\r\n    {\r\n      \"fid\": 6630686027428139008\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/news/addNews",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"news",
+						"addNews"
+					]
+				},
+				"description": "# 必填项  \n新闻类型、标题、内容（html标记格式）  \n# 选填项  \n轮播图片：只能单张，轮播图片若为空，服务端填充默认轮播图片  \n附件：可选多个附件,附件为空时  \n# 新闻图片和附件添加步骤 \n1.轮播图片添加  \n  先调用文件上传接口上传图片，得到图片id    \n2.附件添加    \n  与图片类似，先调用文件上传接口上传附件，得到文件id  \n3.新闻发布  \n  完成轮播图片和附件添加、新闻要素填充后，调用此接口发布新闻"
+			},
+			"response": []
+		},
+		{
+			"name": "【新闻管理/发布】更新新闻",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\":6632559187761041408,\r\n  \"titile\": \"测试新闻标题3\",\r\n  \"ntid\": 0,\r\n  \"contentStr\": \"测试内容【html标记格式】\",\r\n  \"imageid\": 0,\r\n  \"annexes\": [\r\n    {\r\n      \"fid\": 6629966040509976576\r\n    },\r\n    {\r\n      \"fid\": 6630686027428139008\r\n    },\r\n        {\r\n      \"fid\": 6630686027428139007\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/news/updateNews",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"news",
+						"updateNews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【新闻管理/发布】删除新闻",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":6632559187761041408\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/news/deleteNews",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"news",
+						"deleteNews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【新闻管理/发布】分页获取已发布新闻列表（审核未审核都有）",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"current\":1,\n\t\"pageSize\":10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/news/getPublishNews",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"news",
+						"getPublishNews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "【新闻管理/发布】获取新闻详细详情(游客)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8289/news/getNewsDetail?newsid=6632559187761041408",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"news",
+						"getNewsDetail"
+					],
+					"query": [
+						{
+							"key": "newsid",
+							"value": "6632559187761041408"
+						}
+					]
+				},
+				"description": "# 无需登录"
+			},
+			"response": []
+		},
+		{
+			"name": "【新闻管理/发布】获取新闻审核详情",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8289/news/getReviewInfo?newsid=6632421706319269888",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"news",
+						"getReviewInfo"
+					],
+					"query": [
+						{
+							"key": "newsid",
+							"value": "6632421706319269888"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "【新闻管理/发布】获取新闻审核详情",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8289/news/getReviewInfo?newsid=6632421706319269888",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8289",
+							"path": [
+								"news",
+								"getReviewInfo"
+							],
+							"query": [
+								{
+									"key": "newsid",
+									"value": "6632421706319269888"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 27 Feb 2020 15:50:34 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 6632421706319269888,\n    \"reviewstatus\": 1,\n    \"reviewstatusStr\": \"已审核\",\n    \"reviewer\": \"超级管理员\",\n    \"reviewdate\": \"2020-02-27 23:50:32\",\n    \"reviewComment\": \"审核通过\"\n}"
+				}
+			]
+		},
+		{
+			"name": "【新闻管理/审核】分页获取已审核新闻列表(游客)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"current\":1,\n\t\"pageSize\":10\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/news/getNews",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"news",
+						"getNews"
+					]
+				},
+				"description": "# 无需登录  \n# 发送参数  \ncurrent:0 不分页，pageSize无效  \npageSize:大于0 ，分页大小  \n# 返回字段\nid, imageid,imageUrl, titile, ntid, newsTName, author, publishdate,reviewstatus,reviewstatusStr   \n# 字段解释\nid: 新闻id  \nimgeid: 轮播图片文件id  \nimageUrl: 新闻图片url地址，加上服务端地址和端口直接获取，例如：http://127.0.0.1:8289/imageUrl  \ntitle: 新闻标题  \nntid： 新闻类型id  \nnewsTName: 新闻类型名称  \nauthor: 作者,发布者  \npublishdate: 发布日期  \nreviewstatus: 审核状态 0 未审核 1已审核  \nreviewstatusStr：审核状态中文表示"
+			},
+			"response": []
+		},
+		{
+			"name": "【新闻管理/审核】分页获取未审核新闻列表",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"current\":1,\n\t\"pageSize\":10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/news/getNewsUnReview",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"news",
+						"getNewsUnReview"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "【新闻管理】分页获取新闻列表—未审核",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"current\":1,\n\t\"pageSize\":10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8289/news/getNewsUnReview",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8289",
+							"path": [
+								"news",
+								"getNewsUnReview"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 23 Feb 2020 14:17:18 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"ext\": null,\n    \"page\": {\n        \"current\": 1,\n        \"pageSize\": 10,\n        \"total\": 3,\n        \"totalPages\": 1\n    },\n    \"value\": [\n        {\n            \"id\": 6630798280286539776,\n            \"imageid\": 0,\n            \"titile\": \"测试新闻标题\",\n            \"ntid\": 0,\n            \"author\": \"超级管理员\",\n            \"publishdate\": \"2020-02-23 01:57:43\",\n            \"reviewstatus\": 0,\n            \"newsTName\": \"重大新闻\",\n            \"imageUrl\": \"/static/news/news_img_default.jpg\",\n            \"reviewstatusStr\": \"未审核\"\n        },\n        {\n            \"id\": 6631070294603730944,\n            \"imageid\": 0,\n            \"titile\": \"测试新闻标题\",\n            \"ntid\": 0,\n            \"author\": \"超级管理员\",\n            \"publishdate\": \"2020-02-23 19:58:36\",\n            \"reviewstatus\": 0,\n            \"newsTName\": \"重大新闻\",\n            \"imageUrl\": \"/static/news/news_img_default.jpg\",\n            \"reviewstatusStr\": \"未审核\"\n        },\n        {\n            \"id\": 6631093757338980352,\n            \"imageid\": 0,\n            \"titile\": \"测试新闻标题\",\n            \"ntid\": 0,\n            \"author\": \"超级管理员\",\n            \"publishdate\": \"2020-02-23 21:31:50\",\n            \"reviewstatus\": 0,\n            \"newsTName\": \"重大新闻\",\n            \"imageUrl\": \"/static/news/news_img_default.jpg\",\n            \"reviewstatusStr\": \"未审核\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "【新闻管理/审核】审核新闻",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":6632421706319269888,\n\t\"reviewstatus\":0,\n\t\"reviewComment\":\"XXXXX\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8289/news/reviewNews",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"news",
+						"reviewNews"
+					]
+				},
+				"description": "reviewstatus：0和1 （0：不通过 1：通过）  \n当reviewstatus=0时，reviewComment审核意见不能为空  \n当reviewstatus=1时，reviewComment字段无效"
 			},
 			"response": []
 		}
