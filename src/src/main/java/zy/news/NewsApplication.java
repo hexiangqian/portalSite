@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import zy.news.amain.AfterAppStartUp;
 
@@ -18,7 +19,7 @@ import zy.news.amain.AfterAppStartUp;
  *
  * @author fanpei
  */
-
+@EnableAsync
 @PropertySource("classpath:application.yml")
 @EnableConfigurationProperties
 @EnableTransactionManagement(proxyTargetClass = true)
