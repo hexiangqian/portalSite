@@ -15,25 +15,19 @@ import java.util.List;
  */
 @Data
 public class NewsSimple {
-    protected Long id;
-
-    protected Long imageid;
-
-    protected String titile;
-
-    protected Long ntid;
-
-    protected String author;
-
-    protected Date publishdate;
-
-    protected Byte reviewstatus;
+    private Long id;
+    private Long imageid;
+    private String titile;
+    private Long ntid;
+    private String author;
+    private Date publishdate;
+    private Byte reviewstatus;
 
 
     //辅助变量 非数据库变量
-    protected String newsTName;//新闻类型名称
-    protected String imageUrl;//图片地址
-    protected String reviewstatusStr;
+    private String newsTName;//新闻类型名称
+    private String imageUrl;//图片地址
+    private String reviewstatusStr;
 
     public void setReviewstatus(Byte reviewstatus) {
         this.reviewstatus = reviewstatus;

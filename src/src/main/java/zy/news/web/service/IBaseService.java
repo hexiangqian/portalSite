@@ -1,0 +1,57 @@
+package zy.news.web.service;
+
+import zy.news.web.bean.News;
+
+import javax.servlet.http.HttpSession;
+
+/**
+ * 基础服务接口
+ *
+ * @author maoko
+ * @date 2020/2/27 14:53
+ */
+public interface IBaseService<T> {
+
+    /**
+     * 判断是否存在
+     *
+     * @param record
+     * @return
+     */
+    boolean exist(T record);
+
+    /**
+     * 添加新闻
+     *
+     * @param session
+     * @param record
+     */
+    void add(HttpSession session, T record) throws Exception;
+
+    /**
+     * 删除新闻
+     *
+     * @param session
+     * @param record
+     * @throws Exception
+     */
+    void delete(HttpSession session, T record) throws Exception;
+
+    /**
+     * 编辑更新
+     *
+     * @param session
+     * @param record
+     * @throws Exception
+     */
+    void update(HttpSession session, T record) throws Exception;
+
+    /**
+     * 获取新闻详情
+     *
+     * @param newsid
+     * @return
+     * @throws Exception
+     */
+    T getRecordDetail(Long newsid) throws Exception;
+}

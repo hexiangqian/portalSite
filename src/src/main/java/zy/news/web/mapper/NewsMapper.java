@@ -2,9 +2,11 @@ package zy.news.web.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import zy.news.web.bean.News;
 import zy.news.web.bean.NewsSimple;
+import zy.news.web.ui.result.ReviewInfo;
 
 @Repository
 public interface NewsMapper {
@@ -14,7 +16,7 @@ public interface NewsMapper {
 
     News selectByPrimaryKey(Long id);
 
-    List<NewsSimple> selectAll(Integer reviewStatus);
+    List<NewsSimple> selectAllNewsSimple(@Param("reviewStatus") Integer reviewStatus);
 
     int updateByPrimaryKey(News record);
 
@@ -27,4 +29,36 @@ public interface NewsMapper {
      * @return
      */
     int exist(News news);
+
+    /**
+     * 获取详情
+     *
+     * @param id
+     * @return
+     */
+    News selectNewsDetailByPrimaryKey(Long id);
+
+    /**
+     * 浏览量+1
+     *
+     * @param id
+     * @return
+     */
+    int countViewByPrimaryKey(Long id);
+
+    /**
+     * 更新审核信息
+     *
+     * @param reviewInfo
+     * @return
+     */
+    int updateReviewInfo(ReviewInfo reviewInfo);
+
+    /**
+     * 获取审核详情
+     *
+     * @param id
+     * @return
+     */
+    ReviewInfo selectReviewInfoByPrimaryKey(Long id);
 }

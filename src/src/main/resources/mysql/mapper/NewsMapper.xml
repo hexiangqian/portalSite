@@ -35,12 +35,8 @@
       ntid = #{ntid,jdbcType=BIGINT},
       author = #{author,jdbcType=VARCHAR},
       publishdate = #{publishdate,jdbcType=TIMESTAMP},
-      reviewstatus = #{reviewstatus,jdbcType=TINYINT},
-      reviewer = #{reviewer,jdbcType=VARCHAR},
-      reviewdate = #{reviewdate,jdbcType=TIMESTAMP},
-      pageview = #{pageview,jdbcType=BIGINT},
       content = #{content,jdbcType=LONGVARBINARY}
-    where id = #{id,jdbcType=BIGINT}
+    where reviewstatus=0 and id = #{id,jdbcType=BIGINT}
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select id, imageid, titile, ntid, author, publishdate, reviewstatus, reviewer, reviewdate, 
@@ -48,30 +44,74 @@
     from t_news
     where id = #{id,jdbcType=BIGINT}
   </select>
-    <select id="selectAll" resultType="zy.news.web.bean.NewsSimple">
+    <select id="selectAllNewsSimple" resultType="zy.news.web.bean.NewsSimple">
+        SELECT
+        tmp_news.*,
+        file.path AS imageUrl
+        FROM
+        (
+        SELECT
+        id,
+        imageid,
+        titile,
+        news.ntid,
+        newstype.newsTName,
+        author,
+        publishdate,
+        reviewstatus
+        FROM
+        t_news news
+        LEFT JOIN t_newstype newstype ON news.ntid=newstype.ntid
+        <choose>
+            <when test="reviewStatus != 2">WHERE news.reviewstatus=#{reviewStatus,jdbcType=TINYINT}</when>
+            <otherwise>ORDER BY reviewstatus ASC ,publishdate DESC</otherwise>
+        </choose>
+        ) tmp_news
+        LEFT JOIN t_file file ON file.fid = tmp_news.imageid
+    </select>
+    <select id="exist" parameterType="zy.news.web.bean.News" resultType="java.lang.Integer">
+    SELECT count(*) FROM t_news t
+    WHERE t.titile=#{titile,jdbcType=VARCHAR}
+    </select>
+    <select id="selectNewsDetailByPrimaryKey" resultType="zy.news.web.bean.News">
     SELECT
 	tmp_news.*,
 	file.path AS imageUrl
     FROM
         (
         SELECT
-            id,
-            imageid,
-            titile,
-            news.ntid,
-            newstype.newsTName,
-            author,
-            publishdate,
-            reviewstatus
+            news.*,
+            newstype.newsTName
         FROM
             t_news news
-        LEFT JOIN t_newstype newstype ON news.ntid = newstype.ntid
-        WHERE news.reviewstatus=#{reviewstatus,jdbcType=TINYINT}
+            LEFT JOIN t_newstype newstype ON news.ntid = newstype.ntid
+        WHERE
+            news.id = #{id,jdbcType=BIGINT}
         ) tmp_news
         LEFT JOIN t_file file ON file.fid = tmp_news.imageid
-  </select>
-    <select id="exist" parameterType="zy.news.web.bean.News" resultType="java.lang.Integer">
-    SELECT count(*) FROM t_news t
-    WHERE t.titile=#{titile,jdbcType=VARCHAR}
+    </select>
+    <update id="countViewByPrimaryKey">
+        UPDATE t_news
+        SET pageview = pageview + 1
+        WHERE
+            id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateReviewInfo" parameterType="zy.news.web.ui.result.ReviewInfo">
+        UPDATE t_news
+        SET reviewstatus = #{reviewstatus,jdbcType=TINYINT},
+        reviewer = #{reviewer,jdbcType=VARCHAR},
+        reviewdate = #{reviewdate,jdbcType=TIMESTAMP}
+        <if test="reviewComment != null and reviewComment !=''">
+            ,reviewComment = #{reviewComment,jdbcType=VARCHAR}
+        </if>
+        WHERE
+        reviewstatus=0 and
+        id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectReviewInfoByPrimaryKey" resultType="zy.news.web.ui.result.ReviewInfo">
+        select id,reviewstatus,reviewer,reviewdate
+        ,reviewComment
+        from t_news
+        where id=#{id,jdbcType=BIGINT}
     </select>
 </mapper>

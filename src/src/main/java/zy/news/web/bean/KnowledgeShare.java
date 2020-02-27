@@ -18,6 +18,8 @@ public class KnowledgeShare implements Serializable {
 
     private Date reviewdate;
 
+    private String reviewComment;
+
     private Integer goodnum;
 
     private Integer badnum;

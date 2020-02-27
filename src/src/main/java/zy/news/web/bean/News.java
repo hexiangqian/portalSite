@@ -9,19 +9,26 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class News extends NewsSimple implements IValidate {
-
+public class News implements IValidate {
+    private Long id;
+    private Long imageid;
+    private String titile;
+    private Long ntid;
+    private String author;
+    private Date publishdate;
+    private Byte reviewstatus;
     private String reviewer;
-
     private Date reviewdate;
-
+    private String reviewComment;
     private Long pageview;
-
     @Expose(serialize = false, deserialize = false)
-    protected byte[] content;
+    private byte[] content;
 
-    //append
-    protected String contentStr;
+    //辅助变量 非数据库变量
+    private String newsTName;//新闻类型名称
+    private String imageUrl;//图片地址
+    private String reviewstatusStr;
+    private String contentStr;
     private List<ArticlAnnex> annexes;//附件列表
 
     public void setContent(byte[] content) {
@@ -31,6 +38,11 @@ public class News extends NewsSimple implements IValidate {
         } else {
             this.contentStr = "";
         }
+    }
+
+    public void setReviewstatus(Byte reviewstatus) {
+        this.reviewstatus = reviewstatus;
+        this.reviewstatusStr = reviewstatus.byteValue() == (byte) 0 ? "未审核" : "已审核";
     }
 
     @Override

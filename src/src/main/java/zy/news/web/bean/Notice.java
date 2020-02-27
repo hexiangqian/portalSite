@@ -20,6 +20,8 @@ public class Notice implements Serializable {
 
     private Date reviewdate;
 
+    private String reviewComment;
+
     private Long pageview;
 
     private byte[] content;
