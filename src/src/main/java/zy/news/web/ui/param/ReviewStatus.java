@@ -8,7 +8,8 @@ package zy.news.web.ui.param;
  */
 public enum ReviewStatus {
     未审核(0),
-    已审核(1);
+    已审核(1),
+    所有(2);
     private int value;
 
     public int getValue() {
