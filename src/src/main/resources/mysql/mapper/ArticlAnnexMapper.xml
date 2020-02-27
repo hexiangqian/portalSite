@@ -19,11 +19,11 @@
     from t_articleannex
   </select>
     <select id="addAnnexs">
-      insert into t_articleannex  (articleid, fid)
-      values
-      <foreach collection="records" item="item" separator=",">
-        (#{articleid,jdbcType=BIGINT},#{item.fid,jdbcType=BIGINT})
-      </foreach>
+        insert into t_articleannex (articleid, fid)
+        values
+        <foreach collection="records" item="item" separator=",">
+            (#{articleid,jdbcType=BIGINT},#{item.fid,jdbcType=BIGINT})
+        </foreach>
     </select>
     <delete id="deleteByArtAnnexId" parameterType="java.lang.Long">
      DELETE FROM t_articleannex artAnnex
@@ -33,6 +33,6 @@
      SELECT artAnnex.*,file.`name`
       FROM t_articleannex artAnnex
 			LEFT JOIN t_file file ON artAnnex.fid=file.fid
-      WHERE artAnnex.articleid=#{articleid,jdbcType=BIGINT}
+      WHERE file.name!=null  and artAnnex.articleid=#{articleid,jdbcType=BIGINT}
     </select>
 </mapper>
