@@ -22,11 +22,11 @@
     insert into t_news (id, imageid, titile, 
       ntid, author, publishdate, 
       reviewstatus, reviewer, reviewdate, 
-      pageview, content)
+      pageview, content,summary)
     values (#{id,jdbcType=BIGINT}, #{imageid,jdbcType=BIGINT}, #{titile,jdbcType=VARCHAR}, 
       #{ntid,jdbcType=BIGINT}, #{author,jdbcType=VARCHAR}, #{publishdate,jdbcType=TIMESTAMP}, 
       #{reviewstatus,jdbcType=TINYINT}, #{reviewer,jdbcType=VARCHAR}, #{reviewdate,jdbcType=TIMESTAMP}, 
-      #{pageview,jdbcType=BIGINT}, #{content,jdbcType=LONGVARBINARY})
+      #{pageview,jdbcType=BIGINT}, #{content,jdbcType=LONGVARBINARY},#{summary,jdbcType=VARCHAR})
   </insert>
     <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.News">
     update t_news
@@ -56,6 +56,7 @@
         titile,
         news.ntid,
         newstype.newsTName,
+        summary,
         author,
         publishdate,
         reviewstatus

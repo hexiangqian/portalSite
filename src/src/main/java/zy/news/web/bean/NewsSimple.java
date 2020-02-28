@@ -18,6 +18,7 @@ public class NewsSimple {
     private Long id;
     private Long imageid;
     private String titile;
+    private String summary;
     private Long ntid;
     private String author;
     private Date publishdate;

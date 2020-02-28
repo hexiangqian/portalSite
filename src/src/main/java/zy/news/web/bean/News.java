@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import lombok.Data;
 import maoko.common.StringUtil;
 import zy.news.web.zsys.bean.IValidate;
+import zy.news.web.zsys.utils.HtmlUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,8 @@ public class News implements IValidate {
     private Long pageview;
     @Expose(serialize = false, deserialize = false)
     private byte[] content;
+    @Expose(serialize = false, deserialize = false)
+    private String summary;
 
     //辅助变量 非数据库变量
     private String newsTName;//新闻类型名称
@@ -64,5 +67,6 @@ public class News implements IValidate {
      */
     public void convertContent2Blob() throws Exception {
         content = StringUtil.getUtf8Bytes(contentStr);
+        summary = HtmlUtils.html2Str(contentStr, 80);
     }
 }
