@@ -11,10 +11,8 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
     <insert id="insert" parameterType="zy.news.web.bean.SysRole">
-    insert into t_sys_role (id, `role`, descr
-      )
-    values (#{id,jdbcType=BIGINT}, #{role,jdbcType=VARCHAR}, #{descr,jdbcType=VARCHAR}
-      )
+    insert into t_sys_role (id, `role`, descr)
+    values (#{id,jdbcType=BIGINT}, #{role,jdbcType=VARCHAR}, #{descr,jdbcType=VARCHAR})
   </insert>
     <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.SysRole">
     update t_sys_role
@@ -141,7 +139,7 @@
         </foreach>
         )
     </update>
-    <select id="selectRoleByName" resultType="zy.news.web.bean.SysRole">
+    <select id="selectRoleByName" resultType="java.lang.Long">
         select  count(*) from t_sys_role t
         where t.role=#{role,jdbcType=VARCHAR}
     </select>
