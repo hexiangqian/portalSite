@@ -12,12 +12,11 @@ import zy.news.common.exception.WarningException;
 import zy.news.web.bean.SysRole;
 import zy.news.web.bean.SysUser;
 import zy.news.web.service.IAuthUser;
-import zy.news.web.ui.param.RoleModulesBind;
 import zy.news.web.ui.param.RoleUserBind;
 import zy.news.web.zsys.bean.ExcuteControllerDsrc;
 import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
 import zy.news.web.zsys.bean.ExcutePermission;
-import zy.news.web.zsys.cache.IUserCache;
+import zy.news.web.service.IUserCache;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;

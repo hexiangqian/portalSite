@@ -1,8 +1,7 @@
-package zy.news.web.zsys.cache;
+package zy.news.web.service;
 
 
 import zy.news.common.exception.LoginTimeOutException;
-import zy.news.web.bean.SysPermission;
 import zy.news.web.bean.SysUser;
 
 import javax.servlet.http.HttpSession;

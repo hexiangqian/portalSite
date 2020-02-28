@@ -1,4 +1,4 @@
-package zy.news.web.zsys.cache;
+package zy.news.web.service.impl;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -6,12 +6,11 @@ import maoko.common.StringUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import zy.news.common.exception.LoginTimeOutException;
-import zy.news.web.bean.SysPermission;
 import zy.news.web.bean.SysUser;
+import zy.news.web.service.IUserCache;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**

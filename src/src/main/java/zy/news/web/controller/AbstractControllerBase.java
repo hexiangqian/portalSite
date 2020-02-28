@@ -11,7 +11,7 @@ import zy.news.common.exception.LoginTimeOutException;
 import zy.news.common.exception.WarningException;
 import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
 import zy.news.web.zsys.bean.ExcutePermission;
-import zy.news.web.zsys.cache.UserCache;
+import zy.news.web.service.impl.UserCache;
 import zy.news.web.zsys.gson.MyGsonUtil;
 
 import javax.servlet.http.HttpSession;

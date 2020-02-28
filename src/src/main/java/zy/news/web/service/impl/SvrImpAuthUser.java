@@ -1,7 +1,5 @@
 package zy.news.web.service.impl;
 
-import com.alibaba.druid.sql.visitor.functions.If;
-import maoko.common.StringUtil;
 import maoko.common.agorithm.AesCipher;
 import maoko.common.file.FileIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ import zy.news.web.mapper.SysUserMapper;
 import zy.news.web.service.IAuthUser;
 import zy.news.web.ui.param.RoleUserBind;
 import zy.news.web.zsys.bean.PageValuesParam;
-import zy.news.web.zsys.cache.IUserCache;
+import zy.news.web.service.IUserCache;
 
 import java.util.List;
 

@@ -2,13 +2,11 @@ package zy.news.web.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import zy.news.common.Page;
 import zy.news.web.bean.SysModule;
 import zy.news.web.bean.SysUser;
 import zy.news.web.mapper.SysModuleMapper;
 import zy.news.web.service.IModule;
-import zy.news.web.zsys.bean.PageValuesResult;
-import zy.news.web.zsys.cache.IUserCache;
+import zy.news.web.service.IUserCache;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;

@@ -10,7 +10,6 @@ import zy.news.web.service.IModule;
 import zy.news.web.zsys.bean.ExcuteControllerDsrc;
 import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
 import zy.news.web.zsys.bean.ExcutePermission;
-import zy.news.web.zsys.cache.IUserCache;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;

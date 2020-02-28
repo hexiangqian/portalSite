@@ -2,21 +2,11 @@ package zy.news.web.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import zy.news.common.Page;
-import zy.news.web.bean.SysModule;
-import zy.news.web.bean.SysUser;
 import zy.news.web.service.impl.SvrImpAuthPerms;
 import zy.news.web.zsys.bean.ExcuteControllerDsrc;
-import zy.news.web.zsys.bean.ExcuteInterfaceDsrc;
-import zy.news.web.zsys.bean.ExcutePermission;
-import zy.news.web.zsys.bean.PageValuesResult;
-import zy.news.web.zsys.cache.IUserCache;
-
-import javax.servlet.http.HttpSession;
+import zy.news.web.service.IUserCache;
 
 /**
  * 权限管理助手

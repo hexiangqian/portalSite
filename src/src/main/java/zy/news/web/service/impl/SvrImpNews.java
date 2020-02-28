@@ -15,7 +15,7 @@ import zy.news.web.ui.param.ReviewStatus;
 import zy.news.web.ui.result.ReviewInfo;
 import zy.news.web.zsys.bean.PageValuesParam;
 import zy.news.web.zsys.bean.PageValuesResult;
-import zy.news.web.zsys.cache.IUserCache;
+import zy.news.web.service.IUserCache;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
