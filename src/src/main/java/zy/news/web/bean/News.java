@@ -45,7 +45,7 @@ public class News implements IValidate {
 
     public void setReviewstatus(Byte reviewstatus) {
         this.reviewstatus = reviewstatus;
-        this.reviewstatusStr = reviewstatus.byteValue() == (byte) 0 ? NewsSimple.WEI_TONG_GUO : NewsSimple.TONG_GUO;
+        this.reviewstatusStr = reviewstatus.byteValue() == (byte) 0 ? NewsSimple.未通过 : NewsSimple.已通过;
     }
 
     @Override

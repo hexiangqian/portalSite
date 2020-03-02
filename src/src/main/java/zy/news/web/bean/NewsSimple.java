@@ -15,8 +15,8 @@ import java.util.List;
  */
 @Data
 public class NewsSimple {
-    public final static String TONG_GUO = "已通过";
-    public final static String WEI_TONG_GUO = "未通过";
+    public final static String 已通过 = "已通过";
+    public final static String 未通过 = "未通过";
 
     private Long id;
     private Long imageid;
@@ -35,7 +35,7 @@ public class NewsSimple {
 
     public void setReviewstatus(Byte reviewstatus) {
         this.reviewstatus = reviewstatus;
-        this.reviewstatusStr = reviewstatus.byteValue() == (byte) 0 ? WEI_TONG_GUO : TONG_GUO;
+        this.reviewstatusStr = reviewstatus.byteValue() == (byte) 0 ? 已通过 : 未通过;
     }
 
 }
