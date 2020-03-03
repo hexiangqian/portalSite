@@ -26,7 +26,10 @@ public class ServiceBase {
     }
 
     protected void updateAnnexs(Long id, List<ArticlAnnex> annexes) throws Exception {
-        annexService.adds(id, annexes);
+        if (annexes == null || annexes.isEmpty()) {
+            deleteAnnexs(id);
+        }
+        annexService.updates(id, annexes);
     }
 
     /**
