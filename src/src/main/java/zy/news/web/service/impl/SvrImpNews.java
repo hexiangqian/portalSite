@@ -109,8 +109,8 @@ public class SvrImpNews extends ServiceBase implements INews {
         if (tmpNews == null) {
             throw new Exception("新闻已不存在！");
         }
-        if (!news.getTitile().equals(tmpNews.getTitile()) && exist(news)) {
-            throw new Exception(news.getTitile() + "新闻名称已存在，请修改后再试一试！");
+        if (!news.getTitle().equals(tmpNews.getTitle()) && exist(news)) {
+            throw new Exception(news.getTitle() + "新闻名称已存在，请修改后再试一试！");
         }
         SysUser user = userCache.getUserFromSession(session);
 
