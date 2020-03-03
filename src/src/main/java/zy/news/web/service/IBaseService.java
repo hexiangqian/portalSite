@@ -47,11 +47,11 @@ public interface IBaseService<T> {
     void update(HttpSession session, T record) throws Exception;
 
     /**
-     * 获取新闻详情
+     * 获取详情
      *
-     * @param newsid
+     * @param id
      * @return
      * @throws Exception
      */
-    T getRecordDetail(Long newsid) throws Exception;
+    T getRecordDetail(Long id) throws Exception;
 }
