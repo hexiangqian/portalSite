@@ -1,131 +1,70 @@
 package zy.news.web.bean;
 
+import com.google.gson.annotations.Expose;
+import lombok.Data;
+import maoko.common.StringUtil;
+import zy.news.web.zsys.bean.IValidate;
+import zy.news.web.zsys.utils.HtmlUtils;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class Notice implements Serializable {
+@Data
+public class Notice implements IValidate {
     private Long id;
-
     private String title;
-
     private Long ntid;
-
     private String author;
-
-    private Date publisdate;
-
+    private Date publishdate;
     private Byte reviewstatus;
-
     private String reviewer;
-
     private Date reviewdate;
-
     private String reviewComment;
-
     private Long pageview;
 
+    @Expose(serialize = false, deserialize = false)
     private byte[] content;
 
-    private static final long serialVersionUID = 1L;
+    //辅助变量 非数据库变量
+    private String noticeTName;
+    private String reviewstatusStr;
+    private String contentStr;
+    private List<ArticlAnnex> annexes;//附件列表
 
-    public Long getId() {
-        return id;
+    public void setContent(byte[] content) {
+        //this.content = content;
+        if (null != content && content.length > 0) {
+            this.contentStr = StringUtil.getUtf8Str(content);
+        } else {
+            this.contentStr = "";
+        }
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
-
-    public Long getNtid() {
-        return ntid;
-    }
-
-    public void setNtid(Long ntid) {
-        this.ntid = ntid;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author == null ? null : author.trim();
-    }
-
-    public Date getPublisdate() {
-        return publisdate;
-    }
-
-    public void setPublisdate(Date publisdate) {
-        this.publisdate = publisdate;
-    }
-
-    public Byte getReviewstatus() {
-        return reviewstatus;
-    }
 
     public void setReviewstatus(Byte reviewstatus) {
         this.reviewstatus = reviewstatus;
+        this.reviewstatusStr = reviewstatus.byteValue() == (byte) 0 ? NoticeSimple.未通过 : NoticeSimple.已通过;
     }
 
-    public String getReviewer() {
-        return reviewer;
-    }
-
-    public void setReviewer(String reviewer) {
-        this.reviewer = reviewer == null ? null : reviewer.trim();
-    }
-
-    public Date getReviewdate() {
-        return reviewdate;
-    }
-
-    public void setReviewdate(Date reviewdate) {
-        this.reviewdate = reviewdate;
-    }
-
-    public Long getPageview() {
-        return pageview;
-    }
-
-    public void setPageview(Long pageview) {
-        this.pageview = pageview;
-    }
-
-    public byte[] getContent() {
-        return content;
-    }
-
-    public void setContent(byte[] content) {
-        this.content = content;
-    }
 
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", title=").append(title);
-        sb.append(", ntid=").append(ntid);
-        sb.append(", author=").append(author);
-        sb.append(", publisdate=").append(publisdate);
-        sb.append(", reviewstatus=").append(reviewstatus);
-        sb.append(", reviewer=").append(reviewer);
-        sb.append(", reviewdate=").append(reviewdate);
-        sb.append(", pageview=").append(pageview);
-        sb.append(", content=").append(content);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+    public void validate() throws Exception {
+        if (StringUtil.isStringNull(title)) {
+            throw new Exception("标题title字段为空！");
+        }
+        if (ntid == null) {
+            throw new Exception("类型ntid字段为空！");
+        }
+        if (StringUtil.isStringNull(contentStr)) {
+            throw new Exception("内容contentStr字段为空！");
+        }
+    }
+
+    /**
+     * 将新闻内容转换为数据库blob
+     */
+    public void convertContent2Blob() throws Exception {
+        content = StringUtil.getUtf8Bytes(contentStr);
     }
 }

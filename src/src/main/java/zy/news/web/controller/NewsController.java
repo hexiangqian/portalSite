@@ -37,7 +37,7 @@ public class NewsController {
     @ExcutePermission
     public boolean existTitle(@RequestParam String title) throws Exception {
         News news = new News();
-        news.setTitile(title);
+        news.setTitle(title);
         return newsService.exist(news);
     }
 

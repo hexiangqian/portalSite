@@ -35,7 +35,7 @@ public class News implements IValidate {
     private List<ArticlAnnex> annexes;//附件列表
 
     public void setContent(byte[] content) {
-        this.content = content;
+        //this.content = content;
         if (null != content && content.length > 0) {
             this.contentStr = StringUtil.getUtf8Str(content);
         } else {
