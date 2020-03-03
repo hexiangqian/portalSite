@@ -13,7 +13,7 @@ import java.util.List;
 public class News implements IValidate {
     private Long id;
     private Long imageid;
-    private String titile;
+    private String title;
     private Long ntid;
     private String author;
     private Date publishdate;
@@ -50,7 +50,7 @@ public class News implements IValidate {
 
     @Override
     public void validate() throws Exception {
-        if (StringUtil.isStringNull(titile)) {
+        if (StringUtil.isStringNull(title)) {
             throw new Exception("新闻标题titile字段为空！");
         }
         if (ntid == null) {
