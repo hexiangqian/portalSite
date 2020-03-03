@@ -88,7 +88,7 @@ public class NoticeController {
 
     //region 通告审核
 
-    @PostMapping("getNotice")
+    @PostMapping("getNotices")
     @ExcuteInterfaceDsrc("获取已审核通告列表")
     @ExcutePermission(userType = ExcuteUserType.游客)
     public PageValuesResult<NoticeSimple> getNotice(@RequestBody Page page) throws Exception {
