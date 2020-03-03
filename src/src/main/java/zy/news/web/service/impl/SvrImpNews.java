@@ -16,10 +16,10 @@ import zy.news.web.ui.result.ReviewInfo;
 import zy.news.web.zsys.bean.PageValuesParam;
 import zy.news.web.zsys.bean.PageValuesResult;
 import zy.news.web.service.IUserCache;
+import zy.news.web.zsys.utils.ServiceBase;
 import zy.news.web.zsys.utils.ServiceUtil;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,19 +30,17 @@ import java.util.List;
  * @date 2020/2/18 23:16
  */
 @Service
-public class SvrImpNews implements INews {
+public class SvrImpNews extends ServiceBase implements INews {
 
     private final NewsMapper mapper;
     private final IUserCache userCache;
-    private final IAnnex annexService;
-    private final IFiles filesService;
+
 
     @Autowired
     public SvrImpNews(NewsMapper mapper, IUserCache userCache, IAnnex annexService, IFiles filesService) {
+        super(annexService, filesService);
         this.mapper = mapper;
         this.userCache = userCache;
-        this.annexService = annexService;
-        this.filesService = filesService;
     }
 
     @Override
@@ -83,7 +81,7 @@ public class SvrImpNews implements INews {
         mapper.insert(news);
 
         //插入附件
-        annexService.adds(news.getId(), news.getAnnexes());
+        addAnnexs(news.getId(), news.getAnnexes());
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -96,18 +94,7 @@ public class SvrImpNews implements INews {
         News tmpNews = mapper.selectByPrimaryKey(record.getId());
         if (null != tmpNews) {
             mapper.deleteByPrimaryKey(record.getId());
-            List<ArticlAnnex> annexes = annexService.getAnnexs(record.getId());
-            annexService.delete(record.getId());
-            //批量删除附件
-            if (!annexes.isEmpty()) {
-                List<SysFile> files = new ArrayList<>(annexes.size());
-                for (ArticlAnnex annex : annexes) {
-                    SysFile file = new SysFile();
-                    file.setFid(annex.getFid());
-                    files.add(file);
-                }
-                filesService.deleteFiles(files);
-            }
+            deleteAnnexs(record.getId());
         }
     }
 
@@ -123,7 +110,7 @@ public class SvrImpNews implements INews {
             throw new Exception("新闻已不存在！");
         }
         if (!news.getTitile().equals(tmpNews.getTitile()) && exist(news)) {
-            throw new Exception("新闻名称已存在，请修改后再试一试！");
+            throw new Exception(news.getTitile() + "新闻名称已存在，请修改后再试一试！");
         }
         SysUser user = userCache.getUserFromSession(session);
 
@@ -140,7 +127,7 @@ public class SvrImpNews implements INews {
         mapper.updateByPrimaryKey(news);
 
         //更新附件
-        annexService.updates(news.getId(), news.getAnnexes());
+        updateAnnexs(news.getId(), news.getAnnexes());
     }
 
     @Override
