@@ -26,7 +26,7 @@
   	--用户管理  
   	--角色管理  
 # Documentation  
-https://documenter.getpostman.com/view/10489749/SzKWvxiS?version=latest      
+https://documenter.getpostman.com/view/10489749/SzKbMvGY?version=latest        
 # 前端项目  
 https://github.com/maokofan/portalSite_UI_vue 
 # 首页
