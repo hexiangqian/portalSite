@@ -1,4 +1,4 @@
-package zy.news.web.service.impl;
+package zy.news.web.zsys.utils;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -12,7 +12,6 @@ import zy.news.web.zsys.bean.PageValuesParam;
 import zy.news.web.zsys.bean.PageValuesResult;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 

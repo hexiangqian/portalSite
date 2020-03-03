@@ -1,4 +1,4 @@
-package zy.news.web.service.impl;
+package zy.news.web.zsys.utils;
 
 import maoko.common.file.FileIDUtil;
 import maoko.common.file.PathUtil;

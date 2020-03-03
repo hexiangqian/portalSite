@@ -10,10 +10,9 @@ import zy.news.web.mapper.SysPermissionMapper;
 import zy.news.web.service.IAuthPermission;
 import zy.news.web.zsys.bean.PageValuesParam;
 import zy.news.web.zsys.bean.PageValuesResult;
+import zy.news.web.zsys.utils.ServiceUtil;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class SvrImpAuthPerms implements IAuthPermission {

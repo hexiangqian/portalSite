@@ -7,10 +7,10 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import zy.news.web.UploadFilePathConfig;
-import zy.news.web.bean.ArticlAnnex;
 import zy.news.web.bean.SysFile;
 import zy.news.web.mapper.SysFileMapper;
 import zy.news.web.service.IFiles;
+import zy.news.web.zsys.utils.FileUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
