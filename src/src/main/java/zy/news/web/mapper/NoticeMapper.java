@@ -25,7 +25,7 @@ public interface NoticeMapper {
     //apend
 
     /**
-     * 此新闻是否存在
+     * 此通告是否存在
      *
      * @param notice
      * @return
