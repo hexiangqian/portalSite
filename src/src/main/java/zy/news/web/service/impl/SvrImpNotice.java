@@ -145,7 +145,11 @@ public class SvrImpNotice extends ServiceBase implements INotice {
     }
 
     @Override
-    public ReviewInfo getReviewComment(Long id) {
-        return mapper.selectReviewInfoByPrimaryKey(id);
+    public ReviewInfo getReviewComment(Long id) throws Exception {
+        ReviewInfo reviewInfo = mapper.selectReviewInfoByPrimaryKey(id);
+        if (reviewInfo == null) {
+            throw new Exception(id.toString() + "分享已不存在！");
+        }
+        return reviewInfo;
     }
 }
