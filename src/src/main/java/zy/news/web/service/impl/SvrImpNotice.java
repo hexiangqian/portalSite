@@ -91,7 +91,6 @@ public class SvrImpNotice extends ServiceBase implements INotice {
         Notice tmpNotice = mapper.selectByPrimaryKey(record.getId());
         if (null != tmpNotice) {
             mapper.deleteByPrimaryKey(record.getId());
-            List<ArticlAnnex> annexes = annexService.getAnnexs(record.getId());
             deleteAnnexs(record.getId());
         }
     }
