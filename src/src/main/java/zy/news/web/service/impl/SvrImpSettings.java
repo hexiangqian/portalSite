@@ -65,8 +65,8 @@ public class SvrImpSettings implements ISettings {
     @Override
     public void addNoticeType(NoticeType noticeType) throws Exception {
         noticeType.validate();
-        if (settingsMapper.newsTypeCount(noticeType.getAtName()) > 0) {
-            throw new Exception("通知类型[" + noticeType.getAtName() + "]已存在");
+        if (settingsMapper.newsTypeCount(noticeType.getNoticeTName()) > 0) {
+            throw new Exception("通知类型[" + noticeType.getNoticeTName() + "]已存在");
         }
         settingsMapper.addNoticeType(noticeType);
     }
@@ -79,7 +79,7 @@ public class SvrImpSettings implements ISettings {
             throw new Exception("通知类型[ntid:" + noticeType.getNtid() + "]不存在");
         }
         //名称不同才更新
-        if (!tmpNoticeType.getAtName().equals(noticeType.getAtName())) {
+        if (!tmpNoticeType.getNoticeTName().equals(noticeType.getNoticeTName())) {
             settingsMapper.updateNoticeType(noticeType);
         }
     }

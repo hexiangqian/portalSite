@@ -13,17 +13,17 @@ import zy.news.web.zsys.bean.IValidate;
 @Data
 public class NoticeType implements IValidate {
     private long ntid;
-    private String atName;
+    private String noticeTName;
 
     @Override
     public void validate() throws Exception {
-        if (StringUtil.isStrNullOrWhiteSpace(atName)) {
+        if (StringUtil.isStrNullOrWhiteSpace(noticeTName)) {
             throw new Exception("类型名称为空！");
         }
     }
 
     public void validateAll() throws Exception {
-        if (ntid < 0 || StringUtil.isStrNullOrWhiteSpace(atName)) {
+        if (ntid < 0 || StringUtil.isStrNullOrWhiteSpace(noticeTName)) {
             throw new Exception("类型id和类型名称都不能为空！");
         }
     }

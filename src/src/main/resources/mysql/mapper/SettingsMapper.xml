@@ -31,11 +31,11 @@
         where ntid=#{ntid,jdbcType=BIGINT}
     </select>
     <select id="addNoticeType">
-        insert into t_NoticeType(ntid,atName)
-        values(#{ntid,jdbcType=BIGINT},#{atName ,jdbcType=VARCHAR})
+        insert into t_NoticeType(ntid,noticeTName)
+        values(#{ntid,jdbcType=BIGINT},#{noticeTName ,jdbcType=VARCHAR})
     </select>
     <update id="updateNoticeType">
-        update t_NoticeType set atName=#{atName ,jdbcType=VARCHAR}
+        update t_NoticeType set noticeTName=#{noticeTName ,jdbcType=VARCHAR}
         where ntid=#{ntid,jdbcType=BIGINT}
     </update>
     <select id="selectAllNoticeType" resultType="zy.news.web.bean.NoticeType">
