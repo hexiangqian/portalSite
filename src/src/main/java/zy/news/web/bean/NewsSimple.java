@@ -35,7 +35,7 @@ public class NewsSimple {
 
     public void setReviewstatus(Byte reviewstatus) {
         this.reviewstatus = reviewstatus;
-        this.reviewstatusStr = reviewstatus.byteValue() == (byte) 0 ? 已通过 : 未通过;
+        this.reviewstatusStr = reviewstatus.byteValue() == (byte) 0 ? 未通过 : 已通过;
     }
 
 }
