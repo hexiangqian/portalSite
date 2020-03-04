@@ -116,7 +116,7 @@ public class SvrImpNotice extends ServiceBase implements INotice {
         record.setPublishdate(new Date());
         record.convertContent2Blob();
 
-        //更新news
+        //更新
         mapper.updateByPrimaryKey(record);
 
         //更新附件
