@@ -2,12 +2,10 @@ package zy.news.web.controller;
 
 import org.springframework.web.bind.annotation.*;
 import zy.news.common.Page;
-import zy.news.web.bean.Comment;
 import zy.news.web.bean.KnlgeShare;
 import zy.news.web.bean.KnlgeShareSimple;
 import zy.news.web.service.IKnlgeShare;
 import zy.news.web.ui.param.Opinion;
-import zy.news.web.ui.param.PageIdParam;
 import zy.news.web.ui.param.ReviewStatus;
 import zy.news.web.ui.result.ReviewInfo;
 import zy.news.web.zsys.bean.*;
@@ -96,13 +94,6 @@ public class KnlgeShareController {
     @ExcutePermission(userType = ExcuteUserType.游客)
     public void giveOpinion(@RequestBody Opinion opinion) throws Exception {
         kngeShareService.giveOpinion(opinion);
-    }
-
-    @GetMapping("getKnlgeShareComment")
-    @ExcuteInterfaceDsrc("获取指定分享评论列表")
-    @ExcutePermission(userType = ExcuteUserType.游客)
-    public PageValuesResult<Comment> getKnlgeShareComment(@RequestBody PageIdParam pageIdParam) throws Exception {
-        return kngeShareService.getArticleComments(pageIdParam);
     }
 
 
