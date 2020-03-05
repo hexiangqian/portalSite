@@ -1,54 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zy.news.web.mapper.KnowledgeShareMapper">
-  <resultMap id="BaseResultMap" type="zy.news.web.bean.KnowledgeShare">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="titile" jdbcType="VARCHAR" property="titile" />
-    <result column="author" jdbcType="VARCHAR" property="author" />
-    <result column="publishdate" jdbcType="TIMESTAMP" property="publishdate" />
-    <result column="reviewstatus" jdbcType="TINYINT" property="reviewstatus" />
-    <result column="reviewer" jdbcType="VARCHAR" property="reviewer" />
-    <result column="reviewdate" jdbcType="TIMESTAMP" property="reviewdate" />
-    <result column="goodnum" jdbcType="INTEGER" property="goodnum" />
-    <result column="badnum" jdbcType="INTEGER" property="badnum" />
-    <result column="coment" jdbcType="LONGVARBINARY" property="coment" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <resultMap id="BaseResultMap" type="zy.news.web.bean.KnlgeShare">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="publishdate" jdbcType="TIMESTAMP" property="publishdate"/>
+        <result column="reviewstatus" jdbcType="TINYINT" property="reviewstatus"/>
+        <result column="reviewer" jdbcType="VARCHAR" property="reviewer"/>
+        <result column="reviewdate" jdbcType="TIMESTAMP" property="reviewdate"/>
+        <result column="goodnum" jdbcType="INTEGER" property="goodnum"/>
+        <result column="badnum" jdbcType="INTEGER" property="badnum"/>
+        <result column="content" jdbcType="LONGVARBINARY" property="content"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_knowledgeshare
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT} and reviewstatus = 0
   </delete>
-  <insert id="insert" parameterType="zy.news.web.bean.KnowledgeShare">
-    insert into t_knowledgeshare (id, titile, author, 
+    <insert id="insert" parameterType="zy.news.web.bean.KnlgeShare">
+    insert into t_knowledgeshare (id, title, author, 
       publishdate, reviewstatus, reviewer, 
       reviewdate, goodnum, badnum, 
-      coment)
-    values (#{id,jdbcType=BIGINT}, #{titile,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      content)
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
       #{publishdate,jdbcType=TIMESTAMP}, #{reviewstatus,jdbcType=TINYINT}, #{reviewer,jdbcType=VARCHAR}, 
       #{reviewdate,jdbcType=TIMESTAMP}, #{goodnum,jdbcType=INTEGER}, #{badnum,jdbcType=INTEGER}, 
-      #{coment,jdbcType=LONGVARBINARY})
+      #{content,jdbcType=LONGVARBINARY})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.KnowledgeShare">
+    <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.KnlgeShare">
     update t_knowledgeshare
-    set titile = #{titile,jdbcType=VARCHAR},
+    set title = #{title,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
       publishdate = #{publishdate,jdbcType=TIMESTAMP},
-      reviewstatus = #{reviewstatus,jdbcType=TINYINT},
-      reviewer = #{reviewer,jdbcType=VARCHAR},
-      reviewdate = #{reviewdate,jdbcType=TIMESTAMP},
-      goodnum = #{goodnum,jdbcType=INTEGER},
-      badnum = #{badnum,jdbcType=INTEGER},
-      coment = #{coment,jdbcType=LONGVARBINARY}
-    where id = #{id,jdbcType=BIGINT}
+      content = #{content,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=BIGINT} and reviewstatus = 0
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, titile, author, publishdate, reviewstatus, reviewer, reviewdate, goodnum, 
-    badnum, coment
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, title, author, publishdate, reviewstatus, reviewer, reviewdate, goodnum, 
+    badnum, content
     from t_knowledgeshare
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, titile, author, publishdate, reviewstatus, reviewer, reviewdate, goodnum, 
-    badnum, coment
-    from t_knowledgeshare
-  </select>
+    <select id="selectAllShareSimple" resultType="zy.news.web.bean.KnlgeShareSimple">
+        SELECT tmp_share_t.* from(
+        SELECT
+        t_share.id, title, publishdate, reviewstatus,usr.realname as author, content,goodnum,badnum,
+        (goodnum/(goodnum+badnum)) as goodPercent
+        FROM
+        t_knowledgeshare t_share
+        LEFT JOIN t_sys_user usr ON usr.username=t_share.author
+        where 1=1
+        <if test="author !=null and author !=''">
+            and t_share.author=#{author,jdbcType=VARCHAR}
+        </if>
+        <if test="reviewStatus != 2">
+            and t_share.reviewstatus=#{reviewStatus,jdbcType=TINYINT}
+        </if>
+        )tmp_share_t
+        LEFT JOIN t_sharecomment cmt ON tmp_share_t.id = cmt.shareid
+        <if test="isGood">
+            WHERE goodnum > 0
+        </if>
+        GROUP BY tmp_share_t.id
+        <choose>
+            <when test="isGood">
+                ORDER BY goodnum DESC,goodPercent desc
+            </when>
+            <otherwise>
+                ORDER BY reviewstatus ASC ,publishdate DESC
+            </otherwise>
+        </choose>
+
+    </select>
+    <select id="exist" parameterType="zy.news.web.bean.KnlgeShare" resultType="java.lang.Integer">
+    SELECT count(*) FROM t_knowledgeshare t
+    WHERE t.title=#{title,jdbcType=VARCHAR}
+    </select>
+    <select id="selectDetailByPrimaryKey" resultType="zy.news.web.bean.KnlgeShare">
+     SELECT tmp_t.id, tmp_t.title, tmp_t.publishdate, tmp_t.reviewstatus, tmp_t.reviewer,
+          tmp_t.reviewdate, tmp_t.goodnum, tmp_t.badnum, tmp_t.content,tmp_t.cmtCount,
+          usr.realname as author
+     FROM (
+        SELECT
+          shr.*,
+          COUNT( cmt.id ) AS cmtCount
+        FROM
+            t_knowledgeshare shr
+            LEFT JOIN t_sharecomment cmt ON shr.id = cmt.shareid
+        WHERE
+            shr.id = #{id,jdbcType=BIGINT}
+        GROUP BY shr.id)tmp_t
+        LEFT JOIN t_sys_user usr ON usr.username=tmp_t.author
+    </select>
+    <update id="updateReviewInfo" parameterType="zy.news.web.ui.result.ReviewInfo">
+        UPDATE t_knowledgeshare
+        SET reviewstatus = #{reviewstatus,jdbcType=TINYINT},
+        reviewer = #{reviewer,jdbcType=VARCHAR},
+        reviewdate = #{reviewdate,jdbcType=TIMESTAMP}
+        <if test="reviewComment != null and reviewComment !=''">
+            ,reviewComment = #{reviewComment,jdbcType=VARCHAR}
+        </if>
+        WHERE
+        reviewstatus=0 and
+        id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectReviewInfoByPrimaryKey" resultType="zy.news.web.ui.result.ReviewInfo">
+        select id,reviewstatus,reviewer,reviewdate
+        ,reviewComment
+        from t_knowledgeshare
+        where id=#{id,jdbcType=BIGINT}
+    </select>
+    <update id="giveAlike">
+        UPDATE t_knowledgeshare
+        SET goodnum = goodnum+1
+        WHERE id=#{shareid,jdbcType=BIGINT}
+    </update>
+    <update id="giveAbad">
+        UPDATE t_knowledgeshare
+        SET badnum = badnum+1
+        WHERE id=#{shareid,jdbcType=BIGINT}
+    </update>
 </mapper>

@@ -26,5 +26,5 @@ public interface IReview {
      * @param id
      * @return
      */
-    ReviewInfo getReviewComment(Long id);
+    ReviewInfo getReviewComment(Long id) throws Exception;
 }
