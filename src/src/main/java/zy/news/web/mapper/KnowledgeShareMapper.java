@@ -24,7 +24,7 @@ public interface KnowledgeShareMapper {
      * @param isGood       是否更具点赞度排序
      * @return
      */
-    List<KnlgeShareSimple> selectAllShareSimple(@Param("author") String author, @Param("reviewStatus") Integer reviewStatus, @Param("isGood") Boolean isGood);
+    List<KnlgeShareSimple> selectAllShareSimple(@Param("author") String author, @Param("reviewStatus") Byte reviewStatus, @Param("isGood") Boolean isGood);
 
     int updateByPrimaryKey(KnlgeShare record);
 

@@ -16,7 +16,7 @@ public interface NewsMapper {
 
     News selectByPrimaryKey(Long id);
 
-    List<NewsSimple> selectAllNewsSimple(@Param("reviewStatus") Integer reviewStatus);
+    List<NewsSimple> selectAllNewsSimple(@Param("reviewStatus") Byte reviewStatus);
 
     int updateByPrimaryKey(News record);
 
