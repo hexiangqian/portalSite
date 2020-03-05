@@ -1,6 +1,7 @@
 package zy.news.web.bean;
 
 import maoko.common.exception.OutOfRangeException;
+import zy.news.web.ui.param.ArticleType;
 import zy.news.web.ui.param.ReviewStatus;
 
 import java.util.Date;
@@ -20,6 +21,8 @@ public class KnlgeShareSimple {
 
 
     //辅助变量 非数据库变量
+
+    private Byte articletype = ArticleType.分享.getValue();
     private String reviewstatusStr;
 
     public void setReviewstatus(Byte reviewstatus) throws OutOfRangeException {

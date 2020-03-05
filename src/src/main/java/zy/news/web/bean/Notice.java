@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import lombok.Data;
 import maoko.common.StringUtil;
 import maoko.common.exception.OutOfRangeException;
+import zy.news.web.ui.param.ArticleType;
 import zy.news.web.ui.param.ReviewStatus;
 import zy.news.web.zsys.bean.IValidate;
 import zy.news.web.zsys.utils.HtmlUtils;
@@ -29,6 +30,8 @@ public class Notice implements IValidate {
     private byte[] content;
 
     //辅助变量 非数据库变量
+
+    private Byte articletype = ArticleType.通告.getValue();
     private String noticeTName;
     private String reviewstatusStr;
     private String contentStr;
