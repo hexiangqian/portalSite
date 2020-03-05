@@ -72,14 +72,14 @@ public class KnlgeShareController {
     @ExcuteInterfaceDsrc("获取已通过审核分享列表")
     @ExcutePermission(userType = ExcuteUserType.游客)
     public PageValuesResult<KnlgeShareSimple> getKnlgeShares(@RequestBody Page page) throws Exception {
-        return kngeShareService.getKnowledgeShares(null, page, ReviewStatus.已审核, false);
+        return kngeShareService.getKnowledgeShares(null, page, ReviewStatus.已通过, false);
     }
 
     @PostMapping("getGoodKnlgeShares")
     @ExcuteInterfaceDsrc("获取精华帖分享列表")
     @ExcutePermission(userType = ExcuteUserType.游客)
     public PageValuesResult<KnlgeShareSimple> getGoodKnlgeShares(HttpSession session, @RequestBody Page page) throws Exception {
-        return kngeShareService.getKnowledgeShares(null, page, ReviewStatus.已审核, true);
+        return kngeShareService.getKnowledgeShares(null, page, ReviewStatus.已通过, true);
     }
 
     @GetMapping("getKnlgeShareDetail")

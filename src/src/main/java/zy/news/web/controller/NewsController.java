@@ -92,14 +92,14 @@ public class NewsController {
     @ExcuteInterfaceDsrc("获取已审核新闻列表")
     @ExcutePermission(userType = ExcuteUserType.游客)
     public PageValuesResult<NewsSimple> getNews(@RequestBody Page page) throws Exception {
-        return newsService.getNews(page, ReviewStatus.已审核);
+        return newsService.getNews(page, ReviewStatus.已通过);
     }
 
     @PostMapping("getNewsUnReview")
     @ExcuteInterfaceDsrc("获取未审核新闻列表")
     @ExcutePermission
     public PageValuesResult<NewsSimple> getNewsUnReview(@RequestBody Page page) throws Exception {
-        return newsService.getNews(page, ReviewStatus.未审核);
+        return newsService.getNews(page, ReviewStatus.未通过);
     }
 
     @PostMapping("reviewNews")

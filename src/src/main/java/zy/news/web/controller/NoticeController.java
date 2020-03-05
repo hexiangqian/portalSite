@@ -92,14 +92,14 @@ public class NoticeController {
     @ExcuteInterfaceDsrc("获取已审核通告列表")
     @ExcutePermission(userType = ExcuteUserType.游客)
     public PageValuesResult<NoticeSimple> getNotice(@RequestBody Page page) throws Exception {
-        return noticeService.getNotice(page, ReviewStatus.已审核);
+        return noticeService.getNotice(page, ReviewStatus.已通过);
     }
 
     @PostMapping("getNoticeUnReview")
     @ExcuteInterfaceDsrc("获取未审核通告列表")
     @ExcutePermission
     public PageValuesResult<NoticeSimple> getNoticeUnReview(@RequestBody Page page) throws Exception {
-        return noticeService.getNotice(page, ReviewStatus.未审核);
+        return noticeService.getNotice(page, ReviewStatus.未通过);
     }
 
     @PostMapping("reviewNotice")
