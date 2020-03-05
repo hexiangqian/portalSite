@@ -76,9 +76,4 @@ public interface KnowledgeShareMapper {
      */
     void giveAbad(Long articleid);
 
-    /**
-     * @param id 指定分享的id
-     * @return
-     */
-    List<Comment> getComments(Long id);
 }
