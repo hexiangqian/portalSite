@@ -3,6 +3,8 @@ package zy.news.web.bean;
 import com.google.gson.annotations.Expose;
 import lombok.Data;
 import maoko.common.StringUtil;
+import maoko.common.exception.OutOfRangeException;
+import zy.news.web.ui.param.ReviewStatus;
 import zy.news.web.zsys.bean.IValidate;
 import zy.news.web.zsys.utils.HtmlUtils;
 
@@ -43,9 +45,9 @@ public class News implements IValidate {
         }
     }
 
-    public void setReviewstatus(Byte reviewstatus) {
+    public void setReviewstatus(Byte reviewstatus) throws OutOfRangeException {
         this.reviewstatus = reviewstatus;
-        this.reviewstatusStr = reviewstatus.byteValue() == (byte) 0 ? NewsSimple.未通过 : NewsSimple.已通过;
+        this.reviewstatusStr = ReviewStatus.getInstance(reviewstatus.byteValue()).toString();
     }
 
     @Override
