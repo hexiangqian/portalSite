@@ -3,6 +3,8 @@ package zy.news.web.bean;
 import com.google.gson.annotations.Expose;
 import lombok.Data;
 import maoko.common.StringUtil;
+import maoko.common.exception.OutOfRangeException;
+import zy.news.web.ui.param.ReviewStatus;
 
 import java.util.Date;
 import java.util.List;
@@ -15,9 +17,6 @@ import java.util.List;
  */
 @Data
 public class NewsSimple {
-    public final static String 已通过 = "已通过";
-    public final static String 未通过 = "未通过";
-
     private Long id;
     private Long imageid;
     private String title;
@@ -33,9 +32,9 @@ public class NewsSimple {
     private String imageUrl;//图片地址
     private String reviewstatusStr;
 
-    public void setReviewstatus(Byte reviewstatus) {
+    public void setReviewstatus(Byte reviewstatus) throws OutOfRangeException {
         this.reviewstatus = reviewstatus;
-        this.reviewstatusStr = reviewstatus.byteValue() == (byte) 0 ? 未通过 : 已通过;
+        this.reviewstatusStr = ReviewStatus.getInstance(reviewstatus.byteValue()).toString();
     }
 
 }

@@ -1,6 +1,8 @@
 package zy.news.web.bean;
 
 import lombok.Data;
+import maoko.common.exception.OutOfRangeException;
+import zy.news.web.ui.param.ReviewStatus;
 
 import java.util.Date;
 
@@ -12,9 +14,6 @@ import java.util.Date;
  */
 @Data
 public class NoticeSimple {
-    public final static String 已通过 = "已通过";
-    public final static String 未通过 = "未通过";
-
     private Long id;
     private String title;
     private Long ntid;
@@ -27,8 +26,8 @@ public class NoticeSimple {
     private String noticeTName;//类型名称
     private String reviewstatusStr;
 
-    public void setReviewstatus(Byte reviewstatus) {
+    public void setReviewstatus(Byte reviewstatus) throws OutOfRangeException {
         this.reviewstatus = reviewstatus;
-        this.reviewstatusStr = reviewstatus.byteValue() == (byte) 0 ? 未通过 : 已通过;
+        this.reviewstatusStr = ReviewStatus.getInstance(reviewstatus.byteValue()).toString();
     }
 }

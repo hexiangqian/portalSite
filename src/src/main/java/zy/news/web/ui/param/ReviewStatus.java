@@ -22,17 +22,17 @@ public enum ReviewStatus {
      * 所有
      */
     所有(2);
-    private int value;
+    private byte value;
 
-    public int getValue() {
+    public byte getValue() {
         return value;
     }
 
     private ReviewStatus(int value) {
-        this.value = value;
+        this.value = (byte) value;
     }
 
-    public static ReviewStatus getInstance(int value) throws OutOfRangeException {
+    public static ReviewStatus getInstance(byte value) throws OutOfRangeException {
         ReviewStatus reviewStatus = null;
         switch (value) {
             case 0:
