@@ -2,10 +2,12 @@ package zy.news.web.controller;
 
 import org.springframework.web.bind.annotation.*;
 import zy.news.common.Page;
-import zy.news.web.bean.KnlgeShareSimple;
+import zy.news.web.bean.Comment;
 import zy.news.web.bean.KnlgeShare;
+import zy.news.web.bean.KnlgeShareSimple;
 import zy.news.web.service.IKnlgeShare;
 import zy.news.web.ui.param.Opinion;
+import zy.news.web.ui.param.PageIdParam;
 import zy.news.web.ui.param.ReviewStatus;
 import zy.news.web.ui.result.ReviewInfo;
 import zy.news.web.zsys.bean.*;
@@ -85,8 +87,8 @@ public class KnlgeShareController {
     @GetMapping("getKnlgeShareDetail")
     @ExcuteInterfaceDsrc("获取分享详情")
     @ExcutePermission(userType = ExcuteUserType.游客)
-    public KnlgeShare getKnlgeShareDetail(@RequestParam Long shareid) throws Exception {
-        return kngeShareService.getRecordDetail(shareid);
+    public KnlgeShare getKnlgeShareDetail(@RequestParam Long articleid) throws Exception {
+        return kngeShareService.getRecordDetail(articleid);
     }
 
     @PostMapping("giveOpinion")
@@ -95,6 +97,14 @@ public class KnlgeShareController {
     public void giveOpinion(@RequestBody Opinion opinion) throws Exception {
         kngeShareService.giveOpinion(opinion);
     }
+
+    @GetMapping("getKnlgeShareComment")
+    @ExcuteInterfaceDsrc("获取指定分享评论列表")
+    @ExcutePermission(userType = ExcuteUserType.游客)
+    public PageValuesResult<Comment> getKnlgeShareComment(@RequestBody PageIdParam pageIdParam) throws Exception {
+        return kngeShareService.getArticleComments(pageIdParam);
+    }
+
 
     //endregion
 
@@ -109,8 +119,8 @@ public class KnlgeShareController {
     @GetMapping("getReviewInfo")
     @ExcuteInterfaceDsrc("获取审核详情")
     @ExcutePermission
-    public ReviewInfo getReviewInfo(HttpSession session, @RequestParam Long shareid) throws Exception {
-        return kngeShareService.getReviewComment(shareid);
+    public ReviewInfo getReviewInfo(HttpSession session, @RequestParam Long articleid) throws Exception {
+        return kngeShareService.getReviewComment(articleid);
     }
 
 

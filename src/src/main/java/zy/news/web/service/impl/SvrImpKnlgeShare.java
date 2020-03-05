@@ -6,16 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import zy.news.common.Page;
 import zy.news.common.exception.WarningException;
-import zy.news.web.bean.ArticlAnnex;
-import zy.news.web.bean.KnlgeShareSimple;
-import zy.news.web.bean.KnlgeShare;
-import zy.news.web.bean.SysUser;
+import zy.news.web.bean.*;
 import zy.news.web.mapper.KnowledgeShareMapper;
 import zy.news.web.service.IAnnex;
 import zy.news.web.service.IFiles;
 import zy.news.web.service.IKnlgeShare;
 import zy.news.web.service.IUserCache;
 import zy.news.web.ui.param.Opinion;
+import zy.news.web.ui.param.PageIdParam;
 import zy.news.web.ui.param.ReviewStatus;
 import zy.news.web.ui.result.ReviewInfo;
 import zy.news.web.zsys.bean.PageValuesParam;
@@ -177,5 +175,12 @@ public class SvrImpKnlgeShare extends ServiceBase implements IKnlgeShare {
         } else {
             mapper.giveAbad(opinion.getTargetid());
         }
+    }
+
+    @Override
+    public PageValuesResult<Comment> getArticleComments(PageIdParam pageIdParam) throws Exception {
+        PageValuesParam<Comment> params = new PageValuesParam<>(mapper, "selectAllShareSimple");
+        params.addParam(pageIdParam.getId());
+        return ServiceUtil.getValuePageResult(pageIdParam.getPage(), params);
     }
 }

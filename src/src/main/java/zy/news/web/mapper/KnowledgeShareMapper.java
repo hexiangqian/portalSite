@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import zy.news.web.bean.Comment;
 import zy.news.web.bean.KnlgeShare;
 import zy.news.web.bean.KnlgeShareSimple;
+import zy.news.web.ui.param.PageIdParam;
 import zy.news.web.ui.result.ReviewInfo;
 
 @Repository
@@ -63,14 +65,20 @@ public interface KnowledgeShareMapper {
     /**
      * 点赞
      *
-     * @param shareid 指定的分享id
+     * @param articleid 指定的分享id
      */
-    void giveAlike(Long shareid);
+    void giveAlike(Long articleid);
 
     /**
      * 点差 指定的分享id
      *
-     * @param shareid
+     * @param articleid
      */
-    void giveAbad(Long shareid);
+    void giveAbad(Long articleid);
+
+    /**
+     * @param id 指定分享的id
+     * @return
+     */
+    List<Comment> getComments(Long id);
 }

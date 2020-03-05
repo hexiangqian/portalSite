@@ -1,13 +1,16 @@
 package zy.news.web.service;
 
 import zy.news.common.Page;
+import zy.news.web.bean.Comment;
 import zy.news.web.bean.KnlgeShare;
 import zy.news.web.bean.KnlgeShareSimple;
 import zy.news.web.ui.param.Opinion;
+import zy.news.web.ui.param.PageIdParam;
 import zy.news.web.ui.param.ReviewStatus;
 import zy.news.web.zsys.bean.PageValuesResult;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author maoko
@@ -33,4 +36,11 @@ public interface IKnlgeShare extends IBaseService<KnlgeShare>, IReview {
      */
     void giveOpinion(Opinion opinion) throws Exception;
 
+    /**
+     * 获取评论
+     *
+     * @param pageIdParam
+     * @return
+     */
+    PageValuesResult<Comment> getArticleComments(PageIdParam pageIdParam) throws Exception;
 }
