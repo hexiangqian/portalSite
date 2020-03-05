@@ -79,7 +79,7 @@
     </select>
     <select id="selectDetailByPrimaryKey" resultType="zy.news.web.bean.KnlgeShare">
      SELECT tmp_t.id, tmp_t.title, tmp_t.publishdate, tmp_t.reviewstatus, tmp_t.reviewer,
-          tmp_t.reviewdate, tmp_t.goodnum, tmp_t.badnum, tmp_t.content,tmp_t.cmtCount,
+          tmp_t.reviewdate,tmp_t.reviewComment,tmp_t.goodnum, tmp_t.badnum, tmp_t.content,tmp_t.cmtCount,
           usr.realname as author
      FROM (
         SELECT
