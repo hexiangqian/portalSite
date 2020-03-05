@@ -37,7 +37,7 @@
     where id = #{id,jdbcType=BIGINT} and reviewstatus = 0
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, title, author, publishdate, reviewstatus, reviewer, reviewdate, goodnum, 
+    select id, title, author, publishdate, reviewstatus, reviewer, reviewdate,reviewComment, goodnum,
     badnum, content
     from t_knowledgeshare
     where id = #{id,jdbcType=BIGINT}
@@ -106,8 +106,7 @@
         id = #{id,jdbcType=BIGINT}
     </update>
     <select id="selectReviewInfoByPrimaryKey" resultType="zy.news.web.ui.result.ReviewInfo">
-        select id,reviewstatus,reviewer,reviewdate
-        ,reviewComment
+        select id,reviewstatus,reviewer,reviewdate,reviewComment
         from t_knowledgeshare
         where id=#{id,jdbcType=BIGINT}
     </select>
