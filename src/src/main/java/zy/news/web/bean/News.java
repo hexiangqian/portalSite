@@ -14,6 +14,11 @@ import java.util.List;
 
 @Data
 public class News implements IValidate {
+    /**
+     * 概要长度
+     */
+    private static final int SUMMARYLEN = 80;
+
     private Long id;
     private Long imageid;
     private String title;
@@ -72,6 +77,10 @@ public class News implements IValidate {
      */
     public void convertContent2Blob() throws Exception {
         content = StringUtil.getUtf8Bytes(contentStr);
-        summary = HtmlUtils.html2Str(contentStr, 80);
+        summary = HtmlUtils.html2Str(contentStr);
+        int len = summary.length();
+        if (len > SUMMARYLEN) {
+            summary = summary.substring(0, SUMMARYLEN);
+        }
     }
 }
