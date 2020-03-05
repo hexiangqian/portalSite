@@ -11,6 +11,7 @@
         <result column="reviewstatus" jdbcType="TINYINT" property="reviewstatus"/>
         <result column="reviewer" jdbcType="VARCHAR" property="reviewer"/>
         <result column="reviewdate" jdbcType="TIMESTAMP" property="reviewdate"/>
+        <result column="reviewComment" jdbcType="VARCHAR" property="reviewcomment"/>
         <result column="pageview" jdbcType="BIGINT" property="pageview"/>
         <result column="content" jdbcType="LONGVARBINARY" property="content"/>
     </resultMap>

@@ -9,6 +9,7 @@
         <result column="reviewstatus" jdbcType="TINYINT" property="reviewstatus"/>
         <result column="reviewer" jdbcType="VARCHAR" property="reviewer"/>
         <result column="reviewdate" jdbcType="TIMESTAMP" property="reviewdate"/>
+        <result column="reviewComment" jdbcType="VARCHAR" property="reviewcomment"/>
         <result column="goodnum" jdbcType="INTEGER" property="goodnum"/>
         <result column="badnum" jdbcType="INTEGER" property="badnum"/>
         <result column="content" jdbcType="LONGVARBINARY" property="content"/>
