@@ -47,6 +47,14 @@ public interface KnowledgeShareMapper {
     KnlgeShare selectDetailByPrimaryKey(Long id);
 
     /**
+     * 浏览量+1
+     *
+     * @param id
+     * @return
+     */
+    int countViewByPrimaryKey(Long id);
+
+    /**
      * 更新审核信息
      *
      * @param reviewInfo

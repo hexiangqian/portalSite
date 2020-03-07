@@ -23,6 +23,7 @@ public class KnlgeShare extends ContentBase implements IValidate {
     private String reviewComment;
     private Integer goodnum;
     private Integer badnum;
+    private Long pageview;
 
 
     //辅助变量 非数据库变量

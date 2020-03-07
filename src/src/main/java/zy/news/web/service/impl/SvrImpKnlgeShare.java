@@ -135,12 +135,13 @@ public class SvrImpKnlgeShare extends ServiceBase implements IKnlgeShare {
     }
 
     @Override
-    public KnlgeShare getRecordDetail(Long noticeid) throws Exception {
-        KnlgeShare tmpRecord = mapper.selectDetailByPrimaryKey(noticeid);
+    public KnlgeShare getRecordDetail(Long id) throws Exception {
+        KnlgeShare tmpRecord = mapper.selectDetailByPrimaryKey(id);
         if (null == tmpRecord) {
-            throw new WarningException(noticeid.toString() + "通告已不存在!");
+            throw new WarningException(id.toString() + "通告已不存在!");
         }
-        List<ArticlAnnex> annexes = annexService.getAnnexs(noticeid);
+        mapper.countViewByPrimaryKey(id);
+        List<ArticlAnnex> annexes = annexService.getAnnexs(id);
         tmpRecord.setAnnexes(annexes);
         return tmpRecord;
     }

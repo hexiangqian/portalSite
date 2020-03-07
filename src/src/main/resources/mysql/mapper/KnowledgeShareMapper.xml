@@ -13,6 +13,7 @@
         <result column="goodnum" jdbcType="INTEGER" property="goodnum"/>
         <result column="badnum" jdbcType="INTEGER" property="badnum"/>
         <result column="content" jdbcType="LONGVARBINARY" property="content"/>
+        <result column="pageview" jdbcType="BIGINT" property="pageview"/>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_knowledgeshare
@@ -22,11 +23,11 @@
     insert into t_knowledgeshare (id, title, author, 
       publishdate, reviewstatus, reviewer, 
       reviewdate, goodnum, badnum, 
-      content)
+      content,pageview)
     values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
       #{publishdate,jdbcType=TIMESTAMP}, #{reviewstatus,jdbcType=TINYINT}, #{reviewer,jdbcType=VARCHAR}, 
       #{reviewdate,jdbcType=TIMESTAMP}, #{goodnum,jdbcType=INTEGER}, #{badnum,jdbcType=INTEGER}, 
-      #{content,jdbcType=LONGVARBINARY})
+      #{content,jdbcType=LONGVARBINARY},#{pageview,jdbcType=BIGINT})
   </insert>
     <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.KnlgeShare">
     update t_knowledgeshare
@@ -38,7 +39,7 @@
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="zy.news.web.bean.KnlgeShare">
     select id, title, author, publishdate, reviewstatus, reviewer, reviewdate,reviewComment, goodnum,
-    badnum, content
+    badnum, content,pageview
     from t_knowledgeshare
     where id = #{id,jdbcType=BIGINT}
   </select>
@@ -79,7 +80,7 @@
     </select>
     <select id="selectDetailByPrimaryKey" resultType="zy.news.web.bean.KnlgeShare">
      SELECT tmp_t.id, tmp_t.title, tmp_t.publishdate, tmp_t.reviewstatus, tmp_t.reviewer,
-          tmp_t.reviewdate,tmp_t.reviewComment,tmp_t.goodnum, tmp_t.badnum, tmp_t.content,tmp_t.cmtCount,
+          tmp_t.reviewdate,tmp_t.reviewComment,tmp_t.goodnum, tmp_t.badnum, tmp_t.content,tmp_t.pageview,tmp_t.cmtCount,
           usr.realname as author
      FROM (
         SELECT
@@ -110,6 +111,12 @@
         from t_knowledgeshare
         where id=#{id,jdbcType=BIGINT}
     </select>
+    <update id="countViewByPrimaryKey">
+        UPDATE t_knowledgeshare
+        SET pageview = pageview + 1
+        WHERE
+            id = #{id,jdbcType=BIGINT}
+    </update>
     <update id="giveAlike">
         UPDATE t_knowledgeshare
         SET goodnum = goodnum+1
