@@ -60,13 +60,13 @@ public class News implements IValidate {
 
     @Override
     public void validate() throws Exception {
-        if (StringUtil.isStringNull(title)) {
+        if (StringUtil.isStrNullOrWhiteSpace(title)) {
             throw new Exception("新闻标题title字段为空！");
         }
         if (ntid == null) {
             throw new Exception("新闻类型ntid字段为空！");
         }
-        if (StringUtil.isStringNull(contentStr)) {
+        if (StringUtil.isStrNullOrWhiteSpace(contentStr)) {
             throw new Exception("新闻内容contentStr字段为空！");
         }
     }

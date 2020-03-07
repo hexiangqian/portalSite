@@ -51,11 +51,11 @@ public class KnlgeShare implements IValidate {
 
     @Override
     public void validate() throws Exception {
-        if (StringUtil.isStringNull(title)) {
+        if (StringUtil.isStrNullOrWhiteSpace(title)) {
             throw new Exception("标题title字段为空！");
         }
         boolean annexEmpty = annexes == null || annexes.isEmpty();
-        boolean stringNull = StringUtil.isStringNull(contentStr);
+        boolean stringNull = StringUtil.isStrNullOrWhiteSpace(contentStr);
         if (annexEmpty && stringNull) {
             throw new Exception("附件列表或者内容contentStr字段不能都为空！");
         }

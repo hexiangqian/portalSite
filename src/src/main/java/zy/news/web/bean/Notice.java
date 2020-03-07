@@ -55,13 +55,13 @@ public class Notice implements IValidate {
 
     @Override
     public void validate() throws Exception {
-        if (StringUtil.isStringNull(title)) {
+        if (StringUtil.isStrNullOrWhiteSpace(title)) {
             throw new Exception("标题title字段为空！");
         }
         if (ntid == null) {
             throw new Exception("类型ntid字段为空！");
         }
-        if (StringUtil.isStringNull(contentStr)) {
+        if (StringUtil.isStrNullOrWhiteSpace(contentStr)) {
             throw new Exception("内容contentStr字段为空！");
         }
     }
