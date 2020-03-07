@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zy.news.web.mapper.QualityMapper">
-  <resultMap id="BaseResultMap" type="zy.news.web.bean.Quality">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="author" jdbcType="VARCHAR" property="author" />
-    <result column="publisdate" jdbcType="TIMESTAMP" property="publisdate" />
-    <result column="coment" jdbcType="LONGVARBINARY" property="coment" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <resultMap id="BaseResultMap" type="zy.news.web.bean.Quality">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="publishdate" jdbcType="TIMESTAMP" property="publishdate"/>
+        <result column="content" jdbcType="LONGVARBINARY" property="content"/>
+        <result column="pageview" jdbcType="BIGINT" property="pageview"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_quality
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="zy.news.web.bean.Quality">
-    insert into t_quality (id, title, author, 
-      publisdate, coment)
-    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
-      #{publisdate,jdbcType=TIMESTAMP}, #{coment,jdbcType=LONGVARBINARY})
+    <insert id="insert" parameterType="zy.news.web.bean.Quality">
+    insert into t_quality (id, `type`, title, 
+      author, publishdate, content,pageview
+      )
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{title,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{publishdate,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARBINARY}
+      ,#{pageview,jdbcType=BIGINT}
+      )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.Quality">
+    <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.Quality">
     update t_quality
-    set title = #{title,jdbcType=VARCHAR},
+    set `type` = #{type,jdbcType=TINYINT},
+      title = #{title,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
-      publisdate = #{publisdate,jdbcType=TIMESTAMP},
-      coment = #{coment,jdbcType=LONGVARBINARY}
+      publishdate = #{publishdate,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, title, author, publisdate, coment
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="zy.news.web.bean.Quality">
+    select id, `type`, title, author, publishdate, content,pageview
     from t_quality
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, title, author, publisdate, coment
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, `type`, title, author, publishdate, content,pageview
     from t_quality
   </select>
+
+    <select id="exist" parameterType="zy.news.web.bean.Quality" resultType="java.lang.Integer">
+    SELECT count(*) FROM t_quality t
+    WHERE t.title=#{title,jdbcType=VARCHAR}
+    </select>
+    <update id="countViewByPrimaryKey">
+        UPDATE t_quality
+        SET pageview = pageview + 1
+        WHERE
+            id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>

@@ -1,74 +1,52 @@
 package zy.news.web.bean;
 
-import java.io.Serializable;
+import lombok.Data;
+import maoko.common.StringUtil;
+import zy.news.web.zsys.bean.IValidate;
+
 import java.util.Date;
 
-public class Quality implements Serializable {
+@Data
+public class Quality extends ContentBase implements IValidate {
     private Long id;
-
+    private Byte type;
     private String title;
-
     private String author;
+    private Date publishdate;
+    private Long pageview;
 
-    private Date publisdate;
+    //APPEND
 
-    private byte[] coment;
+    private String typeStr;
 
-    private static final long serialVersionUID = 1L;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author == null ? null : author.trim();
-    }
-
-    public Date getPublisdate() {
-        return publisdate;
-    }
-
-    public void setPublisdate(Date publisdate) {
-        this.publisdate = publisdate;
-    }
-
-    public byte[] getComent() {
-        return coment;
-    }
-
-    public void setComent(byte[] coment) {
-        this.coment = coment;
+    public void setType(Byte type) {
+        this.type = type;
+        switch (type.intValue()) {
+            case 0:
+                this.typeStr = "质量月报";
+                break;
+            case 1:
+                this.typeStr = "警示案例";
+                break;
+            case 2:
+                this.typeStr = "其他";
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", title=").append(title);
-        sb.append(", author=").append(author);
-        sb.append(", publisdate=").append(publisdate);
-        sb.append(", coment=").append(coment);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+    public void validate() throws Exception {
+        if (StringUtil.isStrNullOrWhiteSpace(title)) {
+            throw new Exception("title为空");
+        }
+        if (null == type) {
+            throw new Exception("type为空！");
+        }
+        if (type < 0 || type > 2) {
+            throw new Exception("type值超出范围[0,2]");
+        }
+        super.validate();
     }
 }
