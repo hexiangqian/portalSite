@@ -98,6 +98,7 @@ public class SvrImpNews extends ServiceBase implements INews {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void update(HttpSession session, News news) throws Exception {
         //验证

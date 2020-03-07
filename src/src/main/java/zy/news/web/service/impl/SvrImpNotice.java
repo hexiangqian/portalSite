@@ -95,6 +95,7 @@ public class SvrImpNotice extends ServiceBase implements INotice {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void update(HttpSession session, Notice record) throws Exception {
         //验证

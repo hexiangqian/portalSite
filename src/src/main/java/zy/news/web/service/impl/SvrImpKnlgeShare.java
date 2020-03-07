@@ -105,6 +105,7 @@ public class SvrImpKnlgeShare extends ServiceBase implements IKnlgeShare {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void update(HttpSession session, KnlgeShare record) throws Exception {
         //验证
