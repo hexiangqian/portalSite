@@ -6,8 +6,9 @@
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="author" jdbcType="VARCHAR" property="author" />
     <result column="publishdate" jdbcType="TIMESTAMP" property="publishdate" />
-    <result column="dept" jdbcType="VARCHAR" property="dept" />
-    <result column="coment" jdbcType="LONGVARBINARY" property="coment" />
+    <result column="dptid" jdbcType="INTEGER" property="dptid" />
+    <result column="pageview" jdbcType="BIGINT" property="pageview" />
+    <result column="content" jdbcType="LONGVARBINARY" property="content" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_regulations
@@ -15,28 +16,39 @@
   </delete>
   <insert id="insert" parameterType="zy.news.web.bean.Regulations">
     insert into t_regulations (id, title, author, 
-      publishdate, dept, coment
-      )
+      publishdate, dptid, pageview, content)
     values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
-      #{publishdate,jdbcType=TIMESTAMP}, #{dept,jdbcType=VARCHAR}, #{coment,jdbcType=LONGVARBINARY}
-      )
+      #{publishdate,jdbcType=TIMESTAMP}, #{dptid,jdbcType=INTEGER}, #{pageview,jdbcType=BIGINT}, 
+      #{content,jdbcType=LONGVARBINARY})
   </insert>
   <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.Regulations">
     update t_regulations
     set title = #{title,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
       publishdate = #{publishdate,jdbcType=TIMESTAMP},
-      dept = #{dept,jdbcType=VARCHAR},
-      coment = #{coment,jdbcType=LONGVARBINARY}
+      dptid = #{dptid,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, title, author, publishdate, dept, coment
-    from t_regulations
+    select id, title, author, publishdate, reg.dptid, pageview, content,dept.dptname
+    from t_regulations reg
+    left join t_sys_dept dept on reg.dptid=dept.dptid
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, title, author, publishdate, dept, coment
-    from t_regulations
+  <select id="selectAll" resultType="zy.news.web.bean.Regulations">
+    select id, title, author, publishdate, reg.dptid, pageview, content,dept.dptname
+    from t_regulations reg
+    left join t_sys_dept dept on reg.dptid=dept.dptid
   </select>
+  <select id="exist" parameterType="zy.news.web.bean.Regulations" resultType="java.lang.Integer">
+    SELECT count(*) FROM t_regulations t
+    WHERE t.title=#{title,jdbcType=VARCHAR}
+    </select>
+  <update id="countViewByPrimaryKey">
+        UPDATE t_regulations
+        SET pageview = pageview + 1
+        WHERE
+            id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>
