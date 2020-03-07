@@ -38,6 +38,7 @@
     <select id="selectAll" resultMap="BaseResultMap">
     select id, `type`, title, author, publishdate, content,pageview
     from t_quality
+    order by publishdate desc
   </select>
 
     <select id="exist" parameterType="zy.news.web.bean.Quality" resultType="java.lang.Integer">
