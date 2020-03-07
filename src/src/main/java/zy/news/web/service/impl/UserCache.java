@@ -32,7 +32,7 @@ public class UserCache implements IUserCache {
         USERS_CACHES = CacheBuilder.newBuilder()
                 // 最大缓存 5000 个
                 .maximumSize(5000)
-                .expireAfterWrite(timeout, TimeUnit.SECONDS)
+                .expireAfterAccess(timeout, TimeUnit.SECONDS)
                 .build();
     }
 
@@ -53,9 +53,6 @@ public class UserCache implements IUserCache {
             return null;
         }
         SysUser user = USERS_CACHES.getIfPresent(userName);
-        if (null != user) {//更新
-            USERS_CACHES.put(user.getUsername(), user);
-        }
         return user;
     }
 
