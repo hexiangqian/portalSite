@@ -1,5 +1,6 @@
 package zy.news.web.bean;
 
+import lombok.Data;
 import maoko.common.exception.OutOfRangeException;
 import zy.news.web.ui.param.ArticleType;
 import zy.news.web.ui.param.ReviewStatus;
@@ -12,6 +13,7 @@ import java.util.Date;
  * @author maoko
  * @date 2020/3/4 11:13
  */
+@Data
 public class KnlgeShareSimple {
     private Long id;
     private String title;
