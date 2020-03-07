@@ -55,9 +55,6 @@ public class News extends ContentBase implements IValidate {
         if (ntid == null) {
             throw new Exception("新闻类型ntid字段为空！");
         }
-        if (StringUtil.isStrNullOrWhiteSpace(contentStr)) {
-            throw new Exception("新闻内容contentStr字段为空！");
-        }
         super.validate();
     }
 
