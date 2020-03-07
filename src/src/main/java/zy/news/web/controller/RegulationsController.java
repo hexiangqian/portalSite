@@ -57,7 +57,7 @@ public class RegulationsController {
 
 
     @PostMapping("getRegulations")
-    @ExcuteInterfaceDsrc("获取质量文章列表")
+    @ExcuteInterfaceDsrc("获取文章列表")
     @ExcutePermission(userType = ExcuteUserType.游客)
     public PageValuesResult<Regulations> getRegulationss(@RequestBody Page page) throws Exception {
         return regulationsService.getRegulations(page);
