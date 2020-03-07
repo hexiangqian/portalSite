@@ -69,7 +69,7 @@ public class Notice implements IValidate {
     /**
      * 将新闻内容转换为数据库blob
      */
-    public void convertContent2Blob() throws Exception {
+    public void convertContent2Blob() {
         content = StringUtil.getUtf8Bytes(contentStr);
     }
 }

@@ -65,7 +65,7 @@ public class KnlgeShare implements IValidate {
     /**
      * 将内容转换为数据库blob
      */
-    public void convertContent2Blob() throws Exception {
+    public void convertContent2Blob() {
         if (!StringUtil.isStrNullOrWhiteSpace(contentStr)) {
             content = StringUtil.getUtf8Bytes(contentStr);
         }
