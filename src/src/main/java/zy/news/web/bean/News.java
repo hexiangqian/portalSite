@@ -10,7 +10,6 @@ import zy.news.web.zsys.bean.IValidate;
 import zy.news.web.zsys.utils.HtmlUtils;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 public class News extends ContentBase implements IValidate {
