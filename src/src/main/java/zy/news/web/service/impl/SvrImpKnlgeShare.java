@@ -138,7 +138,7 @@ public class SvrImpKnlgeShare extends ServiceBase implements IKnlgeShare {
     public KnlgeShare getRecordDetail(Long noticeid) throws Exception {
         KnlgeShare tmpRecord = mapper.selectDetailByPrimaryKey(noticeid);
         if (null == tmpRecord) {
-            throw new WarningException(noticeid.toString() + "已不存在!");
+            throw new WarningException(noticeid.toString() + "通告已不存在!");
         }
         List<ArticlAnnex> annexes = annexService.getAnnexs(noticeid);
         tmpRecord.setAnnexes(annexes);

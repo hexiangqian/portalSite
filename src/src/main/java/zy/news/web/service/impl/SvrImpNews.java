@@ -156,7 +156,7 @@ public class SvrImpNews extends ServiceBase implements INews {
     public ReviewInfo getReviewComment(Long id) throws Exception {
         ReviewInfo reviewInfo = mapper.selectReviewInfoByPrimaryKey(id);
         if (reviewInfo == null) {
-            throw new Exception(id.toString() + "分享已不存在！");
+            throw new Exception(id.toString() + "新闻已不存在！");
         }
         return reviewInfo;
     }
