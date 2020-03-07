@@ -15,9 +15,7 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
     <insert id="insert" parameterType="zy.news.web.bean.Quality">
-    insert into t_quality (id, `type`, title, 
-      author, publishdate, content,pageview
-      )
+    insert into t_quality (id, `type`, title, author, publishdate, content,pageview)
     values (#{id,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{title,jdbcType=VARCHAR}, 
       #{author,jdbcType=VARCHAR}, #{publishdate,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARBINARY}
       ,#{pageview,jdbcType=BIGINT}
