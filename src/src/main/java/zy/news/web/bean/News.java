@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class News implements IValidate {
+public class News extends ContentBase implements IValidate {
     /**
      * 概要长度
      */
@@ -30,8 +30,7 @@ public class News implements IValidate {
     private Date reviewdate;
     private String reviewComment;
     private Long pageview;
-    @Expose(serialize = false, deserialize = false)
-    private byte[] content;
+
     @Expose(serialize = false, deserialize = false)
     private String summary;
 
@@ -41,17 +40,8 @@ public class News implements IValidate {
     private String newsTName;//新闻类型名称
     private String imageUrl;//图片地址
     private String reviewstatusStr;
-    private String contentStr;
     private List<ArticlAnnex> annexes;//附件列表
 
-    public void setContent(byte[] content) {
-        //this.content = content;
-        if (null != content && content.length > 0) {
-            this.contentStr = StringUtil.getUtf8Str(content);
-        } else {
-            this.contentStr = "";
-        }
-    }
 
     public void setReviewstatus(Byte reviewstatus) throws OutOfRangeException {
         this.reviewstatus = reviewstatus;
@@ -75,7 +65,8 @@ public class News implements IValidate {
     /**
      * 将新闻内容转换为数据库blob
      */
-    public void convertContent2Blob() throws Exception {
+    @Override
+    public void convertContent2Blob() {
         content = StringUtil.getUtf8Bytes(contentStr);
         summary = HtmlUtils.html2Str(contentStr);
         int len = summary.length();

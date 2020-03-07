@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class Notice implements IValidate {
+public class Notice extends ContentBase implements IValidate {
     private Long id;
     private String title;
     private Long ntid;
@@ -26,25 +26,14 @@ public class Notice implements IValidate {
     private String reviewComment;
     private Long pageview;
 
-    @Expose(serialize = false, deserialize = false)
-    private byte[] content;
 
     //辅助变量 非数据库变量
 
     private Byte articletype = ArticleType.通告.getValue();
     private String noticeTName;
     private String reviewstatusStr;
-    private String contentStr;
     private List<ArticlAnnex> annexes;//附件列表
 
-    public void setContent(byte[] content) {
-        //this.content = content;
-        if (null != content && content.length > 0) {
-            this.contentStr = StringUtil.getUtf8Str(content);
-        } else {
-            this.contentStr = "";
-        }
-    }
 
 
     public void setReviewstatus(Byte reviewstatus) throws OutOfRangeException {
@@ -64,12 +53,5 @@ public class Notice implements IValidate {
         if (StringUtil.isStrNullOrWhiteSpace(contentStr)) {
             throw new Exception("内容contentStr字段为空！");
         }
-    }
-
-    /**
-     * 将新闻内容转换为数据库blob
-     */
-    public void convertContent2Blob() {
-        content = StringUtil.getUtf8Bytes(contentStr);
     }
 }
