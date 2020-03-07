@@ -54,7 +54,7 @@
         <table tableName="t_sys_module" domainObjectName="SysModule"/>
         <table tableName="t_sys_permission" domainObjectName="SysPermission"/>
         <table tableName="t_sys_role" domainObjectName="SysRole"/>-->
-       <table tableName="t_file" domainObjectName="SysFile"/>
+  <!--     <table tableName="t_file" domainObjectName="SysFile"/>
         <table tableName="t_honour" domainObjectName="Honour"/>
         <table tableName="t_knowledgeshare" domainObjectName="KnowledgeShare"/>
         <table tableName="t_news" domainObjectName="News"/>
@@ -64,6 +64,7 @@
         <table tableName="t_regulations" domainObjectName="Regulations"/>
         <table tableName="t_train" domainObjectName="OrgTrain"/>
         <table tableName="t_articleannex" domainObjectName="ArticlAnnex"/>
-        <table tableName="t_sys_dept" domainObjectName="DepartMent"/>
+        <table tableName="t_sys_dept" domainObjectName="DepartMent"/>-->
+        <table tableName="t_orgtrain" domainObjectName="OrgTrain"/>
     </context>
 </generatorConfiguration>
