@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
  * @date 2020/3/7 14:30
  */
 @RestController
-@RequestMapping("/regulation")
-@ExcuteControllerDsrc("质量专栏")
+@RequestMapping("/regulations")
+@ExcuteControllerDsrc("制度专栏")
 public class RegulationsController {
 
     private final IRegulations regulationsService;
