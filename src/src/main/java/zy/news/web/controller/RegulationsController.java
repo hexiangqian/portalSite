@@ -16,12 +16,12 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/regulation")
 @ExcuteControllerDsrc("质量专栏")
-public class RegulationController {
+public class RegulationsController {
 
     private final IRegulations regulationsService;
 
     @Autowired
-    public RegulationController(IRegulations regulationsService) {
+    public RegulationsController(IRegulations regulationsService) {
         this.regulationsService = regulationsService;
     }
 
