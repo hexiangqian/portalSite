@@ -1,6 +1,5 @@
 package zy.news.web.service;
 
-import zy.news.web.bean.News;
 import zy.news.web.ui.result.ReviewInfo;
 
 import javax.servlet.http.HttpSession;
@@ -21,7 +20,7 @@ public interface IReview {
     void review(HttpSession session, ReviewInfo info) throws Exception;
 
     /**
-     * 获取审阅详情
+     * 获取指定评论审阅详情
      *
      * @param id
      * @return
