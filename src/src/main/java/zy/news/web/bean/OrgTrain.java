@@ -25,8 +25,6 @@ public class OrgTrain extends ContentBase implements IValidate {
         if (StringUtil.isStrNullOrWhiteSpace(title)) {
             throw new Exception("标题title字段为空！");
         }
-        if (StringUtil.isStrNullOrWhiteSpace(contentStr)) {
-            throw new Exception("内容contentStr字段为空！");
-        }
+        super.validate();
     }
 }

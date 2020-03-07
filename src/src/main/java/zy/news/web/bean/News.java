@@ -58,6 +58,7 @@ public class News extends ContentBase implements IValidate {
         if (StringUtil.isStrNullOrWhiteSpace(contentStr)) {
             throw new Exception("新闻内容contentStr字段为空！");
         }
+        super.validate();
     }
 
 
