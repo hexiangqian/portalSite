@@ -32,7 +32,6 @@ public class Notice extends ContentBase implements IValidate {
     private Byte articletype = ArticleType.通告.getValue();
     private String noticeTName;
     private String reviewstatusStr;
-    private List<ArticlAnnex> annexes;//附件列表
 
 
 

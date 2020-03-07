@@ -30,7 +30,6 @@ public class KnlgeShare extends ContentBase implements IValidate {
     private Byte articletype = ArticleType.分享.getValue();
     private String reviewstatusStr;
     private Integer cmtCount;//评论个数
-    private List<ArticlAnnex> annexes;//附件列表
 
     public void setReviewstatus(Byte reviewstatus) throws OutOfRangeException {
         this.reviewstatus = reviewstatus;

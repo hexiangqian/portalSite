@@ -19,10 +19,6 @@ public class OrgTrain extends ContentBase implements IValidate {
     private Date publishdate;
     private Long pageview;
 
-    //辅助变量 非数据库变量
-
-    private List<ArticlAnnex> annexes;//附件列表
-
 
     @Override
     public void validate() throws Exception {
