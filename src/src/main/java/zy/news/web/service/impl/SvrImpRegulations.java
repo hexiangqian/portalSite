@@ -55,7 +55,7 @@ public class SvrImpRegulations extends ServiceBase implements IRegulations {
         SysUser user = userCache.getUserFromSession(session);
         //赋值
         record.setId(new Long(FileIDUtil.getNextIdLong()));
-        record.setAuthor(user.getUsername());
+        record.setAuthor(user.getRealname());
         record.setPublishdate(new Date());
         record.convertContent2Blob();
         record.setPageview(0L);
