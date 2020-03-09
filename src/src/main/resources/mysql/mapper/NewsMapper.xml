@@ -64,12 +64,13 @@
         FROM
         t_news news
         LEFT JOIN t_newstype newstype ON news.ntid=newstype.ntid
-        <choose>
-            <when test="reviewStatus != 2">WHERE news.reviewstatus=#{reviewStatus,jdbcType=TINYINT}</when>
-            <otherwise>ORDER BY reviewstatus ASC ,publishdate DESC</otherwise>
-        </choose>
+        <if test="reviewStatus != 2">WHERE news.reviewstatus=#{reviewStatus,jdbcType=TINYINT}</if>
         ) tmp_news
         LEFT JOIN t_file file ON file.fid = tmp_news.imageid
+        ORDER BY publishdate DESC
+        <if test="reviewStatus == 2">
+            ,reviewstatus ASC
+        </if>
     </select>
     <select id="exist" parameterType="zy.news.web.bean.News" resultType="java.lang.Integer">
     SELECT count(*) FROM t_news t

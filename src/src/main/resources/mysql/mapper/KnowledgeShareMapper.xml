@@ -69,7 +69,8 @@
                 ORDER BY goodnum DESC,goodPercent desc
             </when>
             <otherwise>
-                ORDER BY reviewstatus ASC ,publishdate DESC
+                ORDER BY publishdate DESC
+                <if test="reviewStatus == 2">,reviewstatus ASC</if>
             </otherwise>
         </choose>
 
