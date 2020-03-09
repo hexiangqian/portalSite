@@ -8,6 +8,10 @@ import maoko.common.exception.OutOfRangeException;
  */
 public enum ArticleType {
     /**
+     *
+     */
+    全部(-1),
+    /**
      * 新闻
      */
     新闻(0),
@@ -37,6 +41,9 @@ public enum ArticleType {
     public static ArticleType getInstance(byte value) throws OutOfRangeException {
         ArticleType articleType = null;
         switch (value) {
+            case -1:
+                articleType = 全部;
+                break;
             case 0:
                 articleType = 新闻;
                 break;
