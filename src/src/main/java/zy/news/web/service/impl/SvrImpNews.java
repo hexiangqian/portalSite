@@ -96,8 +96,8 @@ public class SvrImpNews extends ServiceBase implements INews {
         if (null != tmpNews) {
             mapper.deleteByPrimaryKey(record.getId());
             SysFile imgFile = null;
-            if (IMG_DEFAULT_ID != record.getImageid()) {
-                imgFile = filesService.getFileInfo(record.getImageid());
+            if (IMG_DEFAULT_ID != tmpNews.getImageid()) {
+                imgFile = filesService.getFileInfo(tmpNews.getImageid());
             }
             deleteAnnexs(record.getId(), imgFile);
         }
