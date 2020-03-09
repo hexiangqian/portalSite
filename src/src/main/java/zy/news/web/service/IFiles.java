@@ -20,6 +20,14 @@ import java.util.List;
  */
 public interface IFiles {
     /**
+     * 获取文件详细信息
+     *
+     * @param id
+     * @return
+     */
+    SysFile getFileInfo(Long id);
+
+    /**
      * 上传文件
      *
      * @param file 文件

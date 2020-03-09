@@ -3,33 +3,19 @@ package zy.news.web.bean;
 import com.google.gson.annotations.Expose;
 import lombok.Data;
 
+import javax.swing.*;
 import java.io.Serializable;
 
 /**
  * @author fanpei
  */
 @Data
-public class ArticlAnnex implements Serializable {
+public class ArticlAnnex {
     @Expose(serialize = false, deserialize = false)
     private Long articleid;
-
     private Long fid;
+    private String name;
+    @Expose(serialize = false, deserialize = false)
+    private String path;
 
-    private static final long serialVersionUID = 1L;
-
-    //辅助变量 非数据库变量
-    private String name;//附件名称
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", articleid=").append(articleid);
-        sb.append(", fid=").append(fid);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

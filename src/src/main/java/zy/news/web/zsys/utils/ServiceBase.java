@@ -51,4 +51,25 @@ public class ServiceBase {
             filesService.deleteFiles(files);
         }
     }
+
+    public void deleteAnnexs(Long id, SysFile imgFile) throws Exception {
+        List<ArticlAnnex> annexes = annexService.getAnnexs(id);
+        annexService.delete(id);
+        //批量删除附件
+        if (!annexes.isEmpty()) {
+            List<SysFile> files = new ArrayList<>(annexes.size() + 1);
+            //图片
+            if (null != imgFile) {
+                files.add(imgFile);
+            }
+            //附件
+            for (ArticlAnnex annex : annexes) {
+                SysFile file = new SysFile();
+                file.setFid(annex.getFid());
+                file.setPath(annex.getPath());
+                files.add(file);
+            }
+            filesService.deleteFiles(files);
+        }
+    }
 }

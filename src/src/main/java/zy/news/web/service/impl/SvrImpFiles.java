@@ -26,11 +26,19 @@ import java.util.List;
 @Service
 public class SvrImpFiles implements IFiles {
 
-    @Autowired
-    private UploadFilePathConfig filePathConfig;
+    private final UploadFilePathConfig filePathConfig;
+    private final SysFileMapper fileMapper;
 
     @Autowired
-    private SysFileMapper fileMapper;
+    public SvrImpFiles(UploadFilePathConfig filePathConfig, SysFileMapper fileMapper) {
+        this.filePathConfig = filePathConfig;
+        this.fileMapper = fileMapper;
+    }
+
+    @Override
+    public SysFile getFileInfo(Long id) {
+        return fileMapper.selectByPrimaryKey(id);
+    }
 
     @Override
     public SysFile uploadFile(MultipartFile file) throws Exception {
@@ -50,7 +58,7 @@ public class SvrImpFiles implements IFiles {
     @Override
     public void deleteFile(SysFile file) throws IOException, DataIsNullException {
         file = fileInfoCheck(file);
-        if (fileMapper.deleteByChoose(file) > 0) {
+        if (fileMapper.deleteByChoose(file) > 0 && !StringUtil.isStrNullOrWhiteSpace(file.getPath())) {
             FileUtils.deleteFile(file, filePathConfig.getUploadPath());
         }
 

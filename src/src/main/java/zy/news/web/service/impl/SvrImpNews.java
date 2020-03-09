@@ -11,11 +11,11 @@ import zy.news.web.mapper.NewsMapper;
 import zy.news.web.service.IAnnex;
 import zy.news.web.service.IFiles;
 import zy.news.web.service.INews;
+import zy.news.web.service.IUserCache;
 import zy.news.web.ui.param.ReviewStatus;
 import zy.news.web.ui.result.ReviewInfo;
 import zy.news.web.zsys.bean.PageValuesParam;
 import zy.news.web.zsys.bean.PageValuesResult;
-import zy.news.web.service.IUserCache;
 import zy.news.web.zsys.utils.ServiceBase;
 import zy.news.web.zsys.utils.ServiceUtil;
 
@@ -31,6 +31,7 @@ import java.util.List;
  */
 @Service
 public class SvrImpNews extends ServiceBase implements INews {
+    private static final long IMG_DEFAULT_ID = 0L;
 
     private final NewsMapper mapper;
     private final IUserCache userCache;
@@ -74,7 +75,7 @@ public class SvrImpNews extends ServiceBase implements INews {
 
         //图片为空，设置默认图
         if (news.getImageid() == null) {
-            news.setImageid(0L);
+            news.setImageid(IMG_DEFAULT_ID);
         }
 
         //插入news
@@ -94,7 +95,11 @@ public class SvrImpNews extends ServiceBase implements INews {
         News tmpNews = mapper.selectByPrimaryKey(record.getId());
         if (null != tmpNews) {
             mapper.deleteByPrimaryKey(record.getId());
-            deleteAnnexs(record.getId());
+            SysFile imgFile = null;
+            if (IMG_DEFAULT_ID != record.getImageid()) {
+                imgFile = filesService.getFileInfo(record.getImageid());
+            }
+            deleteAnnexs(record.getId(), imgFile);
         }
     }
 
