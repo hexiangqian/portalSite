@@ -113,7 +113,7 @@ public class Page {
     public Page copy() {
         Page page = new Page();
         page.current = current;
-        page.number = page.number;
+        page.number = number;
         page.size = size;
         page.totalPages = totalPages;
         return page;
