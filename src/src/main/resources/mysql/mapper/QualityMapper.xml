@@ -15,10 +15,10 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
     <insert id="insert" parameterType="zy.news.web.bean.Quality">
-    insert into t_quality (id, `type`, title, author, publishdate, content,pageview)
+    insert into t_quality (id, `type`, title, author, publishdate, summary, content,pageview)
     values (#{id,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{title,jdbcType=VARCHAR}, 
-      #{author,jdbcType=VARCHAR}, #{publishdate,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARBINARY}
-      ,#{pageview,jdbcType=BIGINT}
+      #{author,jdbcType=VARCHAR}, #{publishdate,jdbcType=TIMESTAMP},
+      #{summary,jdbcType=VARCHAR},#{content,jdbcType=LONGVARBINARY},#{pageview,jdbcType=BIGINT}
       )
   </insert>
     <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.Quality">
@@ -27,6 +27,7 @@
       title = #{title,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
       publishdate = #{publishdate,jdbcType=TIMESTAMP},
+      summary= #{summary,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=BIGINT}
   </update>

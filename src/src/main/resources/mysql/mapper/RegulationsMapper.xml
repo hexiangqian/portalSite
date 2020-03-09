@@ -1,52 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zy.news.web.mapper.RegulationsMapper">
-  <resultMap id="BaseResultMap" type="zy.news.web.bean.Regulations">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="author" jdbcType="VARCHAR" property="author" />
-    <result column="publishdate" jdbcType="TIMESTAMP" property="publishdate" />
-    <result column="dptid" jdbcType="INTEGER" property="dptid" />
-    <result column="pageview" jdbcType="BIGINT" property="pageview" />
-    <result column="content" jdbcType="LONGVARBINARY" property="content" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <resultMap id="BaseResultMap" type="zy.news.web.bean.Regulations">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="publishdate" jdbcType="TIMESTAMP" property="publishdate"/>
+        <result column="dptid" jdbcType="INTEGER" property="dptid"/>
+        <result column="pageview" jdbcType="BIGINT" property="pageview"/>
+        <result column="content" jdbcType="LONGVARBINARY" property="content"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_regulations
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="zy.news.web.bean.Regulations">
+    <insert id="insert" parameterType="zy.news.web.bean.Regulations">
     insert into t_regulations (id, title, author, 
-      publishdate, dptid, pageview, content)
+      publishdate, dptid, pageview,summary,  content)
     values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
       #{publishdate,jdbcType=TIMESTAMP}, #{dptid,jdbcType=INTEGER}, #{pageview,jdbcType=BIGINT}, 
-      #{content,jdbcType=LONGVARBINARY})
+       #{summary,jdbcType=VARCHAR},#{content,jdbcType=LONGVARBINARY})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.Regulations">
+    <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.Regulations">
     update t_regulations
     set title = #{title,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
       publishdate = #{publishdate,jdbcType=TIMESTAMP},
       dptid = #{dptid,jdbcType=INTEGER},
+      summary= #{summary,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select id, title, author, publishdate, reg.dptid, pageview, content,dept.dptname
     from t_regulations reg
     left join t_sys_dept dept on reg.dptid=dept.dptid
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultType="zy.news.web.bean.Regulations">
+    <select id="selectAll" resultType="zy.news.web.bean.Regulations">
     select id, title, author, publishdate, reg.dptid, pageview, content,dept.dptname
     from t_regulations reg
     left join t_sys_dept dept on reg.dptid=dept.dptid
     order by reg.publishdate desc
   </select>
-  <select id="exist" parameterType="zy.news.web.bean.Regulations" resultType="java.lang.Integer">
+    <select id="exist" parameterType="zy.news.web.bean.Regulations" resultType="java.lang.Integer">
     SELECT count(*) FROM t_regulations t
     WHERE t.title=#{title,jdbcType=VARCHAR}
     </select>
-  <update id="countViewByPrimaryKey">
+    <update id="countViewByPrimaryKey">
         UPDATE t_regulations
         SET pageview = pageview + 1
         WHERE

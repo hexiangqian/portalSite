@@ -14,8 +14,9 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
     <insert id="insert" parameterType="zy.news.web.bean.OrgTrain">
-    insert into t_orgtrain (id, title, author, publishdate, content,pageview)
-    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR},#{author,jdbcType=VARCHAR}, #{publishdate,jdbcType=TIMESTAMP},
+    insert into t_orgtrain (id, title, author, publishdate,summary,content,pageview)
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR},#{author,jdbcType=VARCHAR},
+    #{publishdate,jdbcType=TIMESTAMP}, #{summary,jdbcType=VARCHAR},
       #{content,jdbcType=LONGVARBINARY},#{pageview,jdbcType=BIGINT})
   </insert>
     <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.OrgTrain">
@@ -23,6 +24,7 @@
     set title = #{title,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
       publishdate = #{publishdate,jdbcType=TIMESTAMP},
+      summary= #{summary,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=BIGINT}
   </update>

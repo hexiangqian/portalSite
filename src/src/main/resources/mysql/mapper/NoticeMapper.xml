@@ -21,12 +21,12 @@
     <insert id="insert" parameterType="zy.news.web.bean.Notice">
     insert into t_notice (id, title, ntid, 
       author, publishdate, reviewstatus, 
-      reviewer, reviewdate, pageview, 
+      reviewer, reviewdate, pageview,summary,
       content)
     values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{ntid,jdbcType=BIGINT}, 
       #{author,jdbcType=VARCHAR}, #{publishdate,jdbcType=TIMESTAMP}, #{reviewstatus,jdbcType=TINYINT}, 
       #{reviewer,jdbcType=VARCHAR}, #{reviewdate,jdbcType=TIMESTAMP}, #{pageview,jdbcType=BIGINT}, 
-      #{content,jdbcType=LONGVARBINARY})
+      #{summary,jdbcType=VARCHAR},#{content,jdbcType=LONGVARBINARY})
   </insert>
     <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.Notice">
     update t_notice
@@ -34,6 +34,7 @@
       ntid = #{ntid,jdbcType=BIGINT},
       author = #{author,jdbcType=VARCHAR},
       publishdate = #{publishdate,jdbcType=TIMESTAMP},
+      summary= #{summary,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=BIGINT}
   </update>

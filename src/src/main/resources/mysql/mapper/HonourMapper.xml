@@ -19,11 +19,12 @@
     <insert id="insert" parameterType="zy.news.web.bean.Honour">
     insert into t_honour (id, imageid, pepole, 
       honortitle, title, author, 
-      publishdate, pageview, content
+      publishdate, pageview,summary,content
       )
     values (#{id,jdbcType=BIGINT}, #{imageid,jdbcType=BIGINT}, #{pepole,jdbcType=VARCHAR}, 
       #{honortitle,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
-      #{publishdate,jdbcType=TIMESTAMP}, #{pageview,jdbcType=BIGINT}, #{content,jdbcType=LONGVARBINARY}
+      #{publishdate,jdbcType=TIMESTAMP}, #{pageview,jdbcType=BIGINT},
+      #{summary,jdbcType=VARCHAR},#{content,jdbcType=LONGVARBINARY}
       )
   </insert>
     <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.Honour">
@@ -34,6 +35,7 @@
       title = #{title,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
       publishdate = #{publishdate,jdbcType=TIMESTAMP},
+      summary= #{summary,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=BIGINT}
   </update>
