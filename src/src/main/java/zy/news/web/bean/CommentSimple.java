@@ -19,7 +19,7 @@ public class CommentSimple {
     private String content;
     private String author;
     private String ip;
-    private Date publishtime;
+    private Date publishdate;
     private String reviewcomment;
     private Byte reviewstatus;
 

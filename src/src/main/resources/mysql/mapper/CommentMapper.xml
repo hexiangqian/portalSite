@@ -7,7 +7,7 @@
         <result column="content" jdbcType="VARCHAR" property="content"/>
         <result column="author" jdbcType="VARCHAR" property="author"/>
         <result column="ip" jdbcType="VARCHAR" property="ip"/>
-        <result column="publishtime" jdbcType="TIMESTAMP" property="publishtime"/>
+        <result column="publishdate" jdbcType="TIMESTAMP" property="publishdate"/>
         <result column="reviewstatus" jdbcType="TINYINT" property="reviewstatus"/>
         <result column="reviewer" jdbcType="VARCHAR" property="reviewer"/>
         <result column="reviewdate" jdbcType="TIMESTAMP" property="reviewdate"/>
@@ -19,11 +19,11 @@
   </delete>
     <insert id="insert" parameterType="zy.news.web.bean.Comment">
     insert into t_comment (id, articleid, content, 
-      author, ip, publishtime, 
+      author, ip, publishdate,
       reviewstatus, reviewer,  reviewdate, reviewComment
       )
     values (#{id,jdbcType=BIGINT}, #{articleid,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
-      #{author,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{publishtime,jdbcType=TIMESTAMP}, 
+      #{author,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{publishdate,jdbcType=TIMESTAMP},
        #{reviewstatus,jdbcType=TINYINT}, #{reviewer,jdbcType=VARCHAR}, #{reviewdate,jdbcType=TIMESTAMP}, #{reviewcomment,jdbcType=VARCHAR}
       )
   </insert>
@@ -33,20 +33,20 @@
       content = #{content,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
       ip = #{ip,jdbcType=VARCHAR},
-      publishtime = #{publishtime,jdbcType=TIMESTAMP},
+      publishdate = #{publishdate,jdbcType=TIMESTAMP},
       reviewstatus = #{reviewstatus,jdbcType=TINYINT},
       reviewdate = #{reviewdate,jdbcType=TIMESTAMP},
       reviewComment = #{reviewcomment,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, articleid, content, author, ip, publishtime, reviewstatus,reviewer, reviewdate, 
+    select id, articleid, content, author, ip, publishdate, reviewstatus,reviewer, reviewdate,
     reviewComment
     from t_comment
     where id = #{id,jdbcType=BIGINT}
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
-    select id, articleid, content, author, ip, publishtime, reviewstatus, publishtime,
+    select id, articleid, content, author, ip, publishdate, reviewstatus, publishdate,
     reviewComment
     from t_comment
   </select>
@@ -68,7 +68,7 @@
             and cmt.reviewstatus=#{reviewStatus,jdbcType=TINYINT}
         </if>
         )tmp_comments
-        ORDER BY tmp_comments.publishtime DESC,tmp_comments.articleTitle ASC
+        ORDER BY tmp_comments.publishdate DESC,tmp_comments.articleTitle ASC
     </select>
     <select id="selectAllSimple" resultType="zy.news.web.bean.CommentSimple">
         SELECT
@@ -98,7 +98,7 @@
         <if test="reviewStatus != 2">
             and cmt.reviewstatus=#{reviewStatus,jdbcType=TINYINT}
         </if>
-        ORDER BY publishtime DESC
+        ORDER BY publishdate DESC
         <if test="reviewStatus == 2">
             ,reviewstatus ASC
         </if>

@@ -19,7 +19,7 @@ public class Comment implements IValidate {
     private String content;
     private String author;
     private String ip;
-    private Date publishtime;
+    private Date publishdate;
     private Byte reviewstatus;
     private String reviewer;
     private Date reviewdate;
