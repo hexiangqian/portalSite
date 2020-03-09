@@ -87,7 +87,19 @@
                 <when test="1 == articletype">t_notice</when>
             </choose>
             <choose>
-                <when test="2 == articletype">t_knowledgeshare</when>
+                <when test="2 == articletype">t_quality</when>
+            </choose>
+            <choose>
+                <when test="3 == articletype">t_regulations</when>
+            </choose>
+            <choose>
+                <when test="4 == articletype">t_orgtrain</when>
+            </choose>
+            <choose>
+                <when test="5 == articletype">t_honour</when>
+            </choose>
+            <choose>
+                <when test="6 == articletype">t_knowledgeshare</when>
             </choose>
             article_t ON article_t.id = cmt.articleid
         </if>
