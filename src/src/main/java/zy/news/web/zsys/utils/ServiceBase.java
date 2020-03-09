@@ -6,6 +6,7 @@ import zy.news.web.service.IAnnex;
 import zy.news.web.service.IFiles;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -54,15 +55,15 @@ public class ServiceBase {
 
     public void deleteAnnexs(Long id, SysFile imgFile) throws Exception {
         List<ArticlAnnex> annexes = annexService.getAnnexs(id);
-        annexService.delete(id);
+        List<SysFile> files = new LinkedList<>();
+        //图片
+        if (null != imgFile) {
+            files.add(imgFile);
+        }
+
         //批量删除附件
         if (!annexes.isEmpty()) {
-            List<SysFile> files = new ArrayList<>(annexes.size() + 1);
-            //图片
-            if (null != imgFile) {
-                files.add(imgFile);
-            }
-            //附件
+            annexService.delete(id);
             for (ArticlAnnex annex : annexes) {
                 SysFile file = new SysFile();
                 file.setFid(annex.getFid());
