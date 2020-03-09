@@ -80,8 +80,9 @@ public class SvrImpKnlgeShare extends ServiceBase implements IKnlgeShare {
         record.setPublishdate(new Date());
         record.convertContent2Blob();
         record.setReviewstatus((byte) 0);
-        record.setBadnum(0);
+        record.setPageview(0L);
         record.setGoodnum(0);
+        record.setBadnum(0);
 
         //插入news
         mapper.insert(record);

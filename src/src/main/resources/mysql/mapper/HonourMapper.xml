@@ -2,45 +2,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zy.news.web.mapper.HonourMapper">
   <resultMap id="BaseResultMap" type="zy.news.web.bean.Honour">
-    <id column="hid" jdbcType="BIGINT" property="hid" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="imageid" jdbcType="BIGINT" property="imageid" />
     <result column="pepole" jdbcType="VARCHAR" property="pepole" />
+    <result column="honortitle" jdbcType="VARCHAR" property="honortitle" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="author" jdbcType="VARCHAR" property="author" />
     <result column="publishdate" jdbcType="TIMESTAMP" property="publishdate" />
     <result column="pageview" jdbcType="BIGINT" property="pageview" />
-    <result column="coment" jdbcType="LONGVARBINARY" property="coment" />
+    <result column="content" jdbcType="LONGVARBINARY" property="content" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_honour
-    where hid = #{hid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="zy.news.web.bean.Honour">
-    insert into t_honour (hid, imageid, pepole, 
-      title, author, publishdate, 
-      pageview, coment)
-    values (#{hid,jdbcType=BIGINT}, #{imageid,jdbcType=BIGINT}, #{pepole,jdbcType=VARCHAR}, 
-      #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{publishdate,jdbcType=TIMESTAMP}, 
-      #{pageview,jdbcType=BIGINT}, #{coment,jdbcType=LONGVARBINARY})
+    insert into t_honour (id, imageid, pepole, 
+      honortitle, title, author, 
+      publishdate, content
+      )
+    values (#{id,jdbcType=BIGINT}, #{imageid,jdbcType=BIGINT}, #{pepole,jdbcType=VARCHAR}, 
+      #{honortitle,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{publishdate,jdbcType=TIMESTAMP}, #{pageview,jdbcType=BIGINT}, #{content,jdbcType=LONGVARBINARY}
+      )
   </insert>
   <update id="updateByPrimaryKey" parameterType="zy.news.web.bean.Honour">
     update t_honour
     set imageid = #{imageid,jdbcType=BIGINT},
       pepole = #{pepole,jdbcType=VARCHAR},
+      honortitle = #{honortitle,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
       publishdate = #{publishdate,jdbcType=TIMESTAMP},
-      pageview = #{pageview,jdbcType=BIGINT},
-      coment = #{coment,jdbcType=LONGVARBINARY}
-    where hid = #{hid,jdbcType=BIGINT}
+      content = #{content,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select hid, imageid, pepole, title, author, publishdate, pageview, coment
+    select id, imageid, pepole, honortitle, title, author, publishdate, pageview, content
     from t_honour
-    where hid = #{hid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select hid, imageid, pepole, title, author, publishdate, pageview, coment
+    select id, imageid, pepole, honortitle, title, author, publishdate, pageview
     from t_honour
   </select>
+  <select id="exist" parameterType="zy.news.web.bean.Honour" resultType="java.lang.Integer">
+    SELECT count(*) FROM t_honour t
+    WHERE t.title=#{title,jdbcType=VARCHAR}
+    </select>
+  <update id="countViewByPrimaryKey">
+        UPDATE t_honour
+        SET pageview = pageview + 1
+        WHERE
+            id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>

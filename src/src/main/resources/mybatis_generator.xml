@@ -65,6 +65,6 @@
         <table tableName="t_train" domainObjectName="OrgTrain"/>
         <table tableName="t_articleannex" domainObjectName="ArticlAnnex"/>
         <table tableName="t_sys_dept" domainObjectName="DepartMent"/>-->
-        <table tableName="t_orgtrain" domainObjectName="OrgTrain"/>
+        <table tableName="t_honour" domainObjectName="Honour"/>
     </context>
 </generatorConfiguration>

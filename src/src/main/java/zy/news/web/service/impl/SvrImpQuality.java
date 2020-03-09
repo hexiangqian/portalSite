@@ -58,6 +58,7 @@ public class SvrImpQuality extends ServiceBase implements IQuality {
         record.setAuthor(user.getUsername());
         record.setPublishdate(new Date());
         record.convertContent2Blob();
+        record.setPageview(0L);
 
         //插入news
         mapper.insert(record);

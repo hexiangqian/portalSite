@@ -102,6 +102,7 @@ public class SvrImpOrgTrain extends ServiceBase implements IOrgTrain {
         record.setAuthor(user.getRealname());
         record.setPublishdate(new Date());
         record.convertContent2Blob();
+        record.setPageview(0L);
 
         //更新
         mapper.updateByPrimaryKey(record);
