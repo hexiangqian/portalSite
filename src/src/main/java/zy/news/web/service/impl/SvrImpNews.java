@@ -120,7 +120,7 @@ public class SvrImpNews extends ServiceBase implements INews {
         news.setPublishdate(new Date());
         news.convertContent2Blob();
         //图片为空，设置默认图
-        if (news.getImageid() == null) {
+        if (news.getImageid() == null || 0L >= news.getImageid().longValue()) {
             news.setImageid(0L);
         }
 
