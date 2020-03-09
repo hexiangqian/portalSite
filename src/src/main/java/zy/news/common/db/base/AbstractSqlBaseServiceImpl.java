@@ -2,8 +2,8 @@ package zy.news.common.db.base;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import zy.news.common.Page;
-import zy.news.common.ValuesPage;
+import zy.news.web.zsys.bean.Page;
+import zy.news.web.zsys.bean.ValuesPage;
 import zy.news.common.db.SearchParam;
 import maoko.common.InstanceUitl;
 import maoko.common.exception.DataIsNullException;

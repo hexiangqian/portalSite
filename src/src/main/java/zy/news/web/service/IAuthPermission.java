@@ -1,13 +1,10 @@
 package zy.news.web.service;
 
 
-import zy.news.common.Page;
-import zy.news.common.ValuesPage;
+import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.SysModule;
 import zy.news.web.bean.SysPermission;
 import zy.news.web.zsys.bean.PageValuesResult;
-
-import java.util.Map;
 
 /**
  * 用户权限接口

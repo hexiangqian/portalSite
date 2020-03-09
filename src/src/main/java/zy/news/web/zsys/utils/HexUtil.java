@@ -1,4 +1,4 @@
-package zy.news.common;
+package zy.news.web.zsys.utils;
 
 /**
  * @author fanpei

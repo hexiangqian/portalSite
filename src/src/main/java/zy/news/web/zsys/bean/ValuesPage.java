@@ -1,4 +1,4 @@
-package zy.news.common;
+package zy.news.web.zsys.bean;
 
 
 import java.util.List;

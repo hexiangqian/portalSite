@@ -2,10 +2,9 @@ package zy.news.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import zy.news.common.Page;
+import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.Comment;
 import zy.news.web.bean.CommentSimple;
-import zy.news.web.bean.KnlgeShare;
 import zy.news.web.service.IComment;
 import zy.news.web.ui.param.PageIdParam;
 import zy.news.web.ui.param.ReviewStatus;

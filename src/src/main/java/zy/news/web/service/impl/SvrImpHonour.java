@@ -4,7 +4,7 @@ import maoko.common.file.FileIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import zy.news.common.Page;
+import zy.news.web.zsys.bean.Page;
 import zy.news.common.exception.WarningException;
 import zy.news.web.bean.ArticlAnnex;
 import zy.news.web.bean.Honour;

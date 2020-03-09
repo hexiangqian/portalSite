@@ -1,4 +1,4 @@
-package zy.news.common;
+package zy.news.web.zsys.bean;
 
 import com.google.gson.annotations.SerializedName;
 import zy.news.web.zsys.gson.MyExpose;

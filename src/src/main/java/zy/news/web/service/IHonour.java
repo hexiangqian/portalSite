@@ -1,8 +1,7 @@
 package zy.news.web.service;
 
-import zy.news.common.Page;
+import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.Honour;
-import zy.news.web.bean.Regulations;
 import zy.news.web.zsys.bean.PageValuesResult;
 
 /**

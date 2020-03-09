@@ -1,6 +1,6 @@
 package zy.news.web.ui.param;
 
-import zy.news.common.Page;
+import zy.news.web.zsys.bean.Page;
 import zy.news.web.zsys.bean.IValidate;
 
 /**

@@ -1,4 +1,4 @@
-package zy.news.common;
+package zy.news.web.zsys.bean;
 
 /**
  * 自定义状态码

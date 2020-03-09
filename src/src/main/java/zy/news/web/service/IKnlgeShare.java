@@ -1,6 +1,6 @@
 package zy.news.web.service;
 
-import zy.news.common.Page;
+import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.KnlgeShare;
 import zy.news.web.bean.KnlgeShareSimple;
 import zy.news.web.ui.param.Opinion;

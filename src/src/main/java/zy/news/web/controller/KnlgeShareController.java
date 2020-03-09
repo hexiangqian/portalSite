@@ -1,7 +1,7 @@
 package zy.news.web.controller;
 
 import org.springframework.web.bind.annotation.*;
-import zy.news.common.Page;
+import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.KnlgeShare;
 import zy.news.web.bean.KnlgeShareSimple;
 import zy.news.web.service.IKnlgeShare;

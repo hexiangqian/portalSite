@@ -1,8 +1,8 @@
 package zy.news.common.db.base;
 
 
-import zy.news.common.Page;
-import zy.news.common.ValuesPage;
+import zy.news.web.zsys.bean.Page;
+import zy.news.web.zsys.bean.ValuesPage;
 import zy.news.common.db.SearchParam;
 
 import java.util.List;

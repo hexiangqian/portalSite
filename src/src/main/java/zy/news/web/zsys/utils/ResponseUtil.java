@@ -1,9 +1,10 @@
-package zy.news.common;
+package zy.news.web.zsys.utils;
 
 import maoko.common.ExceptionUtil;
 import maoko.common.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import zy.news.web.zsys.bean.StatusCode;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;

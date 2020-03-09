@@ -2,9 +2,8 @@ package zy.news.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import zy.news.common.Page;
+import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.Honour;
-import zy.news.web.service.IHonour;
 import zy.news.web.service.IHonour;
 import zy.news.web.zsys.bean.*;
 

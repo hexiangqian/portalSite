@@ -1,7 +1,5 @@
 package zy.news.web.zsys.bean;
 
-import zy.news.common.Page;
-
 import java.util.List;
 
 /**

@@ -1,8 +1,6 @@
 package zy.news.web.service;
 
-import zy.news.common.Page;
-import zy.news.web.bean.News;
-import zy.news.web.bean.NewsSimple;
+import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.Notice;
 import zy.news.web.bean.NoticeSimple;
 import zy.news.web.ui.param.ReviewStatus;

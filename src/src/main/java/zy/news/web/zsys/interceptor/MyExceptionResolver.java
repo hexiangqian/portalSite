@@ -1,7 +1,7 @@
 package zy.news.web.zsys.interceptor;
 
-import zy.news.common.ResponseUtil;
-import zy.news.common.StatusCode;
+import zy.news.web.zsys.utils.ResponseUtil;
+import zy.news.web.zsys.bean.StatusCode;
 import maoko.common.log.IWriteLog;
 import maoko.common.log.Log4j2Writer;
 import org.springframework.stereotype.Component;

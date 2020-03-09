@@ -2,7 +2,7 @@ package zy.news.web.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import zy.news.common.Page;
+import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.DepartMent;
 import zy.news.web.bean.NewsType;
 import zy.news.web.bean.NoticeType;

@@ -1,13 +1,10 @@
 package zy.news.web.service;
 
-import zy.news.common.Page;
+import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.News;
 import zy.news.web.bean.NewsSimple;
 import zy.news.web.ui.param.ReviewStatus;
-import zy.news.web.ui.result.ReviewInfo;
 import zy.news.web.zsys.bean.PageValuesResult;
-
-import javax.servlet.http.HttpSession;
 
 /**
  * 新闻管理接口

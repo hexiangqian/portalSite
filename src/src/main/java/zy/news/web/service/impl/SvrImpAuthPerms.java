@@ -2,8 +2,8 @@ package zy.news.web.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import zy.news.common.Page;
-import zy.news.common.ValuesPage;
+import zy.news.web.zsys.bean.Page;
+import zy.news.web.zsys.bean.ValuesPage;
 import zy.news.web.bean.SysModule;
 import zy.news.web.bean.SysPermission;
 import zy.news.web.mapper.SysPermissionMapper;
