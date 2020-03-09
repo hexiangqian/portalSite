@@ -18,7 +18,11 @@ public enum ArticleType {
     /**
      * 分享
      */
-    分享(2);
+    知识分享(2),
+    培训专栏(3),
+    质量专栏(4),
+    制度文档(5),
+    荣誉中亚(6);
 
     private byte value;
 
@@ -40,7 +44,19 @@ public enum ArticleType {
                 articleType = 通告;
                 break;
             case 2:
-                articleType = 分享;
+                articleType = 知识分享;
+                break;
+            case 3:
+                articleType = 培训专栏;
+                break;
+            case 4:
+                articleType = 质量专栏;
+                break;
+            case 5:
+                articleType = 制度文档;
+                break;
+            case 6:
+                articleType = 荣誉中亚;
                 break;
             default:
                 throw new OutOfRangeException("文章类型范围值错误！");

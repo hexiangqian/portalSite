@@ -24,7 +24,7 @@ public class KnlgeShareSimple {
 
     //辅助变量 非数据库变量
 
-    private Byte articletype = ArticleType.分享.getValue();
+    private Byte articletype = ArticleType.知识分享.getValue();
     private String reviewstatusStr;
 
     public void setReviewstatus(Byte reviewstatus) throws OutOfRangeException {
