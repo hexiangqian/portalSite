@@ -50,6 +50,26 @@
     reviewComment
     from t_comment
   </select>
+    <select id="selectAllComments" resultType="zy.news.web.bean.CommentSimple">
+        SELECT * FROM
+        (SELECT cmt.*,kns.title as articleTitle  FROM t_comment cmt LEFT JOIN t_knowledgeshare kns on kns.id=cmt.articleid WHERE
+        articletype=2
+        <if test="reviewStatus != 2">
+            and cmt.reviewstatus=#{reviewStatus,jdbcType=TINYINT}
+        </if>
+        UNION ALL
+        SELECT cmt.*,kns.title as articleTitle FROM t_comment cmt LEFT JOIN t_news kns on kns.id=cmt.articleid WHERE articletype=0
+        <if test="reviewStatus != 2">
+            and cmt.reviewstatus=#{reviewStatus,jdbcType=TINYINT}
+        </if>
+        UNION ALL
+        SELECT cmt.*,kns.title as articleTitle FROM t_comment cmt LEFT JOIN t_notice kns on kns.id=cmt.articleid WHERE articletype=1
+        <if test="reviewStatus != 2">
+            and cmt.reviewstatus=#{reviewStatus,jdbcType=TINYINT}
+        </if>
+        )tmp_comments
+        ORDER BY tmp_comments.publishtime DESC,tmp_comments.articleTitle ASC
+    </select>
     <select id="selectAllSimple" resultType="zy.news.web.bean.CommentSimple">
         SELECT
         cmt.*
@@ -61,13 +81,13 @@
         <if test="articletype != null">
             LEFT JOIN
             <choose>
-                <when test="0 == articletype"> t_news </when>
+                <when test="0 == articletype">t_news</when>
             </choose>
             <choose>
-                <when test="1 == articletype"> t_notice </when>
+                <when test="1 == articletype">t_notice</when>
             </choose>
             <choose>
-                <when test="2 == articletype"> t_knowledgeshare </when>
+                <when test="2 == articletype">t_knowledgeshare</when>
             </choose>
             article_t ON article_t.id = cmt.articleid
         </if>
@@ -78,7 +98,10 @@
         <if test="reviewStatus != 2">
             and cmt.reviewstatus=#{reviewStatus,jdbcType=TINYINT}
         </if>
-        ORDER BY reviewstatus ASC ,publishtime DESC
+        ORDER BY publishtime DESC
+        <if test="reviewStatus == 2">
+            ,reviewstatus ASC
+        </if>
     </select>
     <update id="updateReviewInfo" parameterType="zy.news.web.ui.result.ReviewInfo">
         UPDATE t_comment

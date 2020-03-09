@@ -52,14 +52,14 @@ public class CommentController {
     @ExcuteInterfaceDsrc("获取已审核通过评论列表")
     @ExcutePermission
     public PageValuesResult<CommentSimple> getPublishComments(@RequestBody Page page) throws Exception {
-        return service.getComments(null, null, page, ReviewStatus.已通过);
+        return service.getComments(page, ReviewStatus.已通过);
     }
 
     @PostMapping("getNoPassComments")
     @ExcuteInterfaceDsrc("获取审核未通过评论列表")
     @ExcutePermission
     public PageValuesResult<CommentSimple> getNoPassComments(@RequestBody Page page) throws Exception {
-        return service.getComments(null, null, page, ReviewStatus.未通过);
+        return service.getComments(page, ReviewStatus.未通过);
     }
 
     @PostMapping("deleteComment")

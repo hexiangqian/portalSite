@@ -27,8 +27,8 @@ public class PageValuesParam<T> {
      * @param methodNam 方法名称
      */
     public PageValuesParam(Object invoker, String methodNam) {
-        this.invoker=invoker;
-        this.methodNam=methodNam;
+        this.invoker = invoker;
+        this.methodNam = methodNam;
         this.params = new LinkedList<>();
     }
 

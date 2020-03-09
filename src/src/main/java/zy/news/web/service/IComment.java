@@ -27,4 +27,13 @@ public interface IComment extends IBaseService<Comment>, IReview {
      */
     PageValuesResult<CommentSimple> getComments(Byte articletype, Long articleid, Page page, ReviewStatus reviewStatus) throws Exception;
 
+    /**
+     * 获取所有评论 不区分表
+     *
+     * @param page
+     * @param reviewStatus
+     * @return
+     * @throws Exception
+     */
+    PageValuesResult<CommentSimple> getComments(Page page, ReviewStatus reviewStatus) throws Exception;
 }

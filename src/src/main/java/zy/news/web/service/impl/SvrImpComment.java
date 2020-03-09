@@ -90,6 +90,13 @@ public class SvrImpComment implements IComment {
     }
 
     @Override
+    public PageValuesResult<CommentSimple> getComments(Page page, ReviewStatus reviewStatus) throws Exception {
+        PageValuesParam<CommentSimple> params = new PageValuesParam<>(mapper, "selectAllComments");
+        params.addParam(reviewStatus.getValue());
+        return ServiceUtil.getValuePageResult(page, params);
+    }
+
+    @Override
     public void review(HttpSession session, ReviewInfo info) throws Exception {
         SysUser user = userCache.getUserFromSession(session);
         info.setReviewer(user.getRealname());

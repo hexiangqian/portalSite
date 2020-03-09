@@ -23,6 +23,8 @@ public interface CommentMapper {
 
     //apend
 
+    List<CommentSimple> selectAllComments(@Param("reviewStatus") Byte reviewStatus);
+
     List<CommentSimple> selectAllSimple(@Param("articletype") Byte articletype, @Param("articleid") Long articleid, @Param("reviewStatus") Byte reviewStatus);
 
 
