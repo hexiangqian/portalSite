@@ -50,7 +50,10 @@ public class Comment implements IValidate {
         if (articletype == null) {
             throw new Exception("文章类型articletype为空！");
         }
-        //检查文章类型返回
+        //检查文章类型
+        if (ArticleType.全部.getValue() == articletype) {
+            throw new Exception("文章类型articletype 值错误！");
+        }
         ArticleType.getInstance(articletype);
     }
 }
