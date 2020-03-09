@@ -46,7 +46,7 @@ public class SvrImpComment implements IComment {
         if (StringUtil.isStrNullOrWhiteSpace(record.getAuthor())) {
             record.setAuthor(Comment.匿名);
         }
-        record.setPublishtime(new Date());
+        record.setPublishdate(new Date());
         record.setReviewstatus((byte) 0);
 
         //插入news
