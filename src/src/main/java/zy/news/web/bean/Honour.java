@@ -29,6 +29,9 @@ public class Honour extends ContentBase implements IValidate {
         if (StringUtil.isStrNullOrWhiteSpace(honortitle)) {
             throw new Exception("honortitle字段为空！");
         }
+        if (honortitle.length() > 200) {
+            throw new Exception("honortitle文字个数过长，限定200个汉字和标点！");
+        }
         if (StringUtil.isStrNullOrWhiteSpace(title)) {
             throw new Exception("title字段为空！");
         }
