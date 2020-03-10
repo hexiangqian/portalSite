@@ -18,6 +18,8 @@ public class Regulations extends ContentBase implements IValidate {
     //APPEND
 
     private String dptname;
+    private String front;
+    private String next;
 
     @Override
     public void validate() throws Exception {

@@ -69,7 +69,11 @@
     <select id="selectDetailByPrimaryKey" resultType="zy.news.web.bean.Notice">
     SELECT
         nt.*,
-        ntp.noticeTName
+        ntp.noticeTName,
+        (SELECT CONCAT(id,'|',title) FROM t_notice WHERE reviewstatus=1 and publishdate > nt.publishdate ORDER BY
+        publishdate DESC LIMIT 1) as `front`,
+        (SELECT CONCAT(id,'|',title) FROM t_notice WHERE reviewstatus=1 and publishdate <![CDATA[<]]> nt.publishdate ORDER BY
+        publishdate DESC LIMIT 1) as `next`
     FROM
         t_notice nt
         LEFT JOIN t_noticetype ntp ON nt.ntid = ntp.ntid

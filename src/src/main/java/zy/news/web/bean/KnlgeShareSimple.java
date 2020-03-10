@@ -26,6 +26,7 @@ public class KnlgeShareSimple {
 
     private Byte articletype = ArticleType.知识分享.getValue();
     private String reviewstatusStr;
+    private byte type;//type:0 普通分享 1：精华文章
 
     public void setReviewstatus(Byte reviewstatus) throws OutOfRangeException {
         this.reviewstatus = reviewstatus;

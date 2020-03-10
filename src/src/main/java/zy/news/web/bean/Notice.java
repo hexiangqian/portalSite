@@ -32,6 +32,8 @@ public class Notice extends ContentBase implements IValidate {
     private Byte articletype = ArticleType.通告.getValue();
     private String noticeTName;
     private String reviewstatusStr;
+    private String front;
+    private String next;
 
 
 

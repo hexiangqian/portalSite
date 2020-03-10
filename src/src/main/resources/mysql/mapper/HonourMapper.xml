@@ -40,7 +40,11 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="zy.news.web.bean.Honour">
-    select id, imageid, pepole, honortitle, title, author, publishdate, pageview, content,file.path AS imageUrl
+    select id, imageid, pepole, honortitle, title, author, publishdate, pageview, content,file.path AS imageUrl,
+        (SELECT CONCAT(id,'|',title) FROM t_honour WHERE  publishdate > tmp_h.publishdate ORDER BY
+        publishdate DESC LIMIT 1) as `front`,
+        (SELECT CONCAT(id,'|',title) FROM t_honour WHERE  publishdate <![CDATA[<]]> tmp_h.publishdate ORDER BY
+        publishdate DESC LIMIT 1) as `next`
     from t_honour tmp_h
     left join t_file file on file.fid = tmp_h.imageid
     where id = #{id,jdbcType=BIGINT}

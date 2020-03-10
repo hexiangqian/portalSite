@@ -20,6 +20,8 @@ public class Honour extends ContentBase implements IValidate {
 
     //append
     private String imageUrl;
+    private String front;
+    private String next;
 
     @Override
     public void validate() throws Exception {

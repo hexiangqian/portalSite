@@ -42,9 +42,10 @@ public interface KnowledgeShareMapper {
      * 获取详情
      *
      * @param id
+     * @param isGood
      * @return
      */
-    KnlgeShare selectDetailByPrimaryKey(Long id);
+    KnlgeShare selectDetailByPrimaryKey(@Param("id") Long id, @Param("isGood") Byte isGood);
 
     /**
      * 浏览量+1

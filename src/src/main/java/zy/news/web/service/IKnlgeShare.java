@@ -32,4 +32,7 @@ public interface IKnlgeShare extends IBaseService<KnlgeShare>, IReview {
      * @param opinion 观点
      */
     void giveOpinion(Opinion opinion) throws Exception;
+
+
+    KnlgeShare getRecordDetail(Long id, Byte type) throws Exception;
 }

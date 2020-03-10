@@ -18,7 +18,9 @@ public class OrgTrain extends ContentBase implements IValidate {
     private String author;
     private Date publishdate;
     private Long pageview;
-
+    //append
+    private String front;
+    private String next;
 
     @Override
     public void validate() throws Exception {

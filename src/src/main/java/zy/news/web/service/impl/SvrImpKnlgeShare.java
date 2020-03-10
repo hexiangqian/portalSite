@@ -135,9 +135,15 @@ public class SvrImpKnlgeShare extends ServiceBase implements IKnlgeShare {
         updateAnnexs(record.getId(), record.getAnnexes());
     }
 
+    @Deprecated
     @Override
     public KnlgeShare getRecordDetail(Long id) throws Exception {
-        KnlgeShare tmpRecord = mapper.selectDetailByPrimaryKey(id);
+        return null;
+    }
+
+    @Override
+    public KnlgeShare getRecordDetail(Long id, Byte type) throws Exception {
+        KnlgeShare tmpRecord = mapper.selectDetailByPrimaryKey(id, type);
         if (null == tmpRecord) {
             throw new WarningException(id.toString() + "通告已不存在!");
         }

@@ -32,12 +32,16 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="zy.news.web.bean.Quality">
-    select id, `type`, title, author, publishdate, content,pageview
-    from t_quality
+    select id, `type`, title, author, publishdate, content,pageview,
+        (SELECT CONCAT(id,'|',title) FROM t_quality WHERE  publishdate > quality.publishdate ORDER BY
+        publishdate DESC LIMIT 1) as `front`,
+        (SELECT CONCAT(id,'|',title) FROM t_quality WHERE  publishdate <![CDATA[<]]> quality.publishdate ORDER BY
+        publishdate DESC LIMIT 1) as `next`
+    from t_quality quality
     where id = #{id,jdbcType=BIGINT}
   </select>
-    <select id="selectAll" resultMap="BaseResultMap">
-    select id, `type`, title, author, publishdate, content,pageview
+    <select id="selectAll" resultType="zy.news.web.bean.Quality">
+    select id, `type`, title, author, publishdate,pageview
     from t_quality
     order by publishdate desc
   </select>

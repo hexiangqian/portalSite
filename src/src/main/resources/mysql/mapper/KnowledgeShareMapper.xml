@@ -50,6 +50,10 @@
         SELECT
         t_share.id, title, publishdate, reviewstatus,usr.realname as author, content,goodnum,badnum,
         (goodnum/(goodnum+badnum)) as goodPercent
+        <choose>
+            <when test="isGood">,1 as `type`</when>
+            <otherwise>,0 as `type`</otherwise>
+        </choose>
         FROM
         t_knowledgeshare t_share
         LEFT JOIN t_sys_user usr ON usr.username=t_share.author
@@ -68,7 +72,7 @@
         GROUP BY tmp_share_t.id
         <choose>
             <when test="isGood">
-                ORDER BY goodnum DESC,goodPercent desc
+                ORDER BY goodnum DESC,goodPercent DESC
             </when>
             <otherwise>
                 ORDER BY publishdate DESC
@@ -82,18 +86,31 @@
     WHERE t.title=#{title,jdbcType=VARCHAR}
     </select>
     <select id="selectDetailByPrimaryKey" resultType="zy.news.web.bean.KnlgeShare">
-     SELECT tmp_t.id, tmp_t.title, tmp_t.publishdate, tmp_t.reviewstatus, tmp_t.reviewer,
-          tmp_t.reviewdate,tmp_t.reviewComment,tmp_t.goodnum, tmp_t.badnum, tmp_t.content,tmp_t.pageview,tmp_t.cmtCount,
-          usr.realname as author
-     FROM (
+        SELECT tmp_t.id, tmp_t.title, tmp_t.publishdate, tmp_t.reviewstatus, tmp_t.reviewer,
+        tmp_t.reviewdate,tmp_t.reviewComment,tmp_t.goodnum, tmp_t.badnum, tmp_t.content,tmp_t.pageview,tmp_t.cmtCount,
+        usr.realname as author,
+        (SELECT CONCAT(id,'|',title) FROM t_knowledgeshare WHERE reviewstatus=1 and publishdate > tmp_t.publishdate
+        <choose>
+            <when test="1 == isGood">ORDER BY goodnum DESC, (goodnum/(goodnum+badnum)) DESC </when>
+            <otherwise>ORDER BY publishdate DESC </otherwise>
+        </choose>
+        LIMIT 1) as `front`,
+        (SELECT CONCAT(id,'|',title) as goodPercent FROM t_knowledgeshare WHERE reviewstatus=1 and publishdate <![CDATA[<]]>
+        tmp_t.publishdate
+        <choose>
+            <when test="1 == isGood">ORDER BY goodnum DESC, (goodnum/(goodnum+badnum)) DESC </when>
+            <otherwise>ORDER BY publishdate DESC </otherwise>
+        </choose>
+        LIMIT 1) as `next`
+        FROM (
         SELECT
-          shr.*,
-          COUNT( cmt.id ) AS cmtCount
+        shr.*,
+        COUNT( cmt.id ) AS cmtCount
         FROM
-            t_knowledgeshare shr
-            LEFT JOIN t_comment cmt ON shr.id = cmt.articleid
+        t_knowledgeshare shr
+        LEFT JOIN t_comment cmt ON shr.id = cmt.articleid
         WHERE
-            shr.id = #{id,jdbcType=BIGINT}
+        shr.id = #{id,jdbcType=BIGINT}
         GROUP BY shr.id)tmp_t
         LEFT JOIN t_sys_user usr ON usr.username=tmp_t.author
     </select>

@@ -18,6 +18,8 @@ public class Quality extends ContentBase implements IValidate {
     //APPEND
 
     private String typeStr;
+    private String front;
+    private String next;
 
     public void setType(Byte type) {
         this.type = type;

@@ -77,19 +77,23 @@
     WHERE t.title=#{title,jdbcType=VARCHAR}
     </select>
     <select id="selectNewsDetailByPrimaryKey" resultType="zy.news.web.bean.News">
-    SELECT
-	tmp_news.*,
-	file.path AS imageUrl
-    FROM
+        SELECT
+        tmp_news.*,
+        file.path AS imageUrl
+        FROM
         (
         SELECT
-            news.*,
-            newstype.newsTName
+        news.*,
+        newstype.newsTName,
+        (SELECT CONCAT(id,'|',title) FROM t_news WHERE reviewstatus=1 and publishdate > news.publishdate ORDER BY
+        publishdate DESC LIMIT 1) as `front`,
+        (SELECT CONCAT(id,'|',title) FROM t_news WHERE reviewstatus=1 and publishdate <![CDATA[<]]> news.publishdate ORDER BY
+        publishdate DESC LIMIT 1) as `next`
         FROM
-            t_news news
-            LEFT JOIN t_newstype newstype ON news.ntid = newstype.ntid
+        t_news news
+        LEFT JOIN t_newstype newstype ON news.ntid = newstype.ntid
         WHERE
-            news.id = #{id,jdbcType=BIGINT}
+        news.id = #{id,jdbcType=BIGINT}
         ) tmp_news
         LEFT JOIN t_file file ON file.fid = tmp_news.imageid
     </select>

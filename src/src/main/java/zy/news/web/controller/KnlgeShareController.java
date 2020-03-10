@@ -85,8 +85,8 @@ public class KnlgeShareController {
     @GetMapping("getKnlgeShareDetail")
     @ExcuteInterfaceDsrc("获取分享详情")
     @ExcutePermission(userType = ExcuteUserType.游客)
-    public KnlgeShare getKnlgeShareDetail(@RequestParam Long articleid) throws Exception {
-        return kngeShareService.getRecordDetail(articleid);
+    public KnlgeShare getKnlgeShareDetail(@RequestParam Long articleid, @RequestParam("type") Byte type) throws Exception {
+        return kngeShareService.getRecordDetail(articleid, type);
     }
 
     @PostMapping("giveOpinion")

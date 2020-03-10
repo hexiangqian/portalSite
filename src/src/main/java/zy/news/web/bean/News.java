@@ -39,6 +39,8 @@ public class News extends ContentBase implements IValidate {
     private String newsTName;//新闻类型名称
     private String imageUrl;//图片地址
     private String reviewstatusStr;
+    private String front;
+    private String next;
 
 
     public void setReviewstatus(Byte reviewstatus) throws OutOfRangeException {

@@ -29,12 +29,16 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, title, author, publishdate, content,pageview
-    from t_orgtrain
+    select id, title, author, publishdate, content,pageview,
+        (SELECT CONCAT(id,'|',title) FROM t_orgtrain WHERE  publishdate > orgtrain.publishdate ORDER BY
+        publishdate DESC LIMIT 1) as `front`,
+        (SELECT CONCAT(id,'|',title) FROM t_orgtrain WHERE  publishdate <![CDATA[<]]> orgtrain.publishdate ORDER BY
+        publishdate DESC LIMIT 1) as `next`
+    from t_orgtrain orgtrain
     where id = #{id,jdbcType=BIGINT}
   </select>
-    <select id="selectAll" resultMap="BaseResultMap">
-    select id, title,  author, publishdate, content,pageview
+    <select id="selectAll" resultType="zy.news.web.bean.OrgTrain">
+    select id, title,  author, publishdate,pageview
     from t_orgtrain
     order by publishdate desc
   </select>
