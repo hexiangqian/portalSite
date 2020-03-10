@@ -13,10 +13,6 @@ import java.util.Date;
 
 @Data
 public class News extends ContentBase implements IValidate {
-    /**
-     * 概要长度
-     */
-    private static final int SUMMARYLEN = 80;
 
     private Long id;
     private Long imageid;
@@ -30,8 +26,6 @@ public class News extends ContentBase implements IValidate {
     private String reviewComment;
     private Long pageview;
 
-    @Expose(serialize = false, deserialize = false)
-    private String summary;
 
     //辅助变量 非数据库变量
 
@@ -57,19 +51,5 @@ public class News extends ContentBase implements IValidate {
             throw new Exception("新闻类型ntid字段为空！");
         }
         super.validate();
-    }
-
-
-    /**
-     * 将新闻内容转换为数据库blob
-     */
-    @Override
-    public void convertContent2Blob() {
-        content = StringUtil.getUtf8Bytes(contentStr);
-        summary = HtmlUtils.html2Str(contentStr);
-        int len = summary.length();
-        if (len > SUMMARYLEN) {
-            summary = summary.substring(0, SUMMARYLEN);
-        }
     }
 }
