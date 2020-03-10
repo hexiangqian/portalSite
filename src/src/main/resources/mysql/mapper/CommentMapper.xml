@@ -18,11 +18,10 @@
     where id = #{id,jdbcType=BIGINT} and reviewstatus=0
   </delete>
     <insert id="insert" parameterType="zy.news.web.bean.Comment">
-    insert into t_comment (id, articleid, content, 
-      author, ip, publishdate,
-      reviewstatus, reviewer,  reviewdate, reviewComment
+    insert into t_comment (id, articleid, articletype,content,
+      author, ip, publishdate,reviewstatus, reviewer,  reviewdate, reviewComment
       )
-    values (#{id,jdbcType=BIGINT}, #{articleid,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{articleid,jdbcType=BIGINT}, #{articletype,jdbcType=TINYINT},#{content,jdbcType=VARCHAR},
       #{author,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{publishdate,jdbcType=TIMESTAMP},
        #{reviewstatus,jdbcType=TINYINT}, #{reviewer,jdbcType=VARCHAR}, #{reviewdate,jdbcType=TIMESTAMP}, #{reviewcomment,jdbcType=VARCHAR}
       )
@@ -45,7 +44,7 @@
     from t_comment
     where id = #{id,jdbcType=BIGINT}
   </select>
-    <select id="selectAll" resultMap="BaseResultMap">
+    <select id="selectAll" resultType="zy.news.web.bean.CommentSimple">
     select id, articleid, content, author, ip, publishdate, reviewstatus, publishdate,
     reviewComment
     from t_comment
@@ -53,7 +52,7 @@
     <select id="selectAllComments" resultType="zy.news.web.bean.CommentSimple">
         SELECT * FROM
         (SELECT cmt.*,kns.title as articleTitle  FROM t_comment cmt LEFT JOIN t_knowledgeshare kns on kns.id=cmt.articleid WHERE
-        articletype=2
+        articletype=6
         <if test="reviewStatus != 2">
             and cmt.reviewstatus=#{reviewStatus,jdbcType=TINYINT}
         </if>
