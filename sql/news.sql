@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 11/03/2020 13:59:49
+ Date: 11/03/2020 17:31:11
 */
 
 SET NAMES utf8mb4;
@@ -490,6 +490,8 @@ INSERT INTO `t_sys_permission` VALUES (94, '【荣誉中亚】分页获取荣誉
 INSERT INTO `t_sys_permission` VALUES (95, '【荣誉中亚】获取荣誉文章详情(游客)', -1, '/honour/getHonourDetail', 1);
 INSERT INTO `t_sys_permission` VALUES (96, '全局检索-搜索', -1, '/search/searchArticles', 1);
 INSERT INTO `t_sys_permission` VALUES (97, '获取部门列表', -1, '/back/settings/dept/getDepartMents', 1);
+INSERT INTO `t_sys_permission` VALUES (98, '【欢迎页】获取系统数据概览', -1, '/welcome/getSysOverview', 1);
+INSERT INTO `t_sys_permission` VALUES (99, '【欢迎页】获取待办事项列表', -1, '/welcome/getToDolist', 1);
 
 -- ----------------------------
 -- Table structure for t_sys_role
