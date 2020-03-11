@@ -95,7 +95,7 @@ public class SvrImpSettings implements ISettings {
 
     @Override
     public List<DepartMent> getDepartMents() {
-        return null;
+        return settingsMapper.selectDepartMents();
     }
 
     //endregion
