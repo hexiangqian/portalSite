@@ -9,9 +9,9 @@ import java.util.List;
  * @date 2020/2/18 23:29
  */
 public class PageValuesResult<T> {
-    private Object ext;// 额外
     private Page page;
     private List<T> value;
+    private Object ext;// 额外
 
 
     public PageValuesResult() {
