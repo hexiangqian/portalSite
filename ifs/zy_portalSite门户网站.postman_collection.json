@@ -5204,6 +5204,138 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "【欢迎页】获取系统数据概览",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8289/welcome/getSysOverview",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"welcome",
+						"getSysOverview"
+					]
+				},
+				"description": "此接口为后台首页接口，统计系统中已发布的新闻、通告、分享等总量统计(审核未审核都包含)\n# 字段解释  \ncount:总数"
+			},
+			"response": [
+				{
+					"name": "【欢迎页】获取系统数据概览",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8289/welcome/getSysOverview",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8289",
+							"path": [
+								"welcome",
+								"getSysOverview"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 11 Mar 2020 08:45:53 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"articletype\": 0,\n        \"articletypeStr\": \"新闻\",\n        \"count\": 7\n    },\n    {\n        \"articletype\": 1,\n        \"articletypeStr\": \"通告\",\n        \"count\": 2\n    },\n    {\n        \"articletype\": 2,\n        \"articletypeStr\": \"培训专栏\",\n        \"count\": 2\n    },\n    {\n        \"articletype\": 3,\n        \"articletypeStr\": \"质量专栏\",\n        \"count\": 2\n    },\n    {\n        \"articletype\": 4,\n        \"articletypeStr\": \"制度文档\",\n        \"count\": 2\n    },\n    {\n        \"articletype\": 5,\n        \"articletypeStr\": \"荣誉中亚\",\n        \"count\": 3\n    },\n    {\n        \"articletype\": 6,\n        \"articletypeStr\": \"知识分享\",\n        \"count\": 3\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "【欢迎页】获取待办事项列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8289/welcome/getToDolist",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8289",
+					"path": [
+						"welcome",
+						"getToDolist"
+					]
+				},
+				"description": "此接口为后台首页接口，返回当前登录用户角色的待办事项表\n# 字段解释  \ncount:待处理总数\n# 注意\n此接口可能返回会空，当无审核权限的用户登录进来之后，返回结果为null或者empty,界面不显示待处理事项"
+			},
+			"response": [
+				{
+					"name": "【欢迎页】获取待办事项列表",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8289/welcome/getToDolist",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8289",
+							"path": [
+								"welcome",
+								"getToDolist"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 11 Mar 2020 08:45:46 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"status\": \"待处理\",\n        \"articletype\": 0,\n        \"articletypeStr\": \"新闻\",\n        \"count\": 4\n    },\n    {\n        \"status\": \"待处理\",\n        \"articletype\": 1,\n        \"articletypeStr\": \"通告\",\n        \"count\": 0\n    },\n    {\n        \"status\": \"待处理\",\n        \"articletype\": 6,\n        \"articletypeStr\": \"知识分享\",\n        \"count\": 1\n    },\n    {\n        \"status\": \"待处理\",\n        \"articletype\": 7,\n        \"articletypeStr\": \"文章评论\",\n        \"count\": 4\n    }\n]"
+				}
+			]
 		}
 	],
 	"protocolProfileBehavior": {}
