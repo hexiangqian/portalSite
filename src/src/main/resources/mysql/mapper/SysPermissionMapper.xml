@@ -37,6 +37,7 @@
     select id, `name`, moduleid, url, mustneed
     from t_sys_permission
   </select>
+    <!--弃用 -->
     <select id="getPermissonsByRoleModule" resultMap="BaseResultMap">
         SELECT tcsp.id,tcsp.name,tcsp.url,tcsp.moduleid,tsm.moduleName,tcsp.type
         FROM T_SYS_PERMISSION tcsp
@@ -45,7 +46,7 @@
         <if test="null != mNam and '' != mNam">
             AND tsm.moduleName=#{mNam,jdbcType=VARCHAR}
         </if>
-        <if test="'@zy.news.web.bean.SysUser@ADMIN_ROLE' !=  roleName">
+        <if test="@zy.news.web.bean.SysUser@ADMIN_ROLE !=  roleName">
             AND tcsp.id IN
             (SELECT rp.permissionid
             FROM T_SYS_ROLEPERMS rp
