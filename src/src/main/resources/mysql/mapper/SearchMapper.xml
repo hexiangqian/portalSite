@@ -2,6 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zy.news.web.mapper.SearchMapper">
     <select id="selectCategory" resultType="zy.news.web.ui.result.ArticleCategory">
+        SELECT #{articletype,jdbcType=TINYINT} as articletype,COUNT(*) as `count` from
+        <choose>
+            <when test="0 == articletype">t_news</when>
+        </choose>
+        <choose>
+            <when test="1 == articletype">t_notice</when>
+        </choose>
+        <choose>
+            <when test="2 == articletype">t_quality</when>
+        </choose>
+        <choose>
+            <when test="3 == articletype">t_regulations</when>
+        </choose>
+        <choose>
+            <when test="4 == articletype">t_orgtrain</when>
+        </choose>
+        <choose>
+            <when test="5 == articletype">t_honour</when>
+        </choose>
+        <choose>
+            <when test="6 == articletype">t_knowledgeshare</when>
+        </choose>
+        WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+ </select>
+    <select id="selectAllCategory" resultType="zy.news.web.ui.result.ArticleCategory">
    SELECT * from
     (SELECT 0 as articletype,COUNT(*) as count from t_news WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL

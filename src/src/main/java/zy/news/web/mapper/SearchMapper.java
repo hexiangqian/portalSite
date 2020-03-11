@@ -13,13 +13,16 @@ import java.util.List;
  */
 @Repository
 public interface SearchMapper {
+
+    List<ArticleCategory> selectCategory(@Param("articletype") Byte articletype, @Param("fastsearch") String fastsearch);
+
     /**
      * 获取文章分类和结果统计
      *
      * @param fastsearch
      * @return
      */
-    List<ArticleCategory> selectCategory(@Param("fastsearch") String fastsearch);
+    List<ArticleCategory> selectAllCategory(@Param("fastsearch") String fastsearch);
 
     /**
      * 搜索指定类型文章

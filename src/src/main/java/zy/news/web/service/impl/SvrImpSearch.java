@@ -3,7 +3,6 @@ package zy.news.web.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zy.news.common.db.base.DbExampleUtil;
-import zy.news.web.bean.NewsSimple;
 import zy.news.web.mapper.SearchMapper;
 import zy.news.web.service.ISearch;
 import zy.news.web.ui.param.ArticleType;
@@ -17,7 +16,6 @@ import zy.news.web.zsys.bean.PageValuesResult;
 import zy.news.web.zsys.utils.ServiceUtil;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -42,17 +40,22 @@ public class SvrImpSearch implements ISearch {
         List<ArticleCategory> categorys = null;
         PageValuesResult<ArticleEntry> pageValuesResult = null;
         if (param.getArticletype() == ArticleType.全部.getValue()) {
-            //文章
-            pageValuesResult = selectAllArticles(param.getPage(), likeValue);
+            categorys = mapper.selectAllCategory(likeValue);
+            if (categorys.isEmpty()) {
+                pageValuesResult = new PageValuesResult<>();
+                pageValuesResult.setPage(param.getPage());
+                pageValuesResult.setValue(new ArrayList<>(0));
 
-            //类别
-            categorys = new ArrayList<>(1);
-            ArticleCategory category = new ArticleCategory();
-            category.setArticleType(param.getArticletype());
-            category.setCount(pageValuesResult.getPage().getTotalElements());
-            categorys.add(category);
+                categorys = new ArrayList<>(1);
+                ArticleCategory category = new ArticleCategory();
+                category.setArticleType(param.getArticletype());
+                category.setCount(pageValuesResult.getPage().getTotalElements());
+                categorys.add(category);
+            } else {
+                pageValuesResult = selectAllArticles(param.getPage(), likeValue);
+            }
         } else {
-            categorys = mapper.selectCategory(likeValue);
+            categorys = mapper.selectCategory(param.getArticletype(), likeValue);
             pageValuesResult = selectArticles(param.getPage(), likeValue, param.getArticletype());
         }
 

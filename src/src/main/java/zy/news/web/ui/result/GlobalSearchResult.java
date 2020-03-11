@@ -15,13 +15,13 @@ import java.util.List;
 @Data
 public class GlobalSearchResult {
     /**
-     * 文章类别信息
-     */
-    private List<ArticleCategory> categorys;
-    /**
      * 当前文章类型
      */
     private byte articleType;
+    /**
+     * 文章类别信息
+     */
+    private List<ArticleCategory> categorys;
 
     /**
      * 指定文章列表
