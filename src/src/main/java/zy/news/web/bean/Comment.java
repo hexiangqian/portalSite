@@ -55,5 +55,8 @@ public class Comment implements IValidate {
             throw new Exception("文章类型articletype 值错误！");
         }
         ArticleType.getInstance(articletype);
+        if (articletype == ArticleType.文章评论.getValue()) {
+            throw new Exception("不能评论文章！");
+        }
     }
 }
