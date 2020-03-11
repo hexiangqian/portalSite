@@ -7,6 +7,7 @@ import zy.news.web.ui.param.ArticleType;
 
 /**
  * 文章普查类
+ * 文章类型和个数
  *
  * @author maoko
  * @date 2020/3/9 15:05

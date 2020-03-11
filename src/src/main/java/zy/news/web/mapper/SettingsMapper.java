@@ -4,6 +4,9 @@ import org.springframework.stereotype.Repository;
 import zy.news.web.bean.DepartMent;
 import zy.news.web.bean.NewsType;
 import zy.news.web.bean.NoticeType;
+import zy.news.web.ui.param.RoleHas;
+import zy.news.web.ui.result.ArticleCategory;
+import zy.news.web.ui.result.ToDoItem;
 
 import java.util.List;
 
@@ -46,5 +49,26 @@ public interface SettingsMapper {
 
     List<DepartMent> selectDepartMents();
 
+    //endregion
+
+    //region 首页
+
+    List<ArticleCategory> getSysOverview();
+
+    /**
+     * 获取待办事项
+     *
+     * @param roleHas
+     * @return
+     */
+    List<ToDoItem> getToDolist(RoleHas roleHas);
+
+    /**
+     * 获取指定用户的权限
+     *
+     * @param userid
+     * @return
+     */
+    RoleHas selectUserRoleList(Long userid);
     //endregion
 }
