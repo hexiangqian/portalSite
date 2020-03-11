@@ -26,7 +26,8 @@ public enum ArticleType {
     /**
      * 分享
      */
-    知识分享(6);
+    知识分享(6),
+    文章评论(7);
 
     private byte value;
 
@@ -64,6 +65,9 @@ public enum ArticleType {
                 break;
             case 6:
                 articleType = 知识分享;
+                break;
+            case 7:
+                articleType = 文章评论;
                 break;
             default:
                 throw new OutOfRangeException("文章类型范围值错误！");
