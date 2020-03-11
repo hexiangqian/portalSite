@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 10/03/2020 15:29:14
+ Date: 11/03/2020 13:59:49
 */
 
 SET NAMES utf8mb4;
@@ -45,7 +45,7 @@ CREATE TABLE `t_comment`  (
   `reviewdate` datetime(0) NULL DEFAULT NULL,
   `reviewComment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_comment
@@ -173,7 +173,7 @@ CREATE TABLE `t_newstype`  (
   `ntid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '新闻类型id',
   `newsTName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '新闻类型名称',
   PRIMARY KEY (`ntid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '新闻类型名称' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '新闻类型名称' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of t_newstype
@@ -388,7 +388,7 @@ CREATE TABLE `t_sys_permission`  (
   `url` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `mustneed` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1：游客可访问 0：登录访问',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 70 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of t_sys_permission
@@ -489,6 +489,7 @@ INSERT INTO `t_sys_permission` VALUES (93, '【荣誉中亚/发布】删除', 13
 INSERT INTO `t_sys_permission` VALUES (94, '【荣誉中亚】分页获取荣誉文章列表(游客)', -1, '/honour/getHonours', 1);
 INSERT INTO `t_sys_permission` VALUES (95, '【荣誉中亚】获取荣誉文章详情(游客)', -1, '/honour/getHonourDetail', 1);
 INSERT INTO `t_sys_permission` VALUES (96, '全局检索-搜索', -1, '/search/searchArticles', 1);
+INSERT INTO `t_sys_permission` VALUES (97, '获取部门列表', -1, '/back/settings/dept/getDepartMents', 1);
 
 -- ----------------------------
 -- Table structure for t_sys_role
