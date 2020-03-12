@@ -112,7 +112,12 @@
             <artifactId>jsoup</artifactId>
             <version>1.12.2</version>
         </dependency>
-
+        <!-- htmlcompressor压缩工具 -->
+        <dependency>
+            <groupId>com.googlecode.htmlcompressor</groupId>
+            <artifactId>htmlcompressor</artifactId>
+            <version>1.5.2</version>
+        </dependency>
 
         <dependency>
             <groupId>maoko</groupId>

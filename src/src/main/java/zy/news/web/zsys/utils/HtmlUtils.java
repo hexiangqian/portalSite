@@ -1,5 +1,6 @@
 package zy.news.web.zsys.utils;
 
+import com.googlecode.htmlcompressor.compressor.HtmlCompressor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Node;
@@ -55,5 +56,27 @@ public class HtmlUtils {
     public static String html2Str(String html, int len) {
         String tmpResult = html2Str(html);
         return tmpResult.substring(0, len).trim();
+    }
+
+    /**
+     * 压缩html
+     *
+     * @param text
+     * @return
+     * @throws Exception
+     */
+    public static String htmlCompress(String text) {
+        HtmlCompressor compressor = new HtmlCompressor();
+        compressor.setEnabled(true);
+        compressor.setCompressCss(true);
+        //TODO js 压缩还需处理
+        compressor.setYuiJsPreserveAllSemiColons(true);
+        compressor.setYuiJsLineBreak(1);
+        compressor.setPreserveLineBreaks(false);
+        compressor.setRemoveIntertagSpaces(true);
+        compressor.setRemoveComments(true);
+        compressor.setRemoveMultiSpaces(true);
+
+        return compressor.compress(text);
     }
 }
