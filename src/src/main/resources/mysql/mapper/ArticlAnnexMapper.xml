@@ -31,13 +31,13 @@
     </delete>
     <select id="getAnnexRecords" parameterType="java.lang.Long" resultType="zy.news.web.bean.ArticlAnnex">
     SELECT
-	tmpAnnex_t.* ,
+	annex.articleid,
+	annex.fid,
 	file.`name`,
 	file.path
     FROM
-        ( SELECT artAnnex.* FROM t_articleannex artAnnex WHERE artAnnex.articleid = #{articleid,jdbcType=BIGINT} ) tmpAnnex_t
-    LEFT JOIN t_file file ON tmpAnnex_t.fid = file.fid
-    WHERE
-        file.`name` IS NOT NULL
+        t_articleannex annex
+        LEFT JOIN t_file file ON annex.fid = file.fid
+    WHERE annex.articleid = #{articleid,jdbcType=BIGINT} AND file.`name` IS NOT NULL
     </select>
 </mapper>
