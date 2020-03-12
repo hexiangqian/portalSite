@@ -10,6 +10,10 @@
         <result column="pageview" jdbcType="BIGINT" property="pageview"/>
         <result column="content" jdbcType="LONGVARBINARY" property="content"/>
     </resultMap>
+    <resultMap id="blobMap" type="zy.news.web.bean.ContentBase">
+        <result column="content" jdbcType="BLOB" property="content"
+                typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+    </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_regulations
     where id = #{id,jdbcType=BIGINT}
@@ -32,7 +36,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, title, author, publishdate, reg.dptid, pageview, content,dept.dptname,
+    select id, title, author, publishdate, reg.dptid, pageview,dept.dptname,
         (SELECT CONCAT(id,'|',title) FROM t_regulations WHERE  publishdate > reg.publishdate ORDER BY
         publishdate DESC LIMIT 1) as `front`,
         (SELECT CONCAT(id,'|',title) FROM t_regulations WHERE  publishdate <![CDATA[<]]> reg.publishdate ORDER BY
@@ -50,6 +54,15 @@
     <select id="exist" parameterType="zy.news.web.bean.Regulations" resultType="java.lang.Integer">
     SELECT count(*) FROM t_regulations t
     WHERE t.title=#{title,jdbcType=VARCHAR}
+    </select>
+    <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.Honour">
+    select id, title,
+    from t_regulations
+    where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectContenBlobByPrimaryKey" resultMap="blobMap">
+        SELECT content FROM t_regulations
+        WHERE id = #{id,jdbcType=BIGINT}
     </select>
     <update id="countViewByPrimaryKey">
         UPDATE t_regulations

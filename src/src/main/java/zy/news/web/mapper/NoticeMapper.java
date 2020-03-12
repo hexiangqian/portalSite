@@ -4,10 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import zy.news.web.bean.News;
-import zy.news.web.bean.NewsSimple;
-import zy.news.web.bean.Notice;
-import zy.news.web.bean.NoticeSimple;
+import zy.news.web.bean.*;
 import zy.news.web.ui.result.ReviewInfo;
 
 @Repository
@@ -31,6 +28,21 @@ public interface NoticeMapper {
      * @return
      */
     int exist(Notice notice);
+    /**
+     * 获取简单的对象不带blob字段
+     *
+     * @param id
+     * @return
+     */
+    News selectRecordWithOutBlobByPrimaryKey(Long id);
+
+    /**
+     * 获取content blob 字段
+     *
+     * @param id
+     * @return
+     */
+    ContentBase selectContenBlobByPrimaryKey(Long id);
 
     /**
      * 获取详情

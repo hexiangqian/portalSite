@@ -12,6 +12,10 @@
         <result column="pageview" jdbcType="BIGINT" property="pageview"/>
         <result column="content" jdbcType="LONGVARBINARY" property="content"/>
     </resultMap>
+    <resultMap id="blobMap" type="zy.news.web.bean.ContentBase">
+        <result column="content" jdbcType="BLOB" property="content"
+                typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+    </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_honour
     where id = #{id,jdbcType=BIGINT}
@@ -40,7 +44,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="zy.news.web.bean.Honour">
-    select id, imageid, pepole, honortitle, title, author, publishdate, pageview, content,file.path AS imageUrl,
+    select id, imageid, pepole, honortitle, title, author, publishdate, pageview, file.path AS imageUrl,
         (SELECT CONCAT(id,'|',title) FROM t_honour WHERE  publishdate > tmp_h.publishdate ORDER BY
         publishdate DESC LIMIT 1) as `front`,
         (SELECT CONCAT(id,'|',title) FROM t_honour WHERE  publishdate <![CDATA[<]]> tmp_h.publishdate ORDER BY
@@ -58,6 +62,15 @@
     <select id="exist" parameterType="zy.news.web.bean.Honour" resultType="java.lang.Integer">
     SELECT count(*) FROM t_honour t
     WHERE t.title=#{title,jdbcType=VARCHAR}
+    </select>
+    <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.Honour">
+    select id, imageid, title,
+    from t_honour
+    where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectContenBlobByPrimaryKey" resultMap="blobMap">
+        SELECT content FROM t_honour
+        WHERE id = #{id,jdbcType=BIGINT}
     </select>
     <update id="countViewByPrimaryKey">
         UPDATE t_honour

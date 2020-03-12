@@ -1,7 +1,9 @@
 package zy.news.web.mapper;
 
 import org.springframework.stereotype.Repository;
+import zy.news.web.bean.ContentBase;
 import zy.news.web.bean.Honour;
+import zy.news.web.bean.News;
 
 import java.util.List;
 
@@ -28,4 +30,21 @@ public interface HonourMapper {
      * @return
      */
     int countViewByPrimaryKey(Long id);
+
+    /**
+     * 获取简单的对象不带blob字段
+     *
+     * @param id
+     * @return
+     */
+    News selectRecordWithOutBlobByPrimaryKey(Long id);
+
+    /**
+     * 获取content blob 字段
+     *
+     * @param id
+     * @return
+     */
+    ContentBase selectContenBlobByPrimaryKey(Long id);
+
 }

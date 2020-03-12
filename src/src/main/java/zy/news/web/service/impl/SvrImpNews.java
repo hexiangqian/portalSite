@@ -92,7 +92,7 @@ public class SvrImpNews extends ServiceBase implements INews {
         if (null == record.getId()) {
             throw new Exception("id为空！");
         }
-        News tmpNews = mapper.selectByPrimaryKey(record.getId());
+        News tmpNews = mapper.selectRecordWithOutBlobByPrimaryKey(record.getId());
         if (null != tmpNews) {
             mapper.deleteByPrimaryKey(record.getId());
             SysFile imgFile = null;
@@ -111,7 +111,7 @@ public class SvrImpNews extends ServiceBase implements INews {
         if (null == news.getId()) {
             throw new Exception("更新新闻操作id不能为空！");
         }
-        News tmpNews = mapper.selectByPrimaryKey(news.getId());
+        News tmpNews = mapper.selectRecordWithOutBlobByPrimaryKey(news.getId());
         if (tmpNews == null) {
             throw new Exception("新闻已不存在！");
         }
@@ -137,15 +137,17 @@ public class SvrImpNews extends ServiceBase implements INews {
     }
 
     @Override
-    public News getRecordDetail(Long newsid) throws Exception {
-        News news = mapper.selectNewsDetailByPrimaryKey(newsid);
-        if (null == news) {
+    public News getRecordDetail(Long id) throws Exception {
+        News record = mapper.selectNewsDetailByPrimaryKey(id);
+        if (null == record) {
             throw new WarningException("新闻已不存在!");
         }
-        mapper.countViewByPrimaryKey(newsid);
-        List<ArticlAnnex> annexes = annexService.getAnnexs(newsid);
-        news.setAnnexes(annexes);
-        return news;
+        ContentBase contentBase = mapper.selectContenBlobByPrimaryKey(id);
+        mapper.countViewByPrimaryKey(id);
+        record.setContentStr(contentBase.getContentStr());
+        List<ArticlAnnex> annexes = annexService.getAnnexs(id);
+        record.setAnnexes(annexes);
+        return record;
     }
 
     @Override

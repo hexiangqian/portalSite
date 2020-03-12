@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import zy.news.web.bean.ContentBase;
 import zy.news.web.bean.News;
 import zy.news.web.bean.NewsSimple;
 import zy.news.web.ui.result.ReviewInfo;
@@ -29,6 +30,22 @@ public interface NewsMapper {
      * @return
      */
     int exist(News news);
+
+    /**
+     * 获取简单的对象不带blob字段
+     *
+     * @param id
+     * @return
+     */
+    News selectRecordWithOutBlobByPrimaryKey(Long id);
+
+    /**
+     * 获取content blob 字段
+     *
+     * @param id
+     * @return
+     */
+    ContentBase selectContenBlobByPrimaryKey(Long id);
 
     /**
      * 获取详情

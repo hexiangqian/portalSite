@@ -15,6 +15,10 @@
         <result column="pageview" jdbcType="BIGINT" property="pageview"/>
         <result column="content" jdbcType="LONGVARBINARY" property="content"/>
     </resultMap>
+    <resultMap id="blobMap" type="zy.news.web.bean.ContentBase">
+        <result column="content" jdbcType="BLOB" property="content"
+                typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+    </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_news
     where id = #{id,jdbcType=BIGINT}
@@ -76,6 +80,15 @@
     SELECT count(*) FROM t_news t
     WHERE t.title=#{title,jdbcType=VARCHAR}
     </select>
+    <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.News">
+    select id, imageid, title,
+    from t_news
+    where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectContenBlobByPrimaryKey" resultMap="blobMap">
+        SELECT content FROM t_news
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
     <select id="selectNewsDetailByPrimaryKey" resultType="zy.news.web.bean.News">
         SELECT
         tmp_news.*,
@@ -83,7 +96,10 @@
         FROM
         (
         SELECT
-        news.*,
+        id, imageid, title,
+        news.ntid, author, publishdate,
+        reviewstatus, reviewer, reviewdate,
+        pageview,summary,
         newstype.newsTName,
         (SELECT CONCAT(id,'|',title) FROM t_news WHERE reviewstatus=1 and publishdate > news.publishdate ORDER BY
         publishdate DESC LIMIT 1) as `front`,

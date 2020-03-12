@@ -4,6 +4,7 @@ import maoko.common.file.FileIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import zy.news.web.bean.ContentBase;
 import zy.news.web.zsys.bean.Page;
 import zy.news.common.exception.WarningException;
 import zy.news.web.bean.ArticlAnnex;
@@ -113,14 +114,16 @@ public class SvrImpOrgTrain extends ServiceBase implements IOrgTrain {
 
     @Override
     public OrgTrain getRecordDetail(Long id) throws Exception {
-        OrgTrain train = mapper.selectByPrimaryKey(id);
-        if (null == train) {
+        OrgTrain record = mapper.selectByPrimaryKey(id);
+        if (null == record) {
             throw new WarningException("已不存在!");
         }
+        ContentBase contentBase = mapper.selectContenBlobByPrimaryKey(id);
         mapper.countViewByPrimaryKey(id);
+        record.setContentStr(contentBase.getContentStr());
         List<ArticlAnnex> annexes = annexService.getAnnexs(id);
-        train.setAnnexes(annexes);
-        return train;
+        record.setAnnexes(annexes);
+        return record;
     }
 
     @Override

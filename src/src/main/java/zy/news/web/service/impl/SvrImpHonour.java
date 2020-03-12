@@ -4,12 +4,9 @@ import maoko.common.file.FileIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import zy.news.web.bean.*;
 import zy.news.web.zsys.bean.Page;
 import zy.news.common.exception.WarningException;
-import zy.news.web.bean.ArticlAnnex;
-import zy.news.web.bean.Honour;
-import zy.news.web.bean.SysFile;
-import zy.news.web.bean.SysUser;
 import zy.news.web.mapper.HonourMapper;
 import zy.news.web.service.IAnnex;
 import zy.news.web.service.IFiles;
@@ -123,14 +120,16 @@ public class SvrImpHonour extends ServiceBase implements IHonour {
 
     @Override
     public Honour getRecordDetail(Long id) throws Exception {
-        Honour train = mapper.selectByPrimaryKey(id);
-        if (null == train) {
+        Honour record = mapper.selectByPrimaryKey(id);
+        if (null == record) {
             throw new WarningException("已不存在!");
         }
+        ContentBase contentBase = mapper.selectContenBlobByPrimaryKey(id);
         mapper.countViewByPrimaryKey(id);
+        record.setContentStr(contentBase.getContentStr());
         List<ArticlAnnex> annexes = annexService.getAnnexs(id);
-        train.setAnnexes(annexes);
-        return train;
+        record.setAnnexes(annexes);
+        return record;
     }
 
     @Override

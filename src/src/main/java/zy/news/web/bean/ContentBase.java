@@ -29,7 +29,7 @@ public class ContentBase implements IValidate {
     public void setContent(byte[] content) {
         //this.content = content;
         if (null != content && content.length > 0) {
-            this.contentStr = StringUtil.getUtf8Str(content);
+            this.contentStr = StringUtil.unGZipBytesToStr(content);
         } else {
             this.contentStr = "";
         }
@@ -39,8 +39,10 @@ public class ContentBase implements IValidate {
      * 将新闻内容转换为数据库blob
      */
     public void convertContent2Blob() {
-        content = StringUtil.getUtf8Bytes(contentStr);
+        //contentStr = HtmlUtils.htmlCompress(contentStr);
         summary = HtmlUtils.html2Str(contentStr);
+        content = StringUtil.gzipUTF8StrToBytes(contentStr);
+        this.contentStr = null;
         int len = summary.length();
         if (len > SUMMARYLEN) {
             summary = summary.substring(0, SUMMARYLEN);

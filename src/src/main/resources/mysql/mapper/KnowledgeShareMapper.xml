@@ -15,6 +15,10 @@
         <result column="content" jdbcType="LONGVARBINARY" property="content"/>
         <result column="pageview" jdbcType="BIGINT" property="pageview"/>
     </resultMap>
+    <resultMap id="blobMap" type="zy.news.web.bean.ContentBase">
+        <result column="content" jdbcType="BLOB" property="content"
+                typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+    </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_knowledgeshare
     where id = #{id,jdbcType=BIGINT} and reviewstatus = 0
@@ -85,9 +89,18 @@
     SELECT count(*) FROM t_knowledgeshare t
     WHERE t.title=#{title,jdbcType=VARCHAR}
     </select>
+    <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.Honour">
+    select id, title,
+    from t_knowledgeshare
+    where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectContenBlobByPrimaryKey" resultMap="blobMap">
+        SELECT content FROM t_knowledgeshare
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
     <select id="selectDetailByPrimaryKey" resultType="zy.news.web.bean.KnlgeShare">
         SELECT tmp_t.id, tmp_t.title, tmp_t.publishdate, tmp_t.reviewstatus, tmp_t.reviewer,
-        tmp_t.reviewdate,tmp_t.reviewComment,tmp_t.goodnum, tmp_t.badnum, tmp_t.content,tmp_t.pageview,tmp_t.cmtCount,
+        tmp_t.reviewdate,tmp_t.reviewComment,tmp_t.goodnum, tmp_t.badnum,tmp_t.pageview,tmp_t.cmtCount,
         usr.realname as author,
         (SELECT CONCAT(id,'|',title) FROM t_knowledgeshare WHERE reviewstatus=1 and publishdate > tmp_t.publishdate
         <choose>

@@ -4,12 +4,9 @@ import maoko.common.file.FileIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import zy.news.web.bean.*;
 import zy.news.web.zsys.bean.Page;
 import zy.news.common.exception.WarningException;
-import zy.news.web.bean.ArticlAnnex;
-import zy.news.web.bean.KnlgeShare;
-import zy.news.web.bean.KnlgeShareSimple;
-import zy.news.web.bean.SysUser;
 import zy.news.web.mapper.KnowledgeShareMapper;
 import zy.news.web.service.IAnnex;
 import zy.news.web.service.IFiles;
@@ -143,14 +140,16 @@ public class SvrImpKnlgeShare extends ServiceBase implements IKnlgeShare {
 
     @Override
     public KnlgeShare getRecordDetail(Long id, Byte type) throws Exception {
-        KnlgeShare tmpRecord = mapper.selectDetailByPrimaryKey(id, type);
-        if (null == tmpRecord) {
+        KnlgeShare record = mapper.selectDetailByPrimaryKey(id, type);
+        if (null == record) {
             throw new WarningException(id.toString() + "通告已不存在!");
         }
+        ContentBase contentBase = mapper.selectContenBlobByPrimaryKey(id);
         mapper.countViewByPrimaryKey(id);
+        record.setContentStr(contentBase.getContentStr());
         List<ArticlAnnex> annexes = annexService.getAnnexs(id);
-        tmpRecord.setAnnexes(annexes);
-        return tmpRecord;
+        record.setAnnexes(annexes);
+        return record;
     }
 
     @Override

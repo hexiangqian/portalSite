@@ -14,6 +14,10 @@
         <result column="pageview" jdbcType="BIGINT" property="pageview"/>
         <result column="content" jdbcType="LONGVARBINARY" property="content"/>
     </resultMap>
+    <resultMap id="blobMap" type="zy.news.web.bean.ContentBase">
+        <result column="content" jdbcType="BLOB" property="content"
+                typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+    </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_notice
     where id = #{id,jdbcType=BIGINT}
@@ -66,10 +70,21 @@
     SELECT count(*) FROM t_notice t
     WHERE t.title=#{title,jdbcType=VARCHAR}
     </select>
+    <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.Honour">
+    select id, title,
+    from t_notice
+    where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectContenBlobByPrimaryKey" resultMap="blobMap">
+        SELECT content FROM t_notice
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
     <select id="selectDetailByPrimaryKey" resultType="zy.news.web.bean.Notice">
     SELECT
-        nt.*,
-        ntp.noticeTName,
+       nt.id,  nt.title,  nt.ntid,
+       nt.author,  nt.publishdate,  nt.reviewstatus,
+       nt.reviewer, nt. reviewdate,  nt.pageview, nt.summary,
+       ntp.noticeTName,
         (SELECT CONCAT(id,'|',title) FROM t_notice WHERE reviewstatus=1 and publishdate > nt.publishdate ORDER BY
         publishdate DESC LIMIT 1) as `front`,
         (SELECT CONCAT(id,'|',title) FROM t_notice WHERE reviewstatus=1 and publishdate <![CDATA[<]]> nt.publishdate ORDER BY

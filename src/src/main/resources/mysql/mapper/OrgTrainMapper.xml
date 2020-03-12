@@ -9,6 +9,10 @@
         <result column="content" jdbcType="LONGVARBINARY" property="content"/>
         <result column="pageview" jdbcType="BIGINT" property="pageview"/>
     </resultMap>
+    <resultMap id="blobMap" type="zy.news.web.bean.ContentBase">
+        <result column="content" jdbcType="BLOB" property="content"
+                typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+    </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_orgtrain
     where id = #{id,jdbcType=BIGINT}
@@ -29,7 +33,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, title, author, publishdate, content,pageview,
+    select id, title, author, publishdate,pageview,
         (SELECT CONCAT(id,'|',title) FROM t_orgtrain WHERE  publishdate > orgtrain.publishdate ORDER BY
         publishdate DESC LIMIT 1) as `front`,
         (SELECT CONCAT(id,'|',title) FROM t_orgtrain WHERE  publishdate <![CDATA[<]]> orgtrain.publishdate ORDER BY
@@ -45,6 +49,15 @@
     <select id="exist" parameterType="zy.news.web.bean.OrgTrain" resultType="java.lang.Integer">
     SELECT count(*) FROM t_orgtrain t
     WHERE t.title=#{title,jdbcType=VARCHAR}
+    </select>
+    <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.Honour">
+    select id, title,
+    from t_orgtrain
+    where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectContenBlobByPrimaryKey" resultMap="blobMap">
+        SELECT content FROM t_orgtrain
+        WHERE id = #{id,jdbcType=BIGINT}
     </select>
     <update id="countViewByPrimaryKey">
         UPDATE t_orgtrain

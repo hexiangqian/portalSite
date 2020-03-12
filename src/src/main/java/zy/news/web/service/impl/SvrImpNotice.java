@@ -4,12 +4,9 @@ import maoko.common.file.FileIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import zy.news.web.bean.*;
 import zy.news.web.zsys.bean.Page;
 import zy.news.common.exception.WarningException;
-import zy.news.web.bean.ArticlAnnex;
-import zy.news.web.bean.Notice;
-import zy.news.web.bean.NoticeSimple;
-import zy.news.web.bean.SysUser;
 import zy.news.web.mapper.NoticeMapper;
 import zy.news.web.service.IAnnex;
 import zy.news.web.service.IFiles;
@@ -125,15 +122,17 @@ public class SvrImpNotice extends ServiceBase implements INotice {
     }
 
     @Override
-    public Notice getRecordDetail(Long noticeid) throws Exception {
-        Notice tmpRecord = mapper.selectDetailByPrimaryKey(noticeid);
-        if (null == tmpRecord) {
-            throw new WarningException(noticeid.toString() + "通告已不存在!");
+    public Notice getRecordDetail(Long id) throws Exception {
+        Notice record = mapper.selectDetailByPrimaryKey(id);
+        if (null == record) {
+            throw new WarningException(id.toString() + "通告已不存在!");
         }
-        mapper.countViewByPrimaryKey(noticeid);
-        List<ArticlAnnex> annexes = annexService.getAnnexs(noticeid);
-        tmpRecord.setAnnexes(annexes);
-        return tmpRecord;
+        ContentBase contentBase = mapper.selectContenBlobByPrimaryKey(id);
+        mapper.countViewByPrimaryKey(id);
+        record.setContentStr(contentBase.getContentStr());
+        List<ArticlAnnex> annexes = annexService.getAnnexs(id);
+        record.setAnnexes(annexes);
+        return record;
     }
 
     @Override
