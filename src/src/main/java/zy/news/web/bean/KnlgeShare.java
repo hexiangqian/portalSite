@@ -18,7 +18,7 @@ public class KnlgeShare extends ContentBase implements IValidate {
     private Byte reviewstatus;
     private String reviewer;
     private Date reviewdate;
-    private String reviewComment;
+    private String reviewcomment;
     private Integer goodnum;
     private Integer badnum;
     private Long pageview;

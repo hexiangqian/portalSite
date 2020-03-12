@@ -16,14 +16,10 @@ import java.util.Date;
 @Data
 public class ReviewInfo implements IValidate {
     private Long id;
-
     private Byte reviewstatus;
     private String reviewstatusStr;
-
     private String reviewer;
-
     private Date reviewdate;
-
     private String reviewComment;
 
     public void setReviewstatus(Byte reviewstatus) {
