@@ -52,7 +52,7 @@ public class Notice extends ContentBase implements IValidate {
             throw new Exception("类型ntid字段为空！");
         }
         if (StringUtil.isStrNullOrWhiteSpace(content)) {
-            throw new Exception("内容contentStr字段为空！");
+            throw new Exception("内容content字段为空！");
         }
         super.validate();
     }

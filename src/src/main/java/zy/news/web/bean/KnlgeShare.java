@@ -45,7 +45,7 @@ public class KnlgeShare extends ContentBase implements IValidate {
         boolean annexEmpty = annexes == null || annexes.isEmpty();
         boolean stringNull = StringUtil.isStrNullOrWhiteSpace(content);
         if (annexEmpty && stringNull) {
-            throw new Exception("附件列表或者内容contentStr字段不能都为空！");
+            throw new Exception("附件列表或者内容content字段不能都为空！");
         }
     }
 }

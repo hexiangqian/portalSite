@@ -63,7 +63,7 @@
     WHERE t.title=#{title,jdbcType=VARCHAR}
     </select>
     <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.Honour">
-    select id, imageid, title,
+    select id, imageid, title
     from t_honour
     where id = #{id,jdbcType=BIGINT}
     </select>
