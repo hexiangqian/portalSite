@@ -119,7 +119,7 @@ public class SvrImpQuality extends ServiceBase implements IQuality {
         }
         ContentBase contentBase = mapper.selectContenBlobByPrimaryKey(id);
         mapper.countViewByPrimaryKey(id);
-        record.setContentStr(contentBase.getContentStr());
+        record.setContent(contentBase.getContent());
         List<ArticlAnnex> annexes = annexService.getAnnexs(id);
         record.setAnnexes(annexes);
         return record;

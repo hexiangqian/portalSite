@@ -15,9 +15,8 @@
         <result column="content" jdbcType="LONGVARBINARY" property="content"/>
         <result column="pageview" jdbcType="BIGINT" property="pageview"/>
     </resultMap>
-    <resultMap id="blobMap" type="zy.news.web.bean.ContentBase">
-        <result column="content" jdbcType="BLOB" property="content"
-                typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+    <resultMap id="TextMap" type="zy.news.web.bean.ContentBase">
+        <result column="content" jdbcType="VARCHAR" property="content"/>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_knowledgeshare
@@ -94,7 +93,7 @@
     from t_knowledgeshare
     where id = #{id,jdbcType=BIGINT}
     </select>
-    <select id="selectContenBlobByPrimaryKey" resultMap="blobMap">
+    <select id="selectContenBlobByPrimaryKey" resultMap="TextMap">
         SELECT content FROM t_knowledgeshare
         WHERE id = #{id,jdbcType=BIGINT}
     </select>
@@ -104,15 +103,16 @@
         usr.realname as author,
         (SELECT CONCAT(id,'|',title) FROM t_knowledgeshare WHERE reviewstatus=1 and publishdate > tmp_t.publishdate
         <choose>
-            <when test="1 == isGood">ORDER BY goodnum DESC, (goodnum/(goodnum+badnum)) DESC </when>
-            <otherwise>ORDER BY publishdate DESC </otherwise>
+            <when test="1 == isGood">ORDER BY goodnum DESC, (goodnum/(goodnum+badnum)) DESC</when>
+            <otherwise>ORDER BY publishdate DESC</otherwise>
         </choose>
         LIMIT 1) as `front`,
-        (SELECT CONCAT(id,'|',title) as goodPercent FROM t_knowledgeshare WHERE reviewstatus=1 and publishdate <![CDATA[<]]>
+        (SELECT CONCAT(id,'|',title) as goodPercent FROM t_knowledgeshare WHERE reviewstatus=1 and publishdate
+        <![CDATA[<]]>
         tmp_t.publishdate
         <choose>
-            <when test="1 == isGood">ORDER BY goodnum DESC, (goodnum/(goodnum+badnum)) DESC </when>
-            <otherwise>ORDER BY publishdate DESC </otherwise>
+            <when test="1 == isGood">ORDER BY goodnum DESC, (goodnum/(goodnum+badnum)) DESC</when>
+            <otherwise>ORDER BY publishdate DESC</otherwise>
         </choose>
         LIMIT 1) as `next`
         FROM (

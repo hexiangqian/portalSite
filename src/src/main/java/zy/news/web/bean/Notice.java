@@ -51,7 +51,7 @@ public class Notice extends ContentBase implements IValidate {
         if (ntid == null) {
             throw new Exception("类型ntid字段为空！");
         }
-        if (StringUtil.isStrNullOrWhiteSpace(contentStr)) {
+        if (StringUtil.isStrNullOrWhiteSpace(content)) {
             throw new Exception("内容contentStr字段为空！");
         }
         super.validate();

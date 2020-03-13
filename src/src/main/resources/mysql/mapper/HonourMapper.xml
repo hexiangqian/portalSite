@@ -12,9 +12,8 @@
         <result column="pageview" jdbcType="BIGINT" property="pageview"/>
         <result column="content" jdbcType="LONGVARBINARY" property="content"/>
     </resultMap>
-    <resultMap id="blobMap" type="zy.news.web.bean.ContentBase">
-        <result column="content" jdbcType="BLOB" property="content"
-                typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+    <resultMap id="TextMap" type="zy.news.web.bean.ContentBase">
+        <result column="content" jdbcType="VARCHAR" property="content"/>
     </resultMap>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_honour
@@ -68,7 +67,7 @@
     from t_honour
     where id = #{id,jdbcType=BIGINT}
     </select>
-    <select id="selectContenBlobByPrimaryKey" resultMap="blobMap">
+    <select id="selectContenBlobByPrimaryKey" resultMap="TextMap">
         SELECT content FROM t_honour
         WHERE id = #{id,jdbcType=BIGINT}
     </select>
