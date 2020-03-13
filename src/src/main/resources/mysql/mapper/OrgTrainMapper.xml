@@ -50,7 +50,7 @@
     SELECT count(*) FROM t_orgtrain t
     WHERE t.title=#{title,jdbcType=VARCHAR}
     </select>
-    <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.Honour">
+    <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.OrgTrain">
     select id, title,
     from t_orgtrain
     where id = #{id,jdbcType=BIGINT}

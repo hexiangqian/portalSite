@@ -85,7 +85,7 @@ public class SvrImpNotice extends ServiceBase implements INotice {
         if (null == record.getId()) {
             throw new Exception("id为空！");
         }
-        Notice tmpNotice = mapper.selectByPrimaryKey(record.getId());
+        Notice tmpNotice = mapper.selectRecordWithOutBlobByPrimaryKey(record.getId());
         if (null != tmpNotice) {
             mapper.deleteByPrimaryKey(record.getId());
             deleteAnnexs(record.getId());
@@ -100,7 +100,7 @@ public class SvrImpNotice extends ServiceBase implements INotice {
         if (null == record.getId()) {
             throw new Exception("更新通告操作id不能为空！");
         }
-        Notice tmpRecord = mapper.selectByPrimaryKey(record.getId());
+        Notice tmpRecord = mapper.selectRecordWithOutBlobByPrimaryKey(record.getId());
         if (tmpRecord == null) {
             throw new Exception(record.getId() + "通告已不存在！");
         }

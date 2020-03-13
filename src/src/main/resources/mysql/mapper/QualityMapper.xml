@@ -54,7 +54,7 @@
     SELECT count(*) FROM t_quality t
     WHERE t.title=#{title,jdbcType=VARCHAR}
     </select>
-    <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.Honour">
+    <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.Quality">
     select id, title,
     from t_quality
     where id = #{id,jdbcType=BIGINT}

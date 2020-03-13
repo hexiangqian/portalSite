@@ -95,7 +95,7 @@ public class SvrImpKnlgeShare extends ServiceBase implements IKnlgeShare {
         if (null == record.getId()) {
             throw new Exception("id为空！");
         }
-        KnlgeShare tmpKnowledgeShare = mapper.selectByPrimaryKey(record.getId());
+        KnlgeShare tmpKnowledgeShare = mapper.selectRecordWithOutBlobByPrimaryKey(record.getId());
         if (null != tmpKnowledgeShare) {
             mapper.deleteByPrimaryKey(record.getId());
             List<ArticlAnnex> annexes = annexService.getAnnexs(record.getId());
@@ -111,7 +111,7 @@ public class SvrImpKnlgeShare extends ServiceBase implements IKnlgeShare {
         if (null == record.getId()) {
             throw new Exception("更新操作id不能为空！");
         }
-        KnlgeShare tmpRecord = mapper.selectByPrimaryKey(record.getId());
+        KnlgeShare tmpRecord = mapper.selectRecordWithOutBlobByPrimaryKey(record.getId());
         if (tmpRecord == null) {
             throw new Exception(record.getId() + "已不存在！");
         }

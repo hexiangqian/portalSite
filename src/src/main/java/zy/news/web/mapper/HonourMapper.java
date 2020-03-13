@@ -3,7 +3,6 @@ package zy.news.web.mapper;
 import org.springframework.stereotype.Repository;
 import zy.news.web.bean.ContentBase;
 import zy.news.web.bean.Honour;
-import zy.news.web.bean.News;
 
 import java.util.List;
 
@@ -37,7 +36,7 @@ public interface HonourMapper {
      * @param id
      * @return
      */
-    News selectRecordWithOutBlobByPrimaryKey(Long id);
+    Honour selectRecordWithOutBlobByPrimaryKey(Long id);
 
     /**
      * 获取content blob 字段

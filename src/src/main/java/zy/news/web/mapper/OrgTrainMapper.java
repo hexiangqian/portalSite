@@ -20,13 +20,14 @@ public interface OrgTrainMapper {
     //APPEND
 
     int exist(OrgTrain record);
+
     /**
      * 获取简单的对象不带blob字段
      *
      * @param id
      * @return
      */
-    News selectRecordWithOutBlobByPrimaryKey(Long id);
+    OrgTrain selectRecordWithOutBlobByPrimaryKey(Long id);
 
     /**
      * 获取content blob 字段

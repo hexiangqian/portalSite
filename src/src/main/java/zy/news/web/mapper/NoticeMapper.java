@@ -1,11 +1,13 @@
 package zy.news.web.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import zy.news.web.bean.*;
+import zy.news.web.bean.ContentBase;
+import zy.news.web.bean.Notice;
+import zy.news.web.bean.NoticeSimple;
 import zy.news.web.ui.result.ReviewInfo;
+
+import java.util.List;
 
 @Repository
 public interface NoticeMapper {
@@ -34,7 +36,7 @@ public interface NoticeMapper {
      * @param id
      * @return
      */
-    News selectRecordWithOutBlobByPrimaryKey(Long id);
+    Notice selectRecordWithOutBlobByPrimaryKey(Long id);
 
     /**
      * 获取content blob 字段

@@ -75,7 +75,7 @@ public class SvrImpRegulations extends ServiceBase implements IRegulations {
         if (null == record.getId()) {
             throw new Exception("id为空！");
         }
-        Regulations tmpRecord = mapper.selectByPrimaryKey(record.getId());
+        Regulations tmpRecord = mapper.selectRecordWithOutBlobByPrimaryKey(record.getId());
         if (null != tmpRecord) {
             mapper.deleteByPrimaryKey(record.getId());
             deleteAnnexs(record.getId());
@@ -90,7 +90,7 @@ public class SvrImpRegulations extends ServiceBase implements IRegulations {
         if (null == record.getId()) {
             throw new Exception("更新操作id不能为空！");
         }
-        Regulations tmpRecord = mapper.selectByPrimaryKey(record.getId());
+        Regulations tmpRecord = mapper.selectRecordWithOutBlobByPrimaryKey(record.getId());
         if (tmpRecord == null) {
             throw new Exception(record.getId() + "已不存在！");
         }

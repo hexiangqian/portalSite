@@ -78,7 +78,7 @@ public class SvrImpHonour extends ServiceBase implements IHonour {
         if (null == record.getId()) {
             throw new Exception("id为空！");
         }
-        Honour tmpRecord = mapper.selectByPrimaryKey(record.getId());
+        Honour tmpRecord = mapper.selectRecordWithOutBlobByPrimaryKey(record.getId());
         if (null != tmpRecord) {
             mapper.deleteByPrimaryKey(record.getId());
             SysFile imgFile = null;
@@ -97,7 +97,7 @@ public class SvrImpHonour extends ServiceBase implements IHonour {
         if (null == record.getId()) {
             throw new Exception("更新操作id不能为空！");
         }
-        Honour tmpRecord = mapper.selectByPrimaryKey(record.getId());
+        Honour tmpRecord = mapper.selectRecordWithOutBlobByPrimaryKey(record.getId());
         if (tmpRecord == null) {
             throw new Exception(record.getId() + "已不存在！");
         }

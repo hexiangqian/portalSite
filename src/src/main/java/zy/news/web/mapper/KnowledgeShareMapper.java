@@ -1,12 +1,13 @@
 package zy.news.web.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import zy.news.web.bean.*;
-import zy.news.web.ui.param.PageIdParam;
+import zy.news.web.bean.ContentBase;
+import zy.news.web.bean.KnlgeShare;
+import zy.news.web.bean.KnlgeShareSimple;
 import zy.news.web.ui.result.ReviewInfo;
+
+import java.util.List;
 
 @Repository
 public interface KnowledgeShareMapper {
@@ -35,13 +36,14 @@ public interface KnowledgeShareMapper {
      * @return
      */
     int exist(KnlgeShare knlgeShare);
+
     /**
      * 获取简单的对象不带blob字段
      *
      * @param id
      * @return
      */
-    News selectRecordWithOutBlobByPrimaryKey(Long id);
+    KnlgeShare selectRecordWithOutBlobByPrimaryKey(Long id);
 
     /**
      * 获取content blob 字段

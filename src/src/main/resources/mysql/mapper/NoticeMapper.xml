@@ -70,7 +70,7 @@
     SELECT count(*) FROM t_notice t
     WHERE t.title=#{title,jdbcType=VARCHAR}
     </select>
-    <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.Honour">
+    <select id="selectRecordWithOutBlobByPrimaryKey" resultType="zy.news.web.bean.Notice">
     select id, title,
     from t_notice
     where id = #{id,jdbcType=BIGINT}
