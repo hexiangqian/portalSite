@@ -2,6 +2,7 @@ package zy.news.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import zy.news.web.ui.param.PageDeptParam;
 import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.Regulations;
 import zy.news.web.service.IRegulations;
@@ -59,8 +60,8 @@ public class RegulationsController {
     @PostMapping("getRegulations")
     @ExcuteInterfaceDsrc("获取文章列表")
     @ExcutePermission(userType = ExcuteUserType.游客)
-    public PageValuesResult<Regulations> getRegulationss(@RequestBody Page page) throws Exception {
-        return regulationsService.getRegulations(page);
+    public PageValuesResult<Regulations> getRegulationss(@RequestBody PageDeptParam param) throws Exception {
+        return regulationsService.getRegulations(param);
     }
 
     @GetMapping("getRegulationsDetail")

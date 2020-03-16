@@ -1,5 +1,6 @@
 package zy.news.web.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import zy.news.web.bean.ContentBase;
 import zy.news.web.bean.Regulations;
@@ -14,7 +15,7 @@ public interface RegulationsMapper {
 
     Regulations selectByPrimaryKey(Long id);
 
-    List<Regulations> selectAll();
+    List<Regulations> selectAll(@Param("deptid") Long deptid);
 
     int updateByPrimaryKey(Regulations record);
 

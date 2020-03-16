@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import zy.news.web.bean.ContentBase;
+import zy.news.web.ui.param.PageDeptParam;
 import zy.news.web.zsys.bean.Page;
 import zy.news.common.exception.WarningException;
 import zy.news.web.bean.ArticlAnnex;
@@ -127,8 +128,9 @@ public class SvrImpRegulations extends ServiceBase implements IRegulations {
     }
 
     @Override
-    public PageValuesResult<Regulations> getRegulations(Page page) throws Exception {
+    public PageValuesResult<Regulations> getRegulations(PageDeptParam param) throws Exception {
         PageValuesParam<Regulations> params = new PageValuesParam<>(mapper, "selectAll");
-        return ServiceUtil.getValuePageResult(page, params);
+        params.addParam(param.getDeptid());
+        return ServiceUtil.getValuePageResult(param.getPage(), params);
     }
 }

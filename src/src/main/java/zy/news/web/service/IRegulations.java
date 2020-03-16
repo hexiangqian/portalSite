@@ -1,5 +1,6 @@
 package zy.news.web.service;
 
+import zy.news.web.ui.param.PageDeptParam;
 import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.Regulations;
 import zy.news.web.zsys.bean.PageValuesResult;
@@ -10,5 +11,5 @@ import zy.news.web.zsys.bean.PageValuesResult;
  */
 public interface IRegulations extends IBaseService<Regulations> {
 
-    PageValuesResult<Regulations> getRegulations(Page page) throws Exception;
+    PageValuesResult<Regulations> getRegulations(PageDeptParam param) throws Exception;
 }

@@ -45,11 +45,14 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
     <select id="selectAll" resultType="zy.news.web.bean.Regulations">
-    select id, title, author, publishdate, reg.dptid, pageview,dept.dptname
-    from t_regulations reg
-    left join t_sys_dept dept on reg.dptid=dept.dptid
-    order by reg.publishdate desc
-  </select>
+        select id, title, author, publishdate, reg.dptid, pageview,dept.dptname
+        from t_regulations reg
+        left join t_sys_dept dept on reg.dptid=dept.dptid
+        <if test="deptid != -1">
+            where reg.deptid=#{deptid,jdbcType=BIGINT}
+        </if>
+        order by reg.publishdate desc
+    </select>
     <select id="exist" parameterType="zy.news.web.bean.Regulations" resultType="java.lang.Integer">
     SELECT count(*) FROM t_regulations t
     WHERE t.title=#{title,jdbcType=VARCHAR}
