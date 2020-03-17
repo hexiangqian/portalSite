@@ -2,6 +2,8 @@ package zy.news.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import zy.news.web.bean.KnlgeShareSimple;
+import zy.news.web.ui.param.PageReview;
 import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.Comment;
 import zy.news.web.bean.CommentSimple;
@@ -54,11 +56,11 @@ public class CommentController {
         return service.getComments(page, ReviewStatus.已通过);
     }
 
-    @PostMapping("getNoPassComments")
-    @ExcuteInterfaceDsrc("获取审核未通过评论列表")
+    @PostMapping("getReviewRecords")
+    @ExcuteInterfaceDsrc("获取已发布评论列表")
     @ExcutePermission
-    public PageValuesResult<CommentSimple> getNoPassComments(@RequestBody Page page) throws Exception {
-        return service.getComments(page, ReviewStatus.未通过);
+    public PageValuesResult<CommentSimple> getReviewRecords(@RequestBody PageReview param) throws Exception {
+        return service.getComments(param.getPage(), param.getStatus());
     }
 
     @PostMapping("deleteComment")

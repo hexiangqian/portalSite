@@ -2,6 +2,8 @@ package zy.news.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import zy.news.web.bean.NewsSimple;
+import zy.news.web.ui.param.PageReview;
 import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.Notice;
 import zy.news.web.bean.NoticeSimple;
@@ -87,19 +89,11 @@ public class NoticeController {
     //endregion
 
     //region 通告审核
-
-    @PostMapping("getNotices")
-    @ExcuteInterfaceDsrc("获取已审核通告列表")
-    @ExcutePermission(userType = ExcuteUserType.游客)
-    public PageValuesResult<NoticeSimple> getNotice(@RequestBody Page page) throws Exception {
-        return noticeService.getNotice(page, ReviewStatus.已通过);
-    }
-
-    @PostMapping("getNoticeUnReview")
-    @ExcuteInterfaceDsrc("获取未审核通告列表")
+    @PostMapping("getReviewRecords")
+    @ExcuteInterfaceDsrc("获取已发布文章列表")
     @ExcutePermission
-    public PageValuesResult<NoticeSimple> getNoticeUnReview(@RequestBody Page page) throws Exception {
-        return noticeService.getNotice(page, ReviewStatus.未通过);
+    public PageValuesResult<NoticeSimple> getReviewRecords(@RequestBody PageReview param) throws Exception {
+        return noticeService.getNotice(param.getPage(), param.getStatus());
     }
 
     @PostMapping("reviewNotice")

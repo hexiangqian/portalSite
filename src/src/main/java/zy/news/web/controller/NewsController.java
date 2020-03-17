@@ -2,6 +2,8 @@ package zy.news.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import zy.news.web.ui.param.PageIdParam;
+import zy.news.web.ui.param.PageReview;
 import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.News;
 import zy.news.web.bean.NewsSimple;
@@ -69,13 +71,6 @@ public class NewsController {
         newsService.delete(session, news);
     }
 
-    @PostMapping("getPublishNews")
-    @ExcuteInterfaceDsrc("获取已发布新闻列表")
-    @ExcutePermission
-    public PageValuesResult<NewsSimple> getPublishNews(@RequestBody Page page) throws Exception {
-        return newsService.getNews(page, ReviewStatus.所有);
-    }
-
     @GetMapping("getNewsDetail")
     @ExcuteInterfaceDsrc("获取新闻详情")
     @ExcutePermission(userType = ExcuteUserType.游客)
@@ -95,11 +90,11 @@ public class NewsController {
         return newsService.getNews(page, ReviewStatus.已通过);
     }
 
-    @PostMapping("getNewsUnReview")
-    @ExcuteInterfaceDsrc("获取未审核新闻列表")
+    @PostMapping("getReviewRecords")
+    @ExcuteInterfaceDsrc("获取已发布新闻列表")
     @ExcutePermission
-    public PageValuesResult<NewsSimple> getNewsUnReview(@RequestBody Page page) throws Exception {
-        return newsService.getNews(page, ReviewStatus.未通过);
+    public PageValuesResult<NewsSimple> getReviewRecords(@RequestBody PageReview param) throws Exception {
+        return newsService.getNews(param.getPage(), param.getStatus());
     }
 
     @PostMapping("reviewNews")

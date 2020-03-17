@@ -1,6 +1,8 @@
 package zy.news.web.controller;
 
 import org.springframework.web.bind.annotation.*;
+import zy.news.web.bean.NoticeSimple;
+import zy.news.web.ui.param.PageReview;
 import zy.news.web.zsys.bean.Page;
 import zy.news.web.bean.KnlgeShare;
 import zy.news.web.bean.KnlgeShareSimple;
@@ -100,11 +102,11 @@ public class KnlgeShareController {
     //endregion
 
     //region 分享审核-后台审核
-    @PostMapping("getPublishShares")
-    @ExcuteInterfaceDsrc("获取已发布分享列表")
+    @PostMapping("getReviewRecords")
+    @ExcuteInterfaceDsrc("获取已发布文章列表")
     @ExcutePermission
-    public PageValuesResult<KnlgeShareSimple> getPublishShares(@RequestBody Page page) throws Exception {
-        return kngeShareService.getKnowledgeShares(null, page, ReviewStatus.所有, false);
+    public PageValuesResult<KnlgeShareSimple> getReviewRecords(@RequestBody PageReview param) throws Exception {
+        return kngeShareService.getKnowledgeShares(null, param.getPage(), param.getStatus(), false);
     }
 
     @GetMapping("getReviewInfo")
