@@ -49,7 +49,7 @@
         from t_regulations reg
         left join t_sys_dept dept on reg.dptid=dept.dptid
         <if test="deptid != -1">
-            where reg.deptid=#{deptid,jdbcType=BIGINT}
+            where reg.dptid=#{deptid,jdbcType=BIGINT}
         </if>
         order by reg.publishdate desc
     </select>
