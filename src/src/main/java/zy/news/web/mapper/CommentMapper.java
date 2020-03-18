@@ -23,6 +23,13 @@ public interface CommentMapper {
 
     //apend
 
+    /**
+     * 删除指定文章所有评论
+     *
+     * @param id
+     */
+    void deleteAllArticleComents(Long id);
+
     List<CommentSimple> selectAllComments(@Param("reviewStatus") Byte reviewStatus);
 
     List<CommentSimple> selectAllSimple(@Param("articletype") Byte articletype, @Param("articleid") Long articleid, @Param("reviewStatus") Byte reviewStatus);

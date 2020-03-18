@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import zy.news.web.bean.*;
+import zy.news.web.mapper.CommentMapper;
 import zy.news.web.zsys.bean.Page;
 import zy.news.common.exception.WarningException;
 import zy.news.web.mapper.KnowledgeShareMapper;
@@ -34,13 +35,15 @@ import java.util.List;
 public class SvrImpKnlgeShare extends ServiceBase implements IKnlgeShare {
 
     private final KnowledgeShareMapper mapper;
+    private final CommentMapper commentMapper;
     private final IUserCache userCache;
 
     @Autowired
-    public SvrImpKnlgeShare(KnowledgeShareMapper mapper, IUserCache userCache, IAnnex annexService, IFiles filesService) {
+    public SvrImpKnlgeShare(KnowledgeShareMapper mapper, IUserCache userCache, IAnnex annexService, IFiles filesService, CommentMapper commentMapper) {
         super(annexService, filesService);
         this.mapper = mapper;
         this.userCache = userCache;
+        this.commentMapper = commentMapper;
     }
 
     @Override
@@ -95,12 +98,10 @@ public class SvrImpKnlgeShare extends ServiceBase implements IKnlgeShare {
         if (null == record.getId()) {
             throw new Exception("id为空！");
         }
-        KnlgeShare tmpKnowledgeShare = mapper.selectRecordWithOutBlobByPrimaryKey(record.getId());
-        if (null != tmpKnowledgeShare) {
-            mapper.deleteByPrimaryKey(record.getId());
-            List<ArticlAnnex> annexes = annexService.getAnnexs(record.getId());
-            deleteAnnexs(record.getId());
-        }
+        commentMapper.deleteAllArticleComents(record.getId());
+        mapper.deleteByPrimaryKey(record.getId());
+        List<ArticlAnnex> annexes = annexService.getAnnexs(record.getId());
+        deleteAnnexs(record.getId());
     }
 
     @Transactional(rollbackFor = Exception.class)

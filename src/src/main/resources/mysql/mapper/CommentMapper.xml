@@ -51,18 +51,21 @@
   </select>
     <select id="selectAllComments" resultType="zy.news.web.bean.CommentSimple">
         SELECT * FROM
-        (SELECT cmt.*,kns.title as articleTitle  FROM t_comment cmt LEFT JOIN t_knowledgeshare kns on kns.id=cmt.articleid WHERE
+        (SELECT cmt.*,kns.title as articleTitle FROM t_comment cmt LEFT JOIN t_knowledgeshare kns on
+        kns.id=cmt.articleid WHERE
         articletype=6
         <if test="reviewStatus != 2">
             and cmt.reviewstatus=#{reviewStatus,jdbcType=TINYINT}
         </if>
         UNION ALL
-        SELECT cmt.*,kns.title as articleTitle FROM t_comment cmt LEFT JOIN t_news kns on kns.id=cmt.articleid WHERE articletype=0
+        SELECT cmt.*,kns.title as articleTitle FROM t_comment cmt LEFT JOIN t_news kns on kns.id=cmt.articleid WHERE
+        articletype=0
         <if test="reviewStatus != 2">
             and cmt.reviewstatus=#{reviewStatus,jdbcType=TINYINT}
         </if>
         UNION ALL
-        SELECT cmt.*,kns.title as articleTitle FROM t_comment cmt LEFT JOIN t_notice kns on kns.id=cmt.articleid WHERE articletype=1
+        SELECT cmt.*,kns.title as articleTitle FROM t_comment cmt LEFT JOIN t_notice kns on kns.id=cmt.articleid WHERE
+        articletype=1
         <if test="reviewStatus != 2">
             and cmt.reviewstatus=#{reviewStatus,jdbcType=TINYINT}
         </if>
@@ -132,4 +135,8 @@
         from t_comment
         where id=#{id,jdbcType=BIGINT}
     </select>
+    <delete id="deleteAllArticleComents">
+        delete from t_comment
+        where id=#{id,jdbcType=BIGINT}
+    </delete>
 </mapper>
