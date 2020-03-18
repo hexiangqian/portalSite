@@ -10,13 +10,13 @@
             <when test="1 == articletype">t_notice</when>
         </choose>
         <choose>
-            <when test="2 == articletype">t_quality</when>
+            <when test="2 == articletype">t_orgtrain</when>
         </choose>
         <choose>
-            <when test="3 == articletype">t_regulations</when>
+            <when test="3 == articletype">t_quality</when>
         </choose>
         <choose>
-            <when test="4 == articletype">t_orgtrain</when>
+            <when test="4 == articletype">t_regulations</when>
         </choose>
         <choose>
             <when test="5 == articletype">t_honour</when>
@@ -32,13 +32,13 @@
      UNION ALL
      SELECT 1 as articletype,COUNT(*) as count from t_notice WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
-     SELECT 2 as articletype,COUNT(*) as count from t_honour WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+     SELECT 2 as articletype,COUNT(*) as count from t_orgtrain WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
      SELECT 3 as articletype,COUNT(*) as count from t_quality WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
      SELECT 4 as articletype,COUNT(*) as count from t_regulations WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
-     SELECT 5 as articletype,COUNT(*) as count from t_orgtrain WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+     SELECT 5 as articletype,COUNT(*) as count from t_honour WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
      SELECT 6 as articletype,COUNT(*) as count from t_knowledgeshare WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      )tmp_article
@@ -53,13 +53,13 @@
             <when test="1 == articletype">t_notice</when>
         </choose>
         <choose>
-            <when test="2 == articletype">t_quality</when>
+            <when test="2 == articletype">t_orgtrain</when>
         </choose>
         <choose>
-            <when test="3 == articletype">t_regulations</when>
+            <when test="3 == articletype">t_quality</when>
         </choose>
         <choose>
-            <when test="4 == articletype">t_orgtrain</when>
+            <when test="4 == articletype">t_regulations</when>
         </choose>
         <choose>
             <when test="5 == articletype">t_honour</when>
@@ -74,13 +74,13 @@
      UNION ALL
      SELECT 1 as articletype,id as articleid,title,summary,publishdate from t_notice WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
-     SELECT 2 as articletype,id as articleid,title,summary,publishdate from t_honour WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+     SELECT 2 as articletype,id as articleid,title,summary,publishdate from t_orgtrain WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
      SELECT 3 as articletype,id as articleid,title,summary,publishdate from t_quality WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
      SELECT 4 as articletype,id as articleid,title,summary,publishdate from t_regulations WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
-     SELECT 5 as articletype,id as articleid,title,summary,publishdate from t_orgtrain WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+     SELECT 5 as articletype,id as articleid,title,summary,publishdate from t_honour WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
      SELECT 6 as articletype,id as articleid,title,summary,publishdate from t_knowledgeshare WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
     </select>
