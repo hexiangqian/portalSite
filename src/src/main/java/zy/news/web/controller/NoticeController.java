@@ -71,11 +71,11 @@ public class NoticeController {
         noticeService.delete(session, notice);
     }
 
-    @PostMapping("getPublishNotices")
-    @ExcuteInterfaceDsrc("获取已发布通告列表")
-    @ExcutePermission
+    @PostMapping("getNotices")
+    @ExcuteInterfaceDsrc("获取通告列表")
+    @ExcutePermission(userType = ExcuteUserType.游客)
     public PageValuesResult<NoticeSimple> getPublishNotice(@RequestBody Page page) throws Exception {
-        return noticeService.getNotice(page, ReviewStatus.所有);
+        return noticeService.getNotice(page, ReviewStatus.已通过);
     }
 
     @GetMapping("getNoticeDetail")
