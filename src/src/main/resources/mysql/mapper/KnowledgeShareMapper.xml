@@ -118,12 +118,11 @@
         FROM (
         SELECT
         shr.*,
-        COUNT( cmt.id ) AS cmtCount
+        (SELECT COUNT( cmt.id ) FROM t_comment cmt WHERE cmt.articleid=#{id,jdbcType=BIGINT}  AND cmt.reviewstatus=1)AS cmtCount
         FROM
         t_knowledgeshare shr
-        LEFT JOIN t_comment cmt ON shr.id = cmt.articleid
         WHERE
-        shr.id = #{id,jdbcType=BIGINT}
+        shr.id = #{id,jdbcType=BIGINT} and cmt.reviewstatus = 1
         GROUP BY shr.id)tmp_t
         LEFT JOIN t_sys_user usr ON usr.username=tmp_t.author
     </select>
