@@ -122,7 +122,7 @@
         FROM
         t_knowledgeshare shr
         WHERE
-        shr.id = #{id,jdbcType=BIGINT} and cmt.reviewstatus = 1
+        shr.id = #{id,jdbcType=BIGINT}
         GROUP BY shr.id)tmp_t
         LEFT JOIN t_sys_user usr ON usr.username=tmp_t.author
     </select>
