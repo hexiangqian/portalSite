@@ -4,33 +4,33 @@
     <select id="selectCategory" resultType="zy.news.web.ui.result.ArticleCategory">
         SELECT #{articletype,jdbcType=TINYINT} as articletype,COUNT(*) as `count` from
         <choose>
-            <when test="0 == articletype">t_news</when>
+            <when test="0 == articletype">t_news WHERE reviewstatus=1</when>
         </choose>
         <choose>
-            <when test="1 == articletype">t_notice</when>
+            <when test="1 == articletype">t_notice WHERE reviewstatus=1</when>
         </choose>
         <choose>
-            <when test="2 == articletype">t_orgtrain</when>
+            <when test="2 == articletype">t_orgtrain WHERE  1=1</when>
         </choose>
         <choose>
-            <when test="3 == articletype">t_quality</when>
+            <when test="3 == articletype">t_quality WHERE  1=1</when>
         </choose>
         <choose>
-            <when test="4 == articletype">t_regulations</when>
+            <when test="4 == articletype">t_regulations WHERE  1=1</when>
         </choose>
         <choose>
-            <when test="5 == articletype">t_honour</when>
+            <when test="5 == articletype">t_honour WHERE  1=1</when>
         </choose>
         <choose>
-            <when test="6 == articletype">t_knowledgeshare</when>
+            <when test="6 == articletype">t_knowledgeshare WHERE  reviewstatus=1</when>
         </choose>
-        WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+        and title LIKE #{fastsearch,jdbcType=VARCHAR}
  </select>
     <select id="selectAllCategory" resultType="zy.news.web.ui.result.ArticleCategory">
    SELECT * from
-    (SELECT 0 as articletype,COUNT(*) as count from t_news WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+    (SELECT 0 as articletype,COUNT(*) as count from t_news WHERE title LIKE #{fastsearch,jdbcType=VARCHAR} and reviewstatus=1
      UNION ALL
-     SELECT 1 as articletype,COUNT(*) as count from t_notice WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+     SELECT 1 as articletype,COUNT(*) as count from t_notice WHERE title LIKE #{fastsearch,jdbcType=VARCHAR} and reviewstatus=1
      UNION ALL
      SELECT 2 as articletype,COUNT(*) as count from t_orgtrain WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
@@ -40,39 +40,39 @@
      UNION ALL
      SELECT 5 as articletype,COUNT(*) as count from t_honour WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
-     SELECT 6 as articletype,COUNT(*) as count from t_knowledgeshare WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+     SELECT 6 as articletype,COUNT(*) as count from t_knowledgeshare WHERE title LIKE #{fastsearch,jdbcType=VARCHAR} and reviewstatus=1
      )tmp_article
     where count >0
  </select>
     <select id="selectArticles" resultType="zy.news.web.ui.result.ArticleEntry">
         SELECT #{articletype,jdbcType=TINYINT} as articletype,id as articleid,title,summary,publishdate from
         <choose>
-            <when test="0 == articletype">t_news</when>
+            <when test="0 == articletype">t_news WHERE reviewstatus=1</when>
         </choose>
         <choose>
-            <when test="1 == articletype">t_notice</when>
+            <when test="1 == articletype">t_notice WHERE reviewstatus=1</when>
         </choose>
         <choose>
-            <when test="2 == articletype">t_orgtrain</when>
+            <when test="2 == articletype">t_orgtrain WHERE  1=1</when>
         </choose>
         <choose>
-            <when test="3 == articletype">t_quality</when>
+            <when test="3 == articletype">t_quality WHERE  1=1</when>
         </choose>
         <choose>
-            <when test="4 == articletype">t_regulations</when>
+            <when test="4 == articletype">t_regulations WHERE  1=1</when>
         </choose>
         <choose>
-            <when test="5 == articletype">t_honour</when>
+            <when test="5 == articletype">t_honour WHERE  1=1</when>
         </choose>
         <choose>
-            <when test="6 == articletype">t_knowledgeshare</when>
+            <when test="6 == articletype">t_knowledgeshare WHERE reviewstatus=1</when>
         </choose>
-        WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+        AND title LIKE #{fastsearch,jdbcType=VARCHAR}
     </select>
     <select id="selectAllArticles" resultType="zy.news.web.ui.result.ArticleEntry">
-     SELECT 0 as articletype,id as articleid,title,summary,publishdate from t_news WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+     SELECT 0 as articletype,id as articleid,title,summary,publishdate from t_news WHERE title LIKE #{fastsearch,jdbcType=VARCHAR} and reviewstatus=1
      UNION ALL
-     SELECT 1 as articletype,id as articleid,title,summary,publishdate from t_notice WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+     SELECT 1 as articletype,id as articleid,title,summary,publishdate from t_notice WHERE title LIKE #{fastsearch,jdbcType=VARCHAR} and reviewstatus=1
      UNION ALL
      SELECT 2 as articletype,id as articleid,title,summary,publishdate from t_orgtrain WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
@@ -82,6 +82,6 @@
      UNION ALL
      SELECT 5 as articletype,id as articleid,title,summary,publishdate from t_honour WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
      UNION ALL
-     SELECT 6 as articletype,id as articleid,title,summary,publishdate from t_knowledgeshare WHERE title LIKE #{fastsearch,jdbcType=VARCHAR}
+     SELECT 6 as articletype,id as articleid,title,summary,publishdate from t_knowledgeshare WHERE title LIKE #{fastsearch,jdbcType=VARCHAR} and reviewstatus=1
     </select>
 </mapper>
